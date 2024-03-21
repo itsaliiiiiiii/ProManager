@@ -2,19 +2,20 @@ package com.promanager.promanager;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.util.Objects;
 
 public class App extends Application {
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1300, 800);
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/LoginPage.fxml")));
         stage.setTitle("ProManager");
+        stage.setScene(new Scene(root, 1300, 800));
         stage.setResizable(false);
-        stage.setScene(scene);
         stage.show();
     }
 
