@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class App extends Application {
     @Override
-    public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/LoginPage.fxml")));
         stage.setTitle("ProManager");
