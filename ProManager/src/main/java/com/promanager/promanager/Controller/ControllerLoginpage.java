@@ -44,7 +44,7 @@ public class ControllerLoginpage {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/com/promanager/promanager/View/main.fxml"));
                 Parent newRoot = loader.load();
-                Stage stage = (Stage) someComponent.getScene().getWindow();
+                Stage stage = ;
                 stage.setScene(new Scene(newRoot, 1300, 800));
             }
         } catch (IOException e) {
@@ -84,11 +84,14 @@ public class ControllerLoginpage {
                     }
                 }
             }
-            // ------
-        } else {
-            errorOutput.setText("Adresse mail invalide.\nElle doit se terminer par  @gmail.com.");
-            System.out.println("Adresse mail invalide. Elle doit se terminer par @gmail.com.");
         }
+        // ------
+    }else
+
+    {
+        errorOutput.setText("Adresse mail invalide.\nElle doit se terminer par  @gmail.com.");
+        System.out.println("Adresse mail invalide. Elle doit se terminer par @gmail.com.");
     }
+}
 
 }
