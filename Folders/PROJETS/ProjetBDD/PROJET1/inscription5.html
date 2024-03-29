@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css" integrity="sha512-tx5+1LWHez1QiaXlAyDwzdBTfDjX07GMapQoFTS74wkcPMsI3So0KYmFe6EHZjI8+eSG0ljBlAQc3PQ5BTaZtQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style3.css">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><i class="fa-solid fa-house"></i><a class="active" href="">HOME</a></li>
+                <li><i class="fa-solid fa-info"></i><a class="active" href="#">ABOUT US</a></li>
+                <li><i class="fa-solid fa-phone"></i><a class="active" href="#">CONTACT</a></li>
+            </ul>  
+            </nav>
+    </header>
+    <section class="main">
+        <section class="container">
+        <form action="base_ensei__fl.php" class="form" method="post">
+            <div class="input-box">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" name="prenom" placeholder="saisi votre prenom">
+                    <br><br>
+            </div>
+            <div class="input-box">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" placeholder="saisi votre nom">
+                <br><br>
+            </div>
+            
+            <div class="input-box">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" name="telephone"  placeholder="Télephone" placeholder="saisi votre numero de telephone">
+                    <br><br>
+            </div>
+            
+         
+            <div class="input-box">
+                <label for="m">Email</label>
+                <input type="email" name="m"  placeholder="saisi votre Email">
+                <br><br>
+            </div>
+
+      
+            <div class="input-box">
+                <label for="adresse">Langue </label><br>
+                <div class="select-box">
+                    <select id="NV" name="langue">
+                        <option value=""></option>
+                        <option>Français</option>
+                        <option>Anglais</option>
+                        <option>Espagnol</option>
+                        <option>Allemagne</option>
+                        <option>Chinese</option>
+                    </select>
+                </div>
+
+                <br>
+            </div>
+            <input type="submit" name="SUIVANT" value="SUIVANT" class="s">
+        </form>
+    </section>
+    </section>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css" integrity="sha512-tx5+1LWHez1QiaXlAyDwzdBTfDjX07GMapQoFTS74wkcPMsI3So0KYmFe6EHZjI8+eSG0ljBlAQc3PQ5BTaZtQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style3.css">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><i class="fa-solid fa-house"></i><a class="active" href="">HOME</a></li>
+                <li><i class="fa-solid fa-info"></i><a class="active" href="#">ABOUT US</a></li>
+                <li><i class="fa-solid fa-phone"></i><a class="active" href="#">CONTACT</a></li>
+            </ul>  
+            </nav>
+    </header>
+    <section class="main">
+        <section class="container">
+        <form action="base.php" class="form" method="post">
+            <div class="input-box">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" name="prenom" placeholder="saisi votre prenom" required>
+                    <br><br>
+            </div>
+            <div class="input-box">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" placeholder="saisi votre nom" required>
+                <br><br>
+            </div>
+            
+            <div class="input-box">
+                    <label for="date">Date Naissance</label>
+                    <input type="text" name="date" placeholder="XXXX-XX-XX"required>
+                    <br><br>
+            </div>
+            <div class="input-box">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" name="telephone"  placeholder="Télephone" placeholder="saisi votre numero de telephone" required>
+                    <br><br>
+            </div>
+            
+            <div class="input-box">
+                    <label for="adresse">Adresse</label>
+                    <input type="text" name="adresse"  placeholder="saisi votre adresse" required>
+                    <br><br>
+            </div>
+            <div class="input-box">
+                <label for="m">Email</label>
+                <input type="email" name="m"  placeholder="saisi votre Email" required>
+                <br><br>
+            </div>
+
+            <div class="gender-box">
+                <label for="" class="titre">Gender</label>
+                <br><br>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input  id="m" type="radio" name="sexe"  value ="female" required>
+                        <label for="m">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input  id="f" type="radio" name="sexe" value="male" required>
+                        <label for="f">Female</label>
+                    </div>
+                <br><br>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label for="adresse">Niveau Scolaire</label><br>
+                <div class="select-box">
+                    <select id="NV" name="nv" required>
+                        <option value=""></option>
+                        <option>1AC</option>
+                        <option>2AC</option>
+                        <option>3AC</option>
+                        <option>TC</option>
+                        <option>1BAC</option>
+                        <option>2BAC</option>
+                    </select>
+                </div>
+
+                <br>
+            </div>
+            <div class="input-box">
+                <label for="">Matiere</label><br>
+                <div class="select-box">
+                    <select id="MA" name="mat" required>
+                      
+                    </select>
+                </div>
+                <br>
+            </div>
+       
+
+            <input type="submit" name="SUIVANT" value="SUIVANT" class="s">
+        </form>
+    </section>
+    </section>
+    <script src="S-B3.js"></script>
+
+</body>
+</html>
