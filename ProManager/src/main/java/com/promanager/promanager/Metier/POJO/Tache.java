@@ -1,4 +1,4 @@
-package com.promanager.promanager.Model;
+package com.promanager.promanager.Metier.POJO;
 
 import java.util.Date;
 

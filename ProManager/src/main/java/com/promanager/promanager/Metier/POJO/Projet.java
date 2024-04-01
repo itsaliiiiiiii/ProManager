@@ -1,4 +1,4 @@
-package com.promanager.promanager.Model;
+package com.promanager.promanager.Metier.POJO;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ public class Projet {
     private String descriptionProjet;
     private Date dateDepartProjet;
     private Date dateFinProjet;
-    
+
     public Projet() {
     }
 
@@ -70,6 +70,9 @@ public class Projet {
     public void setDateFinProjet(Date dateFinProjet) {
         this.dateFinProjet = dateFinProjet;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Projet TypeProjet =" + getTypeProjet();
+    }
 }
