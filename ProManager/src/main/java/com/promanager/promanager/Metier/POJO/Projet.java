@@ -73,9 +73,11 @@ public class Projet {
 
     @Override
     public String toString() {
-        return "Projet : idProjet=" + idProjet + ", categorieProjet=" + categorieProjet + ", typeProjet=" + typeProjet
-                + ", descriptionProjet=" + descriptionProjet + ", dateDepartProjet=" + dateDepartProjet
-                + ", dateFinProjet=" + dateFinProjet;
+        return "Projet :\n   idProjet = " + idProjet + "\n" +
+                "   categorieProjet = " + categorieProjet + "\n" +
+                "   typeProjet = " + typeProjet + "\n" +
+                "   descriptionProjet = " + descriptionProjet + "\n" +
+                "   dateDepartProjet = " + dateDepartProjet + "\n" +
+                "   dateFinProjet = " + dateFinProjet;
     }
-
 }
