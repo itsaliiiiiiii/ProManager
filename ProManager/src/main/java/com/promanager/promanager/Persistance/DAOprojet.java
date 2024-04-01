@@ -17,7 +17,12 @@ public class DAOprojet {
         Projet projet;
         for (Document document : documents) {
             projet = new Projet();
-            projet.setTypeProjet(document.getString("type"));
+            projet.setCategorieProjet(document.getString("Categorie"));
+            projet.setDateDepartProjet(document.getDate("DateDepart"));
+            projet.setDateFinProjet(document.getDate("DateFin"));
+            projet.setDescriptionProjet(document.getString("Description"));
+            projet.setIdProjet(document.getInteger("Id"));
+            projet.setTypeProjet(document.getString("Type"));
             Projects.add(projet);
         }
         return Projects;
@@ -28,9 +33,14 @@ public class DAOprojet {
     }
 
     public Projet get(String id) {
-        Document document = connexion.select(id,"Projets");
+        Document document = connexion.select(id, "Projets");
         Projet projet = new Projet();
-        projet.setTypeProjet(document.getString("type"));
+        projet.setCategorieProjet(document.getString("Categorie"));
+        projet.setDateDepartProjet(document.getDate("DateDepart"));
+        projet.setDateFinProjet(document.getDate("DateFin"));
+        projet.setDescriptionProjet(document.getString("Description"));
+        projet.setIdProjet(document.getInteger("Id"));
+        projet.setTypeProjet(document.getString("Type"));
         return projet;
     }
 }

@@ -32,10 +32,10 @@ public class App {
         // launch();
         DAOprojet p = new DAOprojet();
         System.out.println(p.getAll());
+        System.out.println("-----");
         // System.out.println(p.get(0));
         // System.out.println(p.get(1));
 
-        System.out.println("-----");
-        System.out.println(p.get("Configurations"));
+        // System.out.println(p.get("660aca3248ff7304f24bcefc"));
     }
 }
