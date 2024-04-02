@@ -1,5 +1,9 @@
 package com.promanager.promanager;
 
+import java.util.Date;
+
+import org.bson.types.ObjectId;
+
 // import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
 // import javafx.scene.Parent;
@@ -30,7 +34,7 @@ public class App {
         System.out.println("-----");
         // System.out.println(p.get(0));
         // System.out.println(p.get(1));
-
-        System.out.println(p.get("660bc003555c28106bca39a1"));
+        // p.Add("CAT", "TY", "hgjhgvjhbvjhgva", new Date(), new Date());
+        p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }

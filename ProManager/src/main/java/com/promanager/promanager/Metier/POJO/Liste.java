@@ -1,24 +1,26 @@
 package com.promanager.promanager.Metier.POJO;
 
+import org.bson.types.ObjectId;
+
 public class Liste {
-    private String idListe;
+    private ObjectId idListe;
     private String nomListe;
     private String descriptionListe;
 
     public Liste() {
     }
 
-    public Liste(String idListe, String nomListe, String descriptionListe) {
+    public Liste(ObjectId idListe, String nomListe, String descriptionListe) {
         this.idListe = idListe;
         this.nomListe = nomListe;
         this.descriptionListe = descriptionListe;
     }
 
-    public String getIdListe() {
+    public ObjectId getIdListe() {
         return idListe;
     }
 
-    public void setIdListe(String idListe) {
+    public void setIdListe(ObjectId idListe) {
         this.idListe = idListe;
     }
 

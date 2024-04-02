@@ -1,24 +1,26 @@
 package com.promanager.promanager.Metier.POJO;
 
+import org.bson.types.ObjectId;
+
 public class Document_ {
-    private String idDocument;
+    private ObjectId idDocument;
     private String pathDocument;
     private String descriptionDocument;
 
     public Document_() {
     }
 
-    public Document_(String idDocument, String pathDocument, String descriptionDocument) {
+    public Document_(ObjectId idDocument, String pathDocument, String descriptionDocument) {
         this.idDocument = idDocument;
         this.pathDocument = pathDocument;
         this.descriptionDocument = descriptionDocument;
     }
 
-    public String getIdDocument() {
+    public ObjectId getIdDocument() {
         return idDocument;
     }
 
-    public void setIdDocument(String idDocument) {
+    public void setIdDocument(ObjectId idDocument) {
         this.idDocument = idDocument;
     }
 

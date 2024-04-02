@@ -3,6 +3,7 @@ package com.promanager.promanager.Persistance;
 import java.util.ArrayList;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Liste;
@@ -16,7 +17,7 @@ public class DAOliste {
         Liste liste;
         for (Document document : documents) {
             liste = new Liste();
-            liste.setIdListe(document.getString("_id"));
+            liste.setIdListe(document.getObjectId("_id"));
             liste.setDescriptionListe(document.getString("Description"));
             liste.setNomListe(document.getString("Nom"));
             listes.add(liste);
@@ -28,10 +29,10 @@ public class DAOliste {
         return this.getAll().get(index);
     }
 
-    public Liste get(String id) {
+    public Liste get(ObjectId id) {
         Document document = connexion.select(id, "Listes");
         Liste liste = new Liste();
-        liste.setIdListe(document.getString("_id"));
+        liste.setIdListe(document.getObjectId("_id"));
         liste.setDescriptionListe(document.getString("Description"));
         liste.setNomListe(document.getString("Nom"));
         return liste;
