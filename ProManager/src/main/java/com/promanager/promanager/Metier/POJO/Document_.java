@@ -1,24 +1,24 @@
 package com.promanager.promanager.Metier.POJO;
 
 public class Document_ {
-    private Integer idDocument;
+    private String idDocument;
     private String pathDocument;
     private String descriptionDocument;
 
     public Document_() {
     }
 
-    public Document_(Integer idDocument, String pathDocument, String descriptionDocument) {
+    public Document_(String idDocument, String pathDocument, String descriptionDocument) {
         this.idDocument = idDocument;
         this.pathDocument = pathDocument;
         this.descriptionDocument = descriptionDocument;
     }
 
-    public Integer getIdDocument() {
+    public String getIdDocument() {
         return idDocument;
     }
 
-    public void setIdDocument(Integer idDocument) {
+    public void setIdDocument(String idDocument) {
         this.idDocument = idDocument;
     }
 

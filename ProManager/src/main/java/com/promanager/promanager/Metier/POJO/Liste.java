@@ -1,26 +1,24 @@
 package com.promanager.promanager.Metier.POJO;
 
-import java.util.Calendar;
-
 public class Liste {
-    private Integer idListe;
+    private String idListe;
     private String nomListe;
-    private Calendar descriptionListe;
+    private String descriptionListe;
 
     public Liste() {
     }
 
-    public Liste(Integer idListe, String nomListe, Calendar descriptionListe) {
+    public Liste(String idListe, String nomListe, String descriptionListe) {
         this.idListe = idListe;
         this.nomListe = nomListe;
         this.descriptionListe = descriptionListe;
     }
 
-    public Integer getIdListe() {
+    public String getIdListe() {
         return idListe;
     }
 
-    public void setIdListe(Integer idListe) {
+    public void setIdListe(String idListe) {
         this.idListe = idListe;
     }
 
@@ -32,11 +30,11 @@ public class Liste {
         this.nomListe = nomListe;
     }
 
-    public Calendar getDescriptionListe() {
+    public String getDescriptionListe() {
         return descriptionListe;
     }
 
-    public void setDescriptionListe(Calendar descriptionListe) {
+    public void setDescriptionListe(String descriptionListe) {
         this.descriptionListe = descriptionListe;
     }
 

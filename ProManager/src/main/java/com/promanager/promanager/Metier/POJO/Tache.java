@@ -3,7 +3,7 @@ package com.promanager.promanager.Metier.POJO;
 import java.util.Date;
 
 public class Tache {
-    private Integer idTache;
+    private String idTache;
     private String categorieTache;
     private String descriptionTache;
     private Date dateDepartTache;
@@ -12,7 +12,8 @@ public class Tache {
     public Tache() {
     }
 
-    public Tache(Integer idTache, String categorieTache, String descriptionTache, Date dateDepartTache,
+    public Tache(
+            String idTache, String categorieTache, String descriptionTache, Date dateDepartTache,
             Date dateFinTache) {
         this.idTache = idTache;
         this.categorieTache = categorieTache;
@@ -21,11 +22,11 @@ public class Tache {
         this.dateFinTache = dateFinTache;
     }
 
-    public Integer getIdTache() {
+    public String getIdTache() {
         return idTache;
     }
 
-    public void setIdTache(Integer idTache) {
+    public void setIdTache(String idTache) {
         this.idTache = idTache;
     }
 

@@ -2,17 +2,18 @@ package com.promanager.promanager.Metier.POJO;
 
 import java.util.Calendar;
 
-public class Séance {
-    private Integer idSeance;
+public class Seance {
+    private String idSeance;
     private String descriptionSeance;
     private Calendar dateDepartSeance;
     private Calendar dateFinSeance;
     private String note;
 
-    public Séance() {
+    public Seance() {
     }
 
-    public Séance(Integer idSeance, String descriptionSeance, Calendar dateDepartSeance, Calendar dateFinSeance,
+    public Seance(
+            String idSeance, String descriptionSeance, Calendar dateDepartSeance, Calendar dateFinSeance,
             String note) {
         this.idSeance = idSeance;
         this.descriptionSeance = descriptionSeance;
@@ -21,11 +22,11 @@ public class Séance {
         this.note = note;
     }
 
-    public Integer getIdSeance() {
+    public String getIdSeance() {
         return idSeance;
     }
 
-    public void setIdSeance(Integer idSeance) {
+    public void setIdSeance(String idSeance) {
         this.idSeance = idSeance;
     }
 

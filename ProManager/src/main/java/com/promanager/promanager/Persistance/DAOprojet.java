@@ -21,7 +21,7 @@ public class DAOprojet {
             projet.setDateDepartProjet(document.getDate("DateDepart"));
             projet.setDateFinProjet(document.getDate("DateFin"));
             projet.setDescriptionProjet(document.getString("Description"));
-            projet.setIdProjet(document.getInteger("Id"));
+            projet.setIdProjet(document.getString("Id"));
             projet.setTypeProjet(document.getString("Type"));
             Projects.add(projet);
         }
@@ -39,7 +39,7 @@ public class DAOprojet {
         projet.setDateDepartProjet(document.getDate("DateDepart"));
         projet.setDateFinProjet(document.getDate("DateFin"));
         projet.setDescriptionProjet(document.getString("Description"));
-        projet.setIdProjet(document.getInteger("Id"));
+        projet.setIdProjet(document.getString("Id"));
         projet.setTypeProjet(document.getString("Type"));
         return projet;
     }

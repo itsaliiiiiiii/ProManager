@@ -3,7 +3,7 @@ package com.promanager.promanager.Metier.POJO;
 import java.util.Date;
 
 public class Projet {
-    private Integer idProjet;
+    private String idProjet;
     private String categorieProjet;
     private String typeProjet;
     private String descriptionProjet;
@@ -13,7 +13,8 @@ public class Projet {
     public Projet() {
     }
 
-    public Projet(Integer idProjet, String categorieProjet, String typeProjet, String descriptionProjet,
+    public Projet(
+            String idProjet, String categorieProjet, String typeProjet, String descriptionProjet,
             Date dateDepartProjet, Date dateFinProjet) {
         this.idProjet = idProjet;
         this.categorieProjet = categorieProjet;
@@ -23,11 +24,11 @@ public class Projet {
         this.dateFinProjet = dateFinProjet;
     }
 
-    public Integer getIdProjet() {
+    public String getIdProjet() {
         return idProjet;
     }
 
-    public void setIdProjet(Integer idProjet) {
+    public void setIdProjet(String idProjet) {
         this.idProjet = idProjet;
     }
 

@@ -1,10 +1,5 @@
 package com.promanager.promanager;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.promanager.promanager.Persistance.Connexion;
-
 // import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
 // import javafx.scene.Parent;
@@ -31,11 +26,11 @@ public class App {
     public static void main(String[] args) {
         // launch();
         DAOprojet p = new DAOprojet();
-        System.out.println(p.getAll());
+        // System.out.println(p.getAll());
         System.out.println("-----");
         // System.out.println(p.get(0));
         // System.out.println(p.get(1));
 
-        // System.out.println(p.get("660aca3248ff7304f24bcefc"));
+        System.out.println(p.get("660bc003555c28106bca39a1"));
     }
 }
