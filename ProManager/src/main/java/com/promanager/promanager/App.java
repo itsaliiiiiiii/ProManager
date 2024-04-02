@@ -1,9 +1,12 @@
 package com.promanager.promanager;
+<<<<<<< HEAD
 import java.util.Date;
 
 import javax.crypto.spec.PBEKeySpec;
 
 import org.bson.types.ObjectId;
+=======
+>>>>>>> 4614fb6 (add files)
 
 // import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
@@ -32,6 +35,7 @@ public class App {
         // launch();
         DAOprojet p = new DAOprojet();
         DAOprojet p2=new DAOprojet();
+=======
         // System.out.println(p.getAll());
         System.out.println("-----");
         // System.out.println(p.get(0));
@@ -41,5 +45,9 @@ public class App {
         p.Add("CATYGORIE", "TYPE", "First Project", new Date(), new Date());
         p2.Add("CATE","COUR", "JAVA", new Date(),new Date());
         //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
+=======
+
+        System.out.println(p.get("660bc003555c28106bca39a1"));
+>>>>>>> 4614fb6 (add files)
     }
 }
