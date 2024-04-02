@@ -1,11 +1,13 @@
 package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
+import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Liste;
 
 public class DAOliste {
@@ -36,5 +38,22 @@ public class DAOliste {
         liste.setDescriptionListe(document.getString("Description"));
         liste.setNomListe(document.getString("Nom"));
         return liste;
+    }
+
+    public void Add(ObjectId id, String Nom, String description) {
+        Liste liste = new Liste(id, Nom, description);
+        HashMap<String, Object> Infoliste = new HashMap<>();
+        Infoliste.put("_id", liste.getIdListe());
+        Infoliste.put("Description", liste.getDescriptionListe());
+        Infoliste.put("Nom", liste.getNomListe());
+        connexion.insert(Infoliste, "Listes");
+    }
+
+    public void delete(ObjectId id, String key) {
+        connexion.remove(id, key, "Listes");
+    }
+
+    public void delete(ObjectId id) {
+        connexion.remove(id, "Listes");
     }
 }

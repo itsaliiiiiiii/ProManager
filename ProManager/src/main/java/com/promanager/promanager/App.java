@@ -1,6 +1,5 @@
 package com.promanager.promanager;
 
-import java.util.Date;
 
 import org.bson.types.ObjectId;
 
