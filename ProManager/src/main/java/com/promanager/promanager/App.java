@@ -33,7 +33,10 @@ public class App {
         System.out.println("-----");
         // System.out.println(p.get(0));
         // System.out.println(p.get(1));
-        // p.Add("CAT", "TY", "hgjhgvjhbvjhgva", new Date(), new Date());
-        p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
+        
+        
+        p.Add("CATYGORIE", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
+
+        //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }
