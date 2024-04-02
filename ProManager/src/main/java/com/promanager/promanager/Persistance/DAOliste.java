@@ -40,8 +40,8 @@ public class DAOliste {
         return liste;
     }
 
-    public void Add(ObjectId id, String Nom, String description) {
-        Liste liste = new Liste(id, Nom, description);
+    public void Add(ObjectId id, String nom, String description) {
+        Liste liste = new Liste(id, nom, description);
         HashMap<String, Object> Infoliste = new HashMap<>();
         Infoliste.put("_id", liste.getIdListe());
         Infoliste.put("Description", liste.getDescriptionListe());
