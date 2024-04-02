@@ -1,0 +1,17 @@
+#background{
+    -fx-background-color:#6a82ab ;
+}
+#mail{
+    -fx-background-color:#f4f4f4;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-border-color:#546379;
+    -fx-border-width:2px;
+}
+#login{
+    -fx-background-color:#6a82ab;
+    -fx-border-radius:12px;
+    -fx-background-radius:12px;
+    -fx-border-color:#546379;
+    -fx-border-width:2px;
+}
