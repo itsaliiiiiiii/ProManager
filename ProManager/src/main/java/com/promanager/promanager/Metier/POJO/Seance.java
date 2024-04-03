@@ -28,6 +28,16 @@ public class Seance {
         ListeDocument = new ArrayList<>();
     }
 
+    public Seance(
+            String descriptionSeance, Date dateDepartSeance, Date dateFinSeance,
+            String note) {
+        this.descriptionSeance = descriptionSeance;
+        this.dateDepartSeance = dateDepartSeance;
+        this.dateFinSeance = dateFinSeance;
+        this.note = note;
+        ListeDocument = new ArrayList<>();
+    }
+
     public ObjectId getIdSeance() {
         return idSeance;
     }

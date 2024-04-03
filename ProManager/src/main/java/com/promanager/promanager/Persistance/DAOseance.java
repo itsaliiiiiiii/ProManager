@@ -3,6 +3,7 @@ package com.promanager.promanager.Persistance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -44,14 +45,13 @@ public class DAOseance {
         return seance;
     }
 
-    public void add(ObjectId id, String description, Date dateDepart, Date dateFin, String note) {
-        Seance seance = new Seance(id, description, dateDepart, dateFin, note);
+    public void add(String description, Date dateDepart, Date dateFin, String note) {
+        Seance seance = new Seance(description, dateDepart, dateFin, "");
         HashMap<String, Object> InfoSeance = new HashMap<>();
-        InfoSeance.put("_id", seance.getIdSeance());
         InfoSeance.put("Description", seance.getDescriptionSeance());
         InfoSeance.put("DateDepart", seance.getDateDepartSeance());
         InfoSeance.put("DateFin", seance.getDateFinSeance());
-        InfoSeance.put("Note", seance.getNote());
+        InfoSeance.put("Note", "");
         connexion.insert(InfoSeance, "Seances");
     }
 
@@ -61,5 +61,17 @@ public class DAOseance {
 
     public void delete(ObjectId id) {
         connexion.remove(id, "Seances");
+    }
+
+    public void update(ObjectId id, String key, Object value) {
+        connexion.update(id, key, value, "Seances");
+    }
+
+    public void update(ObjectId id, String key, List<Object> value) {
+        connexion.update(id, key, value, "Seances");
+    }
+
+    public void update(ObjectId id, HashMap<String, Object> Objects) {
+        connexion.update(id, Objects, "Seances");
     }
 }
