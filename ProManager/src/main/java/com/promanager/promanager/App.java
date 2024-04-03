@@ -1,4 +1,7 @@
 package com.promanager.promanager;
+import java.util.Date;
+
+import javax.crypto.spec.PBEKeySpec;
 
 import org.bson.types.ObjectId;
 
@@ -28,6 +31,7 @@ public class App {
     public static void main(String[] args) {
         // launch();
         DAOprojet p = new DAOprojet();
+        DAOprojet p2=new DAOprojet();
         // System.out.println(p.getAll());
         System.out.println("-----");
         // System.out.println(p.get(0));
@@ -35,7 +39,7 @@ public class App {
         
         
         p.Add("CATYGORIE", "TYPE", "First Project", new Date(), new Date());
-
+        p2.Add("CATE","COUR", "JAVA", new Date(),new Date());
         //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }
