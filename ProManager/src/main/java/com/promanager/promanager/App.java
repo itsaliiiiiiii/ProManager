@@ -30,6 +30,7 @@ public class App {
     public static void main(String[] args) {
         // launch();
         DAOprojet p = new DAOprojet();
+        DAOprojet p2 = new DAOprojet();
         // System.out.println(p.getAll());
         System.out.println("-----");
         // System.out.println(p.get(0));
@@ -37,7 +38,7 @@ public class App {
         
         
         p.add("CATYGORIE", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
-
+        p2.add("CAT", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
         //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }
