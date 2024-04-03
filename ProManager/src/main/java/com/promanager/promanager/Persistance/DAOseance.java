@@ -8,7 +8,6 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
-import com.promanager.promanager.Metier.POJO.Liste;
 import com.promanager.promanager.Metier.POJO.Seance;
 
 public class DAOseance {
