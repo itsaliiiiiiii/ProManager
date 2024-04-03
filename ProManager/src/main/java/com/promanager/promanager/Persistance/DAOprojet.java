@@ -57,7 +57,7 @@ public class DAOprojet {
         InfoProjet.put("DateFin", projet.getDateFinProjet());
         connexion.insert(InfoProjet, "Projets");
     }
-    
+
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Projets");
     }

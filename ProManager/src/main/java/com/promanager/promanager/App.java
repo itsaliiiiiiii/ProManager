@@ -1,7 +1,8 @@
 package com.promanager.promanager;
 
 
-import org.bson.types.ObjectId;
+import java.util.Date;
+
 
 // import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class App {
         // System.out.println(p.get(1));
         
         
-        p.Add("CATYGORIE", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
+        p.add("CATYGORIE", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
 
         //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }

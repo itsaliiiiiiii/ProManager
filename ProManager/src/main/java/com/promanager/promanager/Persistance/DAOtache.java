@@ -43,6 +43,7 @@ public class DAOtache {
         tache.setDescriptionTache(document.getString("Description"));
         return tache;
     }
+
     public void add(ObjectId id, String categorie, String description, Date dateDepart, Date dateFinTache) {
         Tache tache = new Tache(id, categorie, description, dateDepart, dateFinTache);
         HashMap<String, Object> InfoTache = new HashMap<>();

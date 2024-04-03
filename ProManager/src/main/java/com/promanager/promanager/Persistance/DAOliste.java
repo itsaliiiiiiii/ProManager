@@ -47,7 +47,6 @@ public class DAOliste {
         Infoliste.put("Nom", liste.getNomListe());
         connexion.insert(Infoliste, "Listes");
     }
-    
 
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Listes");

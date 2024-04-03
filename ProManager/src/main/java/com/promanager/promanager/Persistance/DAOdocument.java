@@ -38,7 +38,8 @@ public class DAOdocument {
         Document.setPathDocument(document.getString("Path"));
         return Document;
     }
-    public void add(ObjectId id, String description,String path) {
+
+    public void add(ObjectId id, String description, String path) {
         Document_ document = new Document_(id, path, description);
         HashMap<String, Object> Infodocument = new HashMap<>();
         Infodocument.put("_id", document.getIdDocument());
@@ -46,7 +47,7 @@ public class DAOdocument {
         Infodocument.put("Path", document.getPathDocument());
         connexion.insert(Infodocument, "Documents");
     }
-    
+
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Documents");
     }
