@@ -1,11 +1,14 @@
 package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
+import com.promanager.promanager.Metier.POJO.Liste;
 import com.promanager.promanager.Metier.POJO.Seance;
 
 public class DAOseance {
@@ -40,5 +43,24 @@ public class DAOseance {
         seance.setDateFinSeance(document.getDate("DateFin"));
         seance.setDescriptionSeance(document.getString("Description"));
         return seance;
+    }
+
+    public void add(ObjectId id, String description, Date dateDepart, Date dateFin, String note) {
+        Seance seance = new Seance(id, description, dateDepart, dateFin, note);
+        HashMap<String, Object> InfoSeance = new HashMap<>();
+        InfoSeance.put("_id", seance.getIdSeance());
+        InfoSeance.put("Description", seance.getDescriptionSeance());
+        InfoSeance.put("DateDepart", seance.getDateDepartSeance());
+        InfoSeance.put("DateFin", seance.getDateFinSeance());
+        InfoSeance.put("Note", seance.getNote());
+        connexion.insert(InfoSeance, "Seances");
+    }
+
+    public void delete(ObjectId id, String key) {
+        connexion.remove(id, key, "Seances");
+    }
+
+    public void delete(ObjectId id) {
+        connexion.remove(id, "Seances");
     }
 }

@@ -1,7 +1,6 @@
 package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.bson.Document;
@@ -9,7 +8,6 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Document_;
-import com.promanager.promanager.Metier.POJO.Projet;
 
 public class DAOdocument {
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
@@ -40,7 +38,7 @@ public class DAOdocument {
         Document.setPathDocument(document.getString("Path"));
         return Document;
     }
-    public void Add(ObjectId id, String description,String path) {
+    public void add(ObjectId id, String description,String path) {
         Document_ document = new Document_(id, path, description);
         HashMap<String, Object> Infodocument = new HashMap<>();
         Infodocument.put("_id", document.getIdDocument());

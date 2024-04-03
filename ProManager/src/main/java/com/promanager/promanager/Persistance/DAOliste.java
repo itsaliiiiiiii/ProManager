@@ -7,7 +7,6 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
-import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Liste;
 
 public class DAOliste {
@@ -40,7 +39,7 @@ public class DAOliste {
         return liste;
     }
 
-    public void Add(ObjectId id, String nom, String description) {
+    public void add(ObjectId id, String nom, String description) {
         Liste liste = new Liste(id, nom, description);
         HashMap<String, Object> Infoliste = new HashMap<>();
         Infoliste.put("_id", liste.getIdListe());
@@ -48,6 +47,7 @@ public class DAOliste {
         Infoliste.put("Nom", liste.getNomListe());
         connexion.insert(Infoliste, "Listes");
     }
+    
 
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Listes");

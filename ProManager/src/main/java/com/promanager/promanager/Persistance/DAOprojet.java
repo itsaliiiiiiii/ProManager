@@ -47,7 +47,7 @@ public class DAOprojet {
         return projet;
     }
 
-    public void Add(String categorie, String type, String description, Date debut, Date fin) {
+    public void add(String categorie, String type, String description, Date debut, Date fin) {
         Projet projet = new Projet(categorie, type, description, debut, fin);
         HashMap<String, Object> InfoProjet = new HashMap<>();
         InfoProjet.put("Categorie", projet.getCategorieProjet());
