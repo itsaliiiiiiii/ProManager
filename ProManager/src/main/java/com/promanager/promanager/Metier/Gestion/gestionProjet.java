@@ -28,6 +28,4 @@ public class gestionProjet {
     public void delete(){
         projet.remove();
     }
-    
-    
 }
