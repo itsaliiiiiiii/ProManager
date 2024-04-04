@@ -3,7 +3,6 @@ package com.promanager.promanager.Persistance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -44,10 +43,10 @@ public class DAOtache {
         tache.setDescriptionTache(document.getString("Description"));
         return tache;
     }
-
-    public void add(String categorie, String description, Date dateDepart, Date dateFinTache) {
-        Tache tache = new Tache(categorie, description, dateDepart, dateFinTache);
+    public void add(ObjectId id, String categorie, String description, Date dateDepart, Date dateFinTache) {
+        Tache tache = new Tache(id, categorie, description, dateDepart, dateFinTache);
         HashMap<String, Object> InfoTache = new HashMap<>();
+        InfoTache.put("_id", tache.getIdTache());
         InfoTache.put("Description", tache.getDescriptionTache());
         InfoTache.put("DateDepart", tache.getDateDepartTache());
         InfoTache.put("DateFin", tache.getDateFinTache());
@@ -61,17 +60,5 @@ public class DAOtache {
 
     public void delete(ObjectId id) {
         connexion.remove(id, "Taches");
-    }
-
-    public void update(ObjectId id, String key, Object value) {
-        connexion.update(id, key, value, "Taches");
-    }
-
-    public void update(ObjectId id, String key, List<Object> value) {
-        connexion.update(id, key, value, "Taches");
-    }
-
-    public void update(ObjectId id, HashMap<String, Object> Objects) {
-        connexion.update(id, Objects, "Taches");
     }
 }

@@ -15,10 +15,6 @@ public class Document_ {
         this.pathDocument = pathDocument;
         this.descriptionDocument = descriptionDocument;
     }
-    public Document_( String pathDocument, String descriptionDocument) {
-        this.pathDocument = pathDocument;
-        this.descriptionDocument = descriptionDocument;
-    }
 
     public ObjectId getIdDocument() {
         return idDocument;

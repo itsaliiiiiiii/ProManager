@@ -2,7 +2,6 @@ package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -39,32 +38,20 @@ public class DAOdocument {
         Document.setPathDocument(document.getString("Path"));
         return Document;
     }
-
-    public void add(String description, String path) {
-        Document_ document = new Document_(path, description);
+    public void add(ObjectId id, String description,String path) {
+        Document_ document = new Document_(id, path, description);
         HashMap<String, Object> Infodocument = new HashMap<>();
+        Infodocument.put("_id", document.getIdDocument());
         Infodocument.put("Description", document.getDescriptionDocument());
         Infodocument.put("Path", document.getPathDocument());
         connexion.insert(Infodocument, "Documents");
     }
-
+    
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Documents");
     }
 
     public void delete(ObjectId id) {
         connexion.remove(id, "Documents");
-    }
-
-    public void update(ObjectId id, String key, Object value) {
-        connexion.update(id, key, value, "Documents");
-    }
-
-    public void update(ObjectId id, String key, List<Object> value) {
-        connexion.update(id, key, value, "Documents");
-    }
-
-    public void update(ObjectId id, HashMap<String, Object> Objects) {
-        connexion.update(id, Objects, "Documents");
     }
 }

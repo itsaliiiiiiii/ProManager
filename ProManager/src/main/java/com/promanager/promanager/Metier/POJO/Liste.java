@@ -15,10 +15,6 @@ public class Liste {
         this.nomListe = nomListe;
         this.descriptionListe = descriptionListe;
     }
-    public Liste( String nomListe, String descriptionListe) {
-        this.nomListe = nomListe;
-        this.descriptionListe = descriptionListe;
-    }
 
     public ObjectId getIdListe() {
         return idListe;

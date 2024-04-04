@@ -70,15 +70,6 @@ public class Connexion {
         collection.updateOne(filter, update);
     }
 
-    public void update(ObjectId keyOfObject,HashMap<String, Object> Objects, String collectionName) {
-        this.setCollection(collectionName);
-        for (String key : Objects.keySet()) {
-            Document filter = new Document("_id", keyOfObject);
-            Document update = new Document("$set", new Document(key, Objects.get(key)));
-            collection.updateOne(filter, update);
-        }
-    }
-
     public Document select(ObjectId keyOfObject, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);

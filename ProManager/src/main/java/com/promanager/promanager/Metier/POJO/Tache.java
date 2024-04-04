@@ -29,17 +29,6 @@ public class Tache {
 
     }
 
-    public Tache(
-            String categorieTache, String descriptionTache, Date dateDepartTache,
-            Date dateFinTache) {
-        this.categorieTache = categorieTache;
-        this.descriptionTache = descriptionTache;
-        this.dateDepartTache = dateDepartTache;
-        this.dateFinTache = dateFinTache;
-        ListeDocument = new ArrayList<>();
-
-    }
-
     public ObjectId getIdTache() {
         return idTache;
     }
