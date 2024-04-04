@@ -2,6 +2,7 @@ package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -39,15 +40,13 @@ public class DAOliste {
         return liste;
     }
 
-    public void add(ObjectId id, String nom, String description) {
-        Liste liste = new Liste(id, nom, description);
+    public void add(String nom, String description) {
+        Liste liste = new Liste(nom, description);
         HashMap<String, Object> Infoliste = new HashMap<>();
-        Infoliste.put("_id", liste.getIdListe());
         Infoliste.put("Description", liste.getDescriptionListe());
         Infoliste.put("Nom", liste.getNomListe());
         connexion.insert(Infoliste, "Listes");
     }
-    
 
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Listes");
@@ -55,5 +54,17 @@ public class DAOliste {
 
     public void delete(ObjectId id) {
         connexion.remove(id, "Listes");
+    }
+
+    public void update(ObjectId id, String key, Object value) {
+        connexion.update(id, key, value, "Listes");
+    }
+
+    public void update(ObjectId id, String key, List<Object> value) {
+        connexion.update(id, key, value, "Listes");
+    }
+
+    public void update(ObjectId id, HashMap<String, Object> Objects) {
+        connexion.update(id, Objects, "Listes");
     }
 }
