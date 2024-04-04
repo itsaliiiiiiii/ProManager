@@ -1,7 +1,10 @@
 package com.promanager.promanager;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
-import org.bson.types.ObjectId;
+import com.promanager.promanager.Persistance.DAOliste;
 
 // import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
@@ -29,14 +32,20 @@ public class App {
     public static void main(String[] args) {
         // launch();
         DAOprojet p = new DAOprojet();
+
+        HashMap<String, Object> ggg = new HashMap<>();
+        ggg.put("Type", "anaas");
+        ggg.put("Description", "mmmmm");
+        ggg.put("Categorie", "anaas");
+
         // System.out.println(p.getAll());
         System.out.println("-----");
         // System.out.println(p.get(0));
         // System.out.println(p.get(1));
-        
-        
-        p.Add("CATYGORIE", "TYPE", "hgjhgvjhbvjhgva", new Date(), new Date());
 
-        //p.delete(p.get(new ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
+        p.update(p.get(0).getIdProjet(), ggg);
+
+        // p.delete(p.get(new
+        // ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }
