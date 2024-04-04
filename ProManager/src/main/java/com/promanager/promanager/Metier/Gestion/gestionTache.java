@@ -1,5 +1,13 @@
-import java.util.ArrayList;
+package com.promanager.promanager.Metier.Gestion;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+
+import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Persistance.DAOtache;
 
 public class gestionTache {
@@ -13,7 +21,7 @@ public class gestionTache {
         this.tache = tache;
     }
     public ArrayList<Tache> getAll(){
-        tache.getAll();
+        return tache.getAll();
     }
     public Tache get(Integer index){
         return tache.get(index);
@@ -25,10 +33,10 @@ public class gestionTache {
         tache.add(categorie,description,dateDepart,dateFinTache);
     }
     public void delete(ObjectId id,String key){
-        tache.dalete(id,key);
+        tache.delete(id,key);
     }
     public void delete(ObjectId id){
-        tache.dalete(id);
+        tache.delete(id);
     }
     public void update(ObjectId id, String key, Object value) {
         tache.update(id,key,value);
