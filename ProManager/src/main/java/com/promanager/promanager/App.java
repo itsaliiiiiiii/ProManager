@@ -1,51 +1,28 @@
 package com.promanager.promanager;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import com.promanager.promanager.Presentation.View.LoginPage;
 
-import com.promanager.promanager.Persistance.DAOliste;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-// import javafx.application.Application;
-// import javafx.fxml.FXMLLoader;
-// import javafx.scene.Parent;
-// import javafx.scene.Scene;
-// import javafx.stage.Stage;
+public class App extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // Instantiate LoginPageView
+        LoginPage loginPageView = new LoginPage();
 
-// import java.io.IOException;
-// import java.util.Objects;
+        // Create a scene with LoginPageView as root
+        Scene scene = new Scene(loginPageView, 1300, 800);
 
-import com.promanager.promanager.Persistance.DAOprojet;
-
-public class App {
-    // @Override
-    // public void start(Stage stage) throws IOException {
-
-    // Parent root = FXMLLoader
-    // .load(Objects.requireNonNull(getClass().getResource("Presentation/View/LoginPage.fxml")));
-    // stage.setTitle("ProManager");
-    // stage.setScene(new Scene(root, 1300, 800));
-    // stage.setResizable(false);
-    // stage.show();
-    // }
+        // Set the scene to the stage and show the stage
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Login Page");
+        primaryStage.show();
+    }
 
     public static void main(String[] args) {
-        // launch();
-        DAOprojet p = new DAOprojet();
+        launch();
 
-        HashMap<String, Object> ggg = new HashMap<>();
-        ggg.put("Type", "anaas");
-        ggg.put("Description", "mmmmm");
-        ggg.put("Categorie", "anaas");
-
-        // System.out.println(p.getAll());
-        System.out.println("-----");
-        // System.out.println(p.get(0));
-        // System.out.println(p.get(1));
-
-        p.update(p.get(0).getIdProjet(), ggg);
-
-        // p.delete(p.get(new
-        // ObjectId("660c417b68aa02744a122aaf")).getIdProjet(),"Type");
     }
 }
