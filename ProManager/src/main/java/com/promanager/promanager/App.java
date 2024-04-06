@@ -9,13 +9,10 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Instantiate LoginPageView
         LoginPage loginPageView = new LoginPage();
 
-        // Create a scene with LoginPageView as root
         Scene scene = new Scene(loginPageView, 1300, 800);
 
-        // Set the scene to the stage and show the stage
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login Page");
         primaryStage.show();
