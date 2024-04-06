@@ -56,6 +56,4 @@ public class Liste {
     public void setListeTache(ArrayList<ObjectId> listeTache) {
         ListeTache = listeTache;
     }
-    
-
 }

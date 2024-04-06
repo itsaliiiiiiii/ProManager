@@ -32,6 +32,10 @@ public class gestionListe {
     }
 
     public void add(String nom, String description) {
+        if(nom.isEmpty()){
+            System.out.println("Nom est vide");
+            return;
+        }
         liste.add(nom, description);
     }
 
@@ -56,6 +60,10 @@ public class gestionListe {
     }
 
     public void update(ObjectId id, String key, Object value) {
+        if (((String) value).isEmpty() && key.equals("Nom")) {
+            System.out.println("Nom est vide");
+            return;
+        }
         liste.update(id, key, value);
     }
 
@@ -66,5 +74,4 @@ public class gestionListe {
     public void update(ObjectId id, HashMap<String, Object> Objects) {
         liste.update(id, Objects);
     }
-
 }
