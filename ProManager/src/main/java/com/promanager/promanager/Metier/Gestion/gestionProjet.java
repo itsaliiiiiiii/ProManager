@@ -8,16 +8,17 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Persistance.Connexion;
+import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Persistance.DAOprojet;
 
 public class gestionProjet {
 
     private DAOprojet projet;
-
+    DAOconfiguration config;
 
     public gestionProjet() {
         projet = new DAOprojet();
+        config = new DAOconfiguration();
     }
 
     public gestionProjet(DAOprojet projet) {
@@ -36,32 +37,41 @@ public class gestionProjet {
         return projet.get(id);
     }
 
-    private Boolean Check(String value, String key) {
-        
-        return false;
-    }
-
     public void add(String categorie, String type, String description, Date debut, Date fin) {
-
-        projet.add(categorie, type, description, debut, fin);
+        Date currentDate = new Date();
+        if (config.check(categorie, "Categorie") &&
+                config.check(type, "Type") &&
+                (debut.equals(currentDate) || debut.after(currentDate)) &&
+                fin.after(debut)) {
+            projet.add(categorie, type, description, debut, fin);
+        } else {
+            System.out.println("Categorie ou Type incorrect !");
+        }
     }
-
-    // public void delete(ObjectId id,String key){
-    // projet.delete(id,key);
-    // }
-    // public void delete(ObjectId id){
-    // projet.delete(id);
-    // }
 
     public void update(ObjectId id, String key, Object value) {
-        projet.update(id, key, value);
+        Date currentDate = new Date();
+        if (key.equals("Description")) {
+            projet.update(id, key, value);
+        } else if ((key.equals("Categorie") && config.check((String) value, "Categorie"))
+                || (key.equals("Type") && config.check((String) value, "Type"))) {
+            projet.update(id, key, value);
+        } else if (key.equals("DateFin") && ((Date) value).after(currentDate)) {
+            projet.update(id, key, value);
+        }
     }
 
     public void update(ObjectId id, String key, List<Object> value) {
         projet.update(id, key, value);
     }
 
-    public void update(ObjectId id, HashMap<String, Object> Objects) {
-        projet.update(id, Objects);
+    public Boolean CheckTache(ObjectId id) {
+        ArrayList<Projet> projets = projet.getAll();
+        for (Projet projet_ : projets) {
+            if (projet_.getListeTaches().contains(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

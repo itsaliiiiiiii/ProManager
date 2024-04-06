@@ -1,6 +1,7 @@
 package com.promanager.promanager;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.promanager.promanager.Persistance.Connexion;
 import com.promanager.promanager.Persistance.DAOconfiguration;
@@ -27,9 +28,7 @@ public class App {
 
     public static void main(String[] args) {
         // launch();
-        DAOconfiguration n = new DAOconfiguration();
-
-        n.check("aliharit2@gmail.com", "Type");
-
+        Date currentDate = new Date();
+        System.out.println(currentDate);
     }
 }

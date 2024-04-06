@@ -9,12 +9,16 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
+import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Metier.POJO.Seance;
+import com.promanager.promanager.Metier.POJO.Tache;
 
 public class DAOprojet {
 
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public ArrayList<Projet> getAll() {
         ArrayList<Projet> Projects = new ArrayList<>();
         FindIterable<Document> documents = connexion.selectAll("Projets");
@@ -27,6 +31,9 @@ public class DAOprojet {
             projet.setDescriptionProjet(document.getString("Description"));
             projet.setIdProjet(document.getObjectId("_id"));
             projet.setTypeProjet(document.getString("Type"));
+            projet.setListeTaches((ArrayList)document.getList("Taches", Tache.class));
+            projet.setListeSeances((ArrayList)document.getList("Seances", Seance.class));
+            projet.setListeDocument((ArrayList)document.getList("Documents", Document_.class));
             Projects.add(projet);
         }
         return Projects;
@@ -36,6 +43,7 @@ public class DAOprojet {
         return this.getAll().get(index);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Projet get(ObjectId id) {
         Document document = connexion.select(id, "Projets");
         Projet projet = new Projet();
@@ -45,6 +53,10 @@ public class DAOprojet {
         projet.setDescriptionProjet(document.getString("Description"));
         projet.setIdProjet(document.getObjectId("_id"));
         projet.setTypeProjet(document.getString("Type"));
+        projet.setListeTaches((ArrayList) document.getList("Taches", Tache.class));
+        projet.setListeSeances((ArrayList) document.getList("Seances", Seance.class));
+        projet.setListeDocument((ArrayList) document.getList("Documents", Document_.class));
+
         return projet;
     }
 

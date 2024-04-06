@@ -12,9 +12,9 @@ public class Projet {
     private String descriptionProjet;
     private Date dateDepartProjet;
     private Date dateFinProjet;
-    ArrayList<Tache> ListeTaches;
-    ArrayList<Seance> ListeSeances;
-    ArrayList<Document_> ListeDocument;
+    ArrayList<ObjectId> ListeTaches;
+    ArrayList<ObjectId> ListeSeances;
+    ArrayList<ObjectId> ListeDocument;
 
     public Projet() {
         ListeTaches = new ArrayList<>();
@@ -99,27 +99,27 @@ public class Projet {
         this.dateFinProjet = dateFinProjet;
     }
 
-    public ArrayList<Tache> getListeTaches() {
+    public ArrayList<ObjectId> getListeTaches() {
         return ListeTaches;
     }
 
-    public void setListeTaches(ArrayList<Tache> listeTaches) {
+    public void setListeTaches(ArrayList<ObjectId> listeTaches) {
         ListeTaches = listeTaches;
     }
 
-    public ArrayList<Seance> getListeSeances() {
+    public ArrayList<ObjectId> getListeSeances() {
         return ListeSeances;
     }
 
-    public void setListeSeances(ArrayList<Seance> listeSeances) {
+    public void setListeSeances(ArrayList<ObjectId> listeSeances) {
         ListeSeances = listeSeances;
     }
 
-    public ArrayList<Document_> getListeDocument() {
+    public ArrayList<ObjectId> getListeDocument() {
         return ListeDocument;
     }
 
-    public void setListeDocument(ArrayList<Document_> listeDocument) {
+    public void setListeDocument(ArrayList<ObjectId> listeDocument) {
         ListeDocument = listeDocument;
     }
 
