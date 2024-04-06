@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Liste;
-import com.promanager.promanager.Persistance.Connexion;
 import com.promanager.promanager.Persistance.DAOliste;
 
 public class gestionListe {
@@ -43,8 +40,19 @@ public class gestionListe {
     }
 
     public void delete(ObjectId id) {
-        
-        liste.delete(id);
+        gestionProjet Gprojet;
+        if ((liste.get(id).getListeTache()).size() == 0) {
+            liste.delete(id);
+        } else {
+            Gprojet = new gestionProjet();
+            for (ObjectId id_ : liste.get(id).getListeTache()) {
+                if (!Gprojet.CheckTache(id_)) {
+                    System.out.println("Liste contient des Taches");
+                    return;
+                }
+            }
+            liste.delete(id);
+        }
     }
 
     public void update(ObjectId id, String key, Object value) {
@@ -59,18 +67,4 @@ public class gestionListe {
         liste.update(id, Objects);
     }
 
-    // @SuppressWarnings("unchecked")
-    // public Boolean check(String value, String key) {
-    //     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
-    //     FindIterable<Document> document = connexion.selectAll("Configurations");
-    //     if (document.iterator().hasNext()) {
-    //         Object obj = document.first().get(key);
-    //         if (obj instanceof ArrayList<?>) {
-    //             return ((ArrayList<String>) obj).contains(value);
-    //         } else if (obj instanceof String) {
-    //             return obj.toString().equals(value);
-    //         }
-    //     }
-    //     return false;
-    // }
 }
