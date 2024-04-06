@@ -26,11 +26,9 @@ public class LoginPageController {
         String email = mailField.getText().trim();
         if (isValidEmail(email)) {
             errorOutputText.setText("Correct");
-            System.out.println("nnn");
         } else {
             String errorMessage = getErrorMessage(email);
             errorOutputText.setText(errorMessage);
-            System.out.println("nnn");
         }
     }
 

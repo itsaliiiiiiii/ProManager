@@ -28,7 +28,7 @@ public class Connexion {
     private MongoCollection<Document> getCollection(String collectionName) {
         return database.getCollection(collectionName);
     }
-
+    
     private void setCollection(String collectionName) {
         this.collection = this.getCollection(collectionName);
     }
@@ -70,7 +70,7 @@ public class Connexion {
         collection.updateOne(filter, update);
     }
 
-    public void update(ObjectId keyOfObject,HashMap<String, Object> Objects, String collectionName) {
+    public void update(ObjectId keyOfObject, HashMap<String, Object> Objects, String collectionName) {
         this.setCollection(collectionName);
         for (String key : Objects.keySet()) {
             Document filter = new Document("_id", keyOfObject);

@@ -15,8 +15,26 @@ public class LoginPage extends AnchorPane {
         private TextField mailField;
         private Button loginButton;
         private Text errorOutputText;
+        Pane pane;
         Text proManagerText;
         Text manageTasksText;
+
+        public LoginPage() {
+                this.loginButton = new Button();
+                this.mailField = new TextField();
+                this.errorOutputText = new Text();
+                this.manageTasksText = new Text();
+                this.proManagerText = new Text();
+                this.pane = new Pane();
+
+                this.controller = new LoginPageController(this);
+                design();
+
+                pane.getChildren().addAll(loginButton, mailField, proManagerText, manageTasksText,
+                                this.errorOutputText);
+                getChildren().addAll(pane);
+                setStyle("-fx-background-color:#6a82ab;");
+        }
 
         public TextField getMailField() {
                 return mailField;
@@ -30,21 +48,14 @@ public class LoginPage extends AnchorPane {
                 return errorOutputText;
         }
 
-        public LoginPage() {
-                this.loginButton = new Button();
-                this.mailField = new TextField();
-                this.errorOutputText = new Text();
-                this.manageTasksText = new Text();
-                this.proManagerText = new Text();
-                Pane pane = new Pane();
+        private void design() {
+                this.pane.setLayoutX(352.0);
+                this.pane.setLayoutY(225.0);
+                this.pane.setPrefHeight(363.0);
+                this.pane.setPrefWidth(646.0);
+                this.pane.setStyle(
+                                "-fx-background-color: #fff; -fx-background-radius: 30px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);");
 
-                this.controller = new LoginPageController(this);
-
-                pane.setLayoutX(352.0);
-                pane.setLayoutY(225.0);
-                pane.setPrefHeight(363.0);
-                pane.setPrefWidth(646.0);
-                pane.setStyle("-fx-background-color: #fff; -fx-background-radius: 30px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);");
                 AnchorPane.setBottomAnchor(pane, 212.0);
                 AnchorPane.setLeftAnchor(pane, 327.0);
                 AnchorPane.setRightAnchor(pane, 327.0);
@@ -98,10 +109,6 @@ public class LoginPage extends AnchorPane {
                 this.errorOutputText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
                 this.errorOutputText.setStrokeWidth(0.0);
                 this.errorOutputText.setWrappingWidth(222);
-
-                pane.getChildren().addAll(loginButton, mailField, proManagerText, manageTasksText, this.errorOutputText);
-                getChildren().addAll(pane);
-                setStyle("-fx-background-color:#6a82ab;");
         }
 
 }
