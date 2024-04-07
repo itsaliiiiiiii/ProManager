@@ -28,12 +28,7 @@ public class LoginPage extends AnchorPane {
                 this.pane = new Pane();
 
                 this.controller = new LoginPageController(this);
-                design();
-
-                pane.getChildren().addAll(loginButton, mailField, proManagerText, manageTasksText,
-                                this.errorOutputText);
-                getChildren().addAll(pane);
-                setStyle("-fx-background-color:#6a82ab;");
+                this.design();
         }
 
         public TextField getMailField() {
@@ -71,7 +66,15 @@ public class LoginPage extends AnchorPane {
                 this.loginButton.setTextFill(javafx.scene.paint.Color.WHITE);
                 this.loginButton.setFont(new Font(14.0));
                 this.loginButton.setStyle(
-                                "-fx-background-color:#6a82ab; -fx-border-radius:12px; -fx-background-radius:12px; -fx-border-color:#546379; -fx-border-width:2px;");
+                                "-fx-background-color:#6a82ab; -fx-border-radius:12px; -fx-background-radius:12px; -fx-border-color:#546379; -fx-border-width:2px;-fx-opacity: 0.7;");
+                this.loginButton.setOnMouseEntered(event -> {
+                        this.loginButton.setStyle(
+                                        "-fx-background-color:#6a82ab; -fx-border-radius:12px; -fx-background-radius:12px; -fx-border-color:#546379; -fx-border-width:2px;-fx-opacity:1;");
+                });
+                this.loginButton.setOnMouseExited(event -> {
+                        this.loginButton.setStyle(
+                                        "-fx-background-color:#6a82ab; -fx-border-radius:12px; -fx-background-radius:12px; -fx-border-color:#546379; -fx-border-width:2px;-fx-opacity:0.7;");
+                });
 
                 this.mailField.setId("mail");
                 this.mailField.setLayoutX(118.0);
@@ -82,6 +85,13 @@ public class LoginPage extends AnchorPane {
                 this.mailField.setFont(new Font(24.0));
                 this.mailField.setStyle(
                                 "-fx-background-color:#f4f4f4; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
+                this.mailField.setOnMouseEntered(event -> {
+                        this.mailField.setStyle("-fx-background-color:#eeeeee; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
+                });
+
+                this.mailField.setOnMouseExited(event -> {
+                        this.mailField.setStyle("-fx-background-color:#f4f4f4; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
+                });
 
                 this.proManagerText.setFill(javafx.scene.paint.Color.web("#6a82ab"));
                 this.proManagerText.setFontSmoothingType(javafx.scene.text.FontSmoothingType.LCD);
@@ -109,6 +119,10 @@ public class LoginPage extends AnchorPane {
                 this.errorOutputText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
                 this.errorOutputText.setStrokeWidth(0.0);
                 this.errorOutputText.setWrappingWidth(222);
+                pane.getChildren().addAll(loginButton, mailField, proManagerText, manageTasksText,
+                                this.errorOutputText);
+                getChildren().addAll(pane);
+                setStyle("-fx-background-color:#6a82ab;");
         }
 
 }
