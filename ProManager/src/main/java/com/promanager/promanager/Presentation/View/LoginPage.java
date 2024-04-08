@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginPage extends AnchorPane {
         @SuppressWarnings("unused")
@@ -19,7 +20,7 @@ public class LoginPage extends AnchorPane {
         Text proManagerText;
         Text manageTasksText;
 
-        public LoginPage() {
+        public LoginPage(Stage stage) {
                 this.loginButton = new Button();
                 this.mailField = new TextField();
                 this.errorOutputText = new Text();
@@ -27,7 +28,7 @@ public class LoginPage extends AnchorPane {
                 this.proManagerText = new Text();
                 this.pane = new Pane();
 
-                this.controller = new LoginPageController(this);
+                this.controller = new LoginPageController(this,stage);
                 this.design();
         }
 

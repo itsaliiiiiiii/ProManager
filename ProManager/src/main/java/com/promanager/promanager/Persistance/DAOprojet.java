@@ -26,7 +26,7 @@ public class DAOprojet {
         for (Document document : documents) {
             projet = new Projet();
             projet.setCategorieProjet(document.getString("Categorie"));
-            projet.setDateDepartProjet(document.getDate("DateDepart"));
+            projet.setDateDepartProjet(document.getDate("DateDebut"));
             projet.setDateFinProjet(document.getDate("DateFin"));
             projet.setDescriptionProjet(document.getString("Description"));
             projet.setIdProjet(document.getObjectId("_id"));
@@ -48,7 +48,7 @@ public class DAOprojet {
         Document document = connexion.select(id, "Projets");
         Projet projet = new Projet();
         projet.setCategorieProjet(document.getString("Categorie"));
-        projet.setDateDepartProjet(document.getDate("DateDepart"));
+        projet.setDateDepartProjet(document.getDate("DateDebut"));
         projet.setDateFinProjet(document.getDate("DateFin"));
         projet.setDescriptionProjet(document.getString("Description"));
         projet.setIdProjet(document.getObjectId("_id"));
