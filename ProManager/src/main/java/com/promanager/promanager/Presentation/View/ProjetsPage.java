@@ -291,7 +291,7 @@ public class ProjetsPage extends AnchorPane {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.prefHeightProperty().bind(scrollPane.prefHeightProperty());
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         for (int i = 0; i < 4; i++) {
@@ -319,14 +319,9 @@ public class ProjetsPage extends AnchorPane {
         int col = 0;
         for (Projet proj : listProjets) {
             Pane elemProjet = new Pane();
-            double elemProjetX = 406.0 + col * 260;
-            double elemProjetY = 284.0 + row * 160;
-            elemProjet.setLayoutX(elemProjetX);
-            elemProjet.setLayoutY(elemProjetY);
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);
             elemProjet.setMaxHeight(150);
-            elemProjet.setMinHeight(130);
             elemProjet.setMaxWidth(250);
             elemProjet.setStyle(
                     "-fx-background-color: #6a82ab88; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: black;-fx-padding:10;");
