@@ -61,8 +61,9 @@ public class ProjetsPage extends AnchorPane {
         this.rechercheInput = new TextField();
         this.rechercheButton = new Button();
         this.FiltrerButton = new Button();
-        this.controller = new ProjetsPageController(this);
+        this.AjouterProjet= new Button();
         this.stage = stage;
+        this.controller = new ProjetsPageController(this,stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
 

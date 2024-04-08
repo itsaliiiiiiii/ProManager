@@ -34,6 +34,9 @@ public class App extends Application {
             stage.setMinWidth(1000);
             stage.setMinHeight(600);
             stage.setTitle("ProManager - Projects");
+            stage.setMinWidth(1300);
+            stage.setMinHeight(800);
+            stage.setTitle("ProManager");
             stage.show();
         }
 
