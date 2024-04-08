@@ -324,7 +324,7 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setMaxHeight(150);
             elemProjet.setMaxWidth(250);
             elemProjet.setStyle(
-                    "-fx-background-color: #6a82ab88; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: black;-fx-padding:10;");
+                    "-fx-background-color: #6a82ab88;;");
 
             VBox vbox = new VBox();
             vbox.setLayoutX(-4.0);
@@ -335,19 +335,21 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setPrefHeight(20.0);
             elemProjet.setPrefWidth(20.0);
 
+            Label Nom = new Label(proj.getNomProjet());
             Label Categorie = new Label(proj.getCategorieProjet());
             Label Description = new Label(proj.getDescriptionProjet());
             Label Type = new Label(proj.getTypeProjet());
             Label DateDepart = new Label((proj.getDateDepartProjet()).toString());
             Label DateFin = new Label((proj.getDateFinProjet().toString()));
 
+            Nom.setTextFill(Color.WHITE);
             Categorie.setTextFill(Color.WHITE);
             Description.setTextFill(Color.WHITE);
             Type.setTextFill(Color.WHITE);
             DateDepart.setTextFill(Color.WHITE);
             DateFin.setTextFill(Color.WHITE);
 
-            vbox.getChildren().addAll(Categorie, Description, Type, DateDepart, DateFin);
+            vbox.getChildren().addAll(Nom,Categorie, Description, Type, DateDepart, DateFin);
 
             gridPane.add(elemProjet, col, row);
 

@@ -36,13 +36,13 @@ public class gestionProjet {
         return projet.get(id);
     }
 
-    public void add(String categorie, String type, String description, Date debut, Date fin) {
+    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) {
         Date currentDate = new Date();
         if (config.check(categorie, "Categorie") &&
                 config.check(type, "Type") &&
                 (debut.equals(currentDate) || debut.after(currentDate)) &&
                 fin.after(debut)) {
-            projet.add(categorie, type, description, debut, fin);
+            projet.add(nomProjet,categorie, type, description, debut, fin);
         } else {
             System.out.println("Categorie ou Type incorrect !");
         }

@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 
 public class Projet {
     private ObjectId idProjet;
+    private String nomProjet;
     private String categorieProjet;
     private String typeProjet;
     private String descriptionProjet;
@@ -22,9 +23,10 @@ public class Projet {
         ListeDocument = new ArrayList<>();
     }
 
-    public Projet(
+    public Projet(String nomProjet,
             String categorieProjet, String typeProjet, String descriptionProjet,
             Date dateDepartProjet, Date dateFinProjet) {
+        this.nomProjet=nomProjet;
         this.categorieProjet = categorieProjet;
         this.typeProjet = typeProjet;
         this.descriptionProjet = descriptionProjet;
@@ -37,9 +39,10 @@ public class Projet {
     }
 
     public Projet(
-            ObjectId idProjet, String categorieProjet, String typeProjet, String descriptionProjet,
+            ObjectId idProjet,String nomProjet, String categorieProjet, String typeProjet, String descriptionProjet,
             Date dateDepartProjet, Date dateFinProjet) {
         this.idProjet = idProjet;
+        this.nomProjet=nomProjet;
         this.categorieProjet = categorieProjet;
         this.typeProjet = typeProjet;
         this.descriptionProjet = descriptionProjet;
@@ -123,13 +126,27 @@ public class Projet {
         ListeDocument = listeDocument;
     }
 
+    public String getNomProjet() {
+        return nomProjet;
+    }
+
+    public void setNomProjet(String nomProjet) {
+        this.nomProjet = nomProjet;
+    }
+
     @Override
     public String toString() {
-        return "Projet :\n   idProjet = " + idProjet + "\n" +
-                "   categorieProjet = " + categorieProjet + "\n" +
-                "   typeProjet = " + typeProjet + "\n" +
-                "   descriptionProjet = " + descriptionProjet + "\n" +
-                "   dateDepartProjet = " + dateDepartProjet + "\n" +
-                "   dateFinProjet = " + dateFinProjet;
+        return "Projet{" +
+                "idProjet=" + idProjet +
+                ", nomProjet='" + nomProjet + '\'' +
+                ", categorieProjet='" + categorieProjet + '\'' +
+                ", typeProjet='" + typeProjet + '\'' +
+                ", descriptionProjet='" + descriptionProjet + '\'' +
+                ", dateDepartProjet=" + dateDepartProjet +
+                ", dateFinProjet=" + dateFinProjet +
+                ", ListeTaches=" + ListeTaches +
+                ", ListeSeances=" + ListeSeances +
+                ", ListeDocument=" + ListeDocument +
+                '}';
     }
 }

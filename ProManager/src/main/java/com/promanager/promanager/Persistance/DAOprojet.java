@@ -25,6 +25,7 @@ public class DAOprojet {
         Projet projet;
         for (Document document : documents) {
             projet = new Projet();
+            projet.setNomProjet(document.getString("Nom"));
             projet.setCategorieProjet(document.getString("Categorie"));
             projet.setDateDepartProjet(document.getDate("DateDebut"));
             projet.setDateFinProjet(document.getDate("DateFin"));
@@ -47,6 +48,7 @@ public class DAOprojet {
     public Projet get(ObjectId id) {
         Document document = connexion.select(id, "Projets");
         Projet projet = new Projet();
+        projet.setNomProjet(document.getString("Nom"));
         projet.setCategorieProjet(document.getString("Categorie"));
         projet.setDateDepartProjet(document.getDate("DateDebut"));
         projet.setDateFinProjet(document.getDate("DateFin"));
@@ -60,9 +62,10 @@ public class DAOprojet {
         return projet;
     }
 
-    public void add(String categorie, String type, String description, Date debut, Date fin) {
-        Projet projet = new Projet(categorie, type, description, debut, fin);
+    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) {
+        Projet projet = new Projet(nomProjet,categorie, type, description, debut, fin);
         HashMap<String, Object> InfoProjet = new HashMap<>();
+        InfoProjet.put("Nom", projet.getNomProjet());
         InfoProjet.put("Categorie", projet.getCategorieProjet());
         InfoProjet.put("Type", projet.getTypeProjet());
         InfoProjet.put("Description", projet.getDescriptionProjet());
