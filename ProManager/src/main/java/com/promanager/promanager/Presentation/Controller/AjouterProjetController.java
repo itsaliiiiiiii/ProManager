@@ -76,13 +76,11 @@ public class AjouterProjetController {
                 comboBoxType.getSelectionModel().getSelectedItem() != null &&
                 PickerDateDepart.getValue() != null &&
                 PickerDateFin.getValue() != null) {
-            if (Description.getText() == null) {
-                Description.setText("  ");
-            }
             gestionProjet gProjet = new gestionProjet();
             gProjet.add(InputNomProjet.getText(),
                     comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                    comboBoxType.getSelectionModel().getSelectedItem(), Description.getText(),
+                    comboBoxType.getSelectionModel().getSelectedItem(),
+                    InputDescription.getText().equals(null) ? "--vide--" : InputDescription.getText(),
                     Date.from(Instant.from((PickerDateDepart
                             .getValue()).atStartOfDay(ZoneId.systemDefault()))),
                     Date.from(Instant.from((PickerDateFin
@@ -94,7 +92,7 @@ public class AjouterProjetController {
     }
 
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
+        ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);

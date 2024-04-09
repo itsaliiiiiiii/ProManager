@@ -1,5 +1,8 @@
 package com.promanager.promanager.Presentation.Controller;
 
+import org.bson.types.ObjectId;
+
+import com.promanager.promanager.Presentation.View.AffichageProjet;
 import com.promanager.promanager.Presentation.View.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetsPage;
 
@@ -52,8 +55,7 @@ public class ProjetsPageController {
     }
 
     private void filtrerProjets() {
-        stage.setWidth(1300);
-        stage.setHeight(800);
+
         ProjetsPage projetsPage = new ProjetsPage(
                 stage,
                 TypeFilter.getSelectionModel().getSelectedItem() == null ? "tout"
@@ -61,9 +63,22 @@ public class ProjetsPageController {
                 CategorieFilter.getSelectionModel().getSelectedItem() == null ? "tout"
                         : CategorieFilter.getSelectionModel().getSelectedItem());
         Parent root = projetsPage;
+        Scene projectsScene = new Scene(root, stage.getWidth(), stage.getHeight());
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+    public void afficherProjet(ObjectId id){
+        stage.setWidth(1300);
+        stage.setHeight(800);
+        AffichageProjet AjouterPage = new AffichageProjet();
+        Parent root = AjouterPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");
+        stage.setResizable(false);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
         stage.show();

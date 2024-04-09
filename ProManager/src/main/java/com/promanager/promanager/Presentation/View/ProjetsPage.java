@@ -3,6 +3,8 @@ package com.promanager.promanager.Presentation.View;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
+
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
@@ -10,13 +12,16 @@ import com.promanager.promanager.Presentation.Controller.ProjetsPageController;
 
 import java.text.SimpleDateFormat;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -28,7 +33,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.beans.binding.Bindings;
 
 public class ProjetsPage extends AnchorPane {
     private AnchorPane background;
@@ -377,6 +381,14 @@ public class ProjetsPage extends AnchorPane {
                 col = 0;
                 row++;
             }
+
+            elemProjet.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    ObjectId projectId = proj.getIdProjet();
+                    controller.afficherProjet(projectId);
+                }
+            });
         }
 
         scrollPane.setContent(gridPane);

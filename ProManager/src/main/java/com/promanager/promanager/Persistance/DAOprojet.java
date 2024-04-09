@@ -32,9 +32,9 @@ public class DAOprojet {
             projet.setDescriptionProjet(document.getString("Description"));
             projet.setIdProjet(document.getObjectId("_id"));
             projet.setTypeProjet(document.getString("Type"));
-            projet.setListeTaches((ArrayList)document.getList("Taches", Tache.class));
-            projet.setListeSeances((ArrayList)document.getList("Seances", Seance.class));
-            projet.setListeDocument((ArrayList)document.getList("Documents", Document_.class));
+            projet.setListeTaches((ArrayList)document.getList("Taches", ObjectId.class));
+            projet.setListeSeances((ArrayList)document.getList("Seances", ObjectId.class));
+            projet.setListeDocument((ArrayList)document.getList("Documents", ObjectId.class));
             Projects.add(projet);
         }
         return Projects;
