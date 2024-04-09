@@ -1,32 +1,50 @@
 package com.promanager.promanager.Metier.POJO;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 public class Tache {
-    private String idTache;
+    private ObjectId idTache;
     private String categorieTache;
     private String descriptionTache;
     private Date dateDepartTache;
     private Date dateFinTache;
+    ArrayList<Document_> ListeDocument;
 
     public Tache() {
+        ListeDocument = new ArrayList<>();
     }
 
     public Tache(
-            String idTache, String categorieTache, String descriptionTache, Date dateDepartTache,
+            ObjectId idTache, String categorieTache, String descriptionTache, Date dateDepartTache,
             Date dateFinTache) {
         this.idTache = idTache;
         this.categorieTache = categorieTache;
         this.descriptionTache = descriptionTache;
         this.dateDepartTache = dateDepartTache;
         this.dateFinTache = dateFinTache;
+        ListeDocument = new ArrayList<>();
+
     }
 
-    public String getIdTache() {
+    public Tache(
+            String categorieTache, String descriptionTache, Date dateDepartTache,
+            Date dateFinTache) {
+        this.categorieTache = categorieTache;
+        this.descriptionTache = descriptionTache;
+        this.dateDepartTache = dateDepartTache;
+        this.dateFinTache = dateFinTache;
+        ListeDocument = new ArrayList<>();
+
+    }
+
+    public ObjectId getIdTache() {
         return idTache;
     }
 
-    public void setIdTache(String idTache) {
+    public void setIdTache(ObjectId idTache) {
         this.idTache = idTache;
     }
 
@@ -60,6 +78,14 @@ public class Tache {
 
     public void setDateFinTache(Date dateFinTache) {
         this.dateFinTache = dateFinTache;
+    }
+
+    public ArrayList<Document_> getListeDocument() {
+        return ListeDocument;
+    }
+
+    public void setListeDocument(ArrayList<Document_> listeDocument) {
+        ListeDocument = listeDocument;
     }
 
 }

@@ -1,32 +1,48 @@
 package com.promanager.promanager.Metier.POJO;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.bson.types.ObjectId;
 
 public class Seance {
-    private String idSeance;
+    private ObjectId idSeance;
     private String descriptionSeance;
-    private Calendar dateDepartSeance;
-    private Calendar dateFinSeance;
+    private Date dateDepartSeance;
+    private Date dateFinSeance;
     private String note;
+    ArrayList<Document_> ListeDocument;
 
     public Seance() {
+        ListeDocument = new ArrayList<>();
     }
 
     public Seance(
-            String idSeance, String descriptionSeance, Calendar dateDepartSeance, Calendar dateFinSeance,
+            ObjectId idSeance, String descriptionSeance, Date dateDepartSeance, Date dateFinSeance,
             String note) {
         this.idSeance = idSeance;
         this.descriptionSeance = descriptionSeance;
         this.dateDepartSeance = dateDepartSeance;
         this.dateFinSeance = dateFinSeance;
         this.note = note;
+        ListeDocument = new ArrayList<>();
     }
 
-    public String getIdSeance() {
+    public Seance(
+            String descriptionSeance, Date dateDepartSeance, Date dateFinSeance,
+            String note) {
+        this.descriptionSeance = descriptionSeance;
+        this.dateDepartSeance = dateDepartSeance;
+        this.dateFinSeance = dateFinSeance;
+        this.note = note;
+        ListeDocument = new ArrayList<>();
+    }
+
+    public ObjectId getIdSeance() {
         return idSeance;
     }
 
-    public void setIdSeance(String idSeance) {
+    public void setIdSeance(ObjectId idSeance) {
         this.idSeance = idSeance;
     }
 
@@ -38,19 +54,19 @@ public class Seance {
         this.descriptionSeance = descriptionSeance;
     }
 
-    public Calendar getDateDepartSeance() {
+    public Date getDateDepartSeance() {
         return dateDepartSeance;
     }
 
-    public void setDateDepartSeance(Calendar dateDepartSeance) {
+    public void setDateDepartSeance(Date dateDepartSeance) {
         this.dateDepartSeance = dateDepartSeance;
     }
 
-    public Calendar getDateFinSeance() {
+    public Date getDateFinSeance() {
         return dateFinSeance;
     }
 
-    public void setDateFinSeance(Calendar dateFinSeance) {
+    public void setDateFinSeance(Date dateFinSeance) {
         this.dateFinSeance = dateFinSeance;
     }
 

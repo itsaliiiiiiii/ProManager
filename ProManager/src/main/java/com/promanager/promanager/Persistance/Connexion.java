@@ -28,7 +28,7 @@ public class Connexion {
     private MongoCollection<Document> getCollection(String collectionName) {
         return database.getCollection(collectionName);
     }
-
+    
     private void setCollection(String collectionName) {
         this.collection = this.getCollection(collectionName);
     }
@@ -56,23 +56,32 @@ public class Connexion {
         document.clear();
     }
 
-    public void update(String keyOfObject, String key, Object value, String collectionName) {
+    public void update(ObjectId keyOfObject, String key, Object value, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);
         Document update = new Document("$set", new Document(key, value));
         collection.updateOne(filter, update);
     }
 
-    public void update(String keyOfObject, String key, List<Object> value, String collectionName) {
+    public void update(ObjectId keyOfObject, String key, List<Object> value, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);
         Document update = new Document("$set", new Document(key, value));
         collection.updateOne(filter, update);
     }
 
-    public Document select(String keyOfObject, String collectionName) {
+    public void update(ObjectId keyOfObject, HashMap<String, Object> Objects, String collectionName) {
         this.setCollection(collectionName);
-        Document filter = new Document("_id", new ObjectId(keyOfObject));
+        for (String key : Objects.keySet()) {
+            Document filter = new Document("_id", keyOfObject);
+            Document update = new Document("$set", new Document(key, Objects.get(key)));
+            collection.updateOne(filter, update);
+        }
+    }
+
+    public Document select(ObjectId keyOfObject, String collectionName) {
+        this.setCollection(collectionName);
+        Document filter = new Document("_id", keyOfObject);
         Document document = collection.find(filter).first();
         return document;
     }
@@ -83,17 +92,22 @@ public class Connexion {
         return documents;
     }
 
-    public void remove(String keyOfObject, String key, String collectionName) {
+    public void remove(ObjectId keyOfObject, String key, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);
         Document update = new Document("$unset", new Document(key, ""));
         collection.updateOne(filter, update);
     }
 
+    public void remove(ObjectId keyOfObject, String collectionName) {
+        this.setCollection(collectionName);
+        Document filter = new Document("_id", keyOfObject);
+        collection.deleteOne(filter);
+    }
+
     public void close() {
         if (mongoClient != null) {
             mongoClient.close();
-            System.out.println("Connection closed.");
         }
     }
 }
