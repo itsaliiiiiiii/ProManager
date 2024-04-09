@@ -1,16 +1,8 @@
 package com.promanager.promanager.Presentation.View;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import org.bson.types.ObjectId;
-
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Presentation.Controller.ProjetsPageController;
-
-import java.text.SimpleDateFormat;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -23,16 +15,20 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import org.bson.types.ObjectId;
+
+import com.promanager.promanager.Metier.Gestion.gestionProjet;
+import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Persistance.DAOconfiguration;
+import com.promanager.promanager.Presentation.Controller.ProjetsPageController;
 
 public class ProjetsPage extends AnchorPane {
     private AnchorPane background;
@@ -279,9 +275,12 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 400.0);
-        scrollPane.setLayoutX(338.0);
-        scrollPane.setLayoutY(171.0);
+        scrollPane.setPrefSize(900.0, 600.0);
+        scrollPane.prefHeightProperty().bind(heightWindow); // Soustraire la hauteur de la barre de titre
+        scrollPane.prefWidthProperty().bind(widthWindow);
+        scrollPane.setLayoutX(300.0);
+        scrollPane.setLayoutY(250.0);
+
         scrollPane.setStyle("-fx-background-color: transparent;");
 
         scrollPane.prefHeightProperty().bind(Bindings.createDoubleBinding(
@@ -290,37 +289,13 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.prefWidthProperty().bind(Bindings.createDoubleBinding(
                 () -> 819 + (-1300 + widthWindow().get()),
                 widthWindow()));
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefWidth(917.0);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.prefHeightProperty().bind(scrollPane.prefHeightProperty());
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        for (int i = 0; i < 4; i++) {
-            ColumnConstraints column = new ColumnConstraints();
-            column.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
-            column.setMinWidth(10.0);
-            column.setPrefWidth(100.0);
-            gridPane.getColumnConstraints().add(column);
-        }
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(10));
 
         ArrayList<Projet> listProjets = gProjet.getAll();
-        int numRows = (int) Math.ceil((double) listProjets.size() / 4);
-        for (int i = 0; i < numRows; i++) {
-            RowConstraints row = new RowConstraints();
-            row.setMinHeight(10.0);
-            row.setPrefHeight(30.0);
-            row.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-            gridPane.getRowConstraints().add(row);
-        }
 
-        scrollPane.setContent(gridPane);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-        int row = 0;
-        int col = 0;
         ArrayList<Projet> filterProjets;
 
         if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
@@ -342,45 +317,28 @@ public class ProjetsPage extends AnchorPane {
 
         for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
-            elemProjet.setPrefHeight(100.0);
+            elemProjet.setPrefHeight(30.0);
             elemProjet.setPrefWidth(250.0);
-            elemProjet.setMaxHeight(150);
+            elemProjet.setMaxHeight(30.0);
             elemProjet.setMaxWidth(250);
             elemProjet.setStyle(
                     "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");
 
-            VBox vbox = new VBox(5);
-            vbox.setPadding(new Insets(10, 0, 0, 30));
+            VBox vboxInner = new VBox(5);
+            vboxInner.setPadding(new Insets(10, 0, 0, 30));
 
-            vbox.setLayoutX(-4.0);
-            vbox.setPrefHeight(211.0);
-            vbox.setPrefWidth(223.0);
+            vboxInner.setPrefWidth(223.0);
 
-            elemProjet.getChildren().add(vbox);
+            elemProjet.getChildren().add(vboxInner);
             elemProjet.setPrefHeight(20.0);
             elemProjet.setPrefWidth(20.0);
 
             Label Nom = new Label(proj.getNomProjet());
-            Nom.setStyle("-fx-font-size: 45px; -fx-font-weight: bold;");
-            Label Categorie = new Label(proj.getCategorieProjet());
-            Label type = new Label(proj.getTypeProjet());
-            // Label DateFin = new Label((proj.getDateFinProjet().toString()));
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Label DateFin = new Label(sdf.format(proj.getDateFinProjet()));
+            Nom.setStyle("-fx-font-size: 10px;-fx-padding:0 0 10px 0;");
 
-            Nom.setTextFill(Color.WHITE);
-            type.setTextFill(Color.WHITE);
-            Categorie.setTextFill(Color.WHITE);
-            DateFin.setTextFill(Color.WHITE);
+            vboxInner.getChildren().addAll(Nom);
 
-            vbox.getChildren().addAll(Nom, Categorie, type, DateFin);
-            gridPane.add(elemProjet, col, row);
-
-            col++;
-            if (col == 4) {
-                col = 0;
-                row++;
-            }
+            vbox.getChildren().add(elemProjet);
 
             elemProjet.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -391,20 +349,11 @@ public class ProjetsPage extends AnchorPane {
             });
         }
 
-        scrollPane.setContent(gridPane);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
+        scrollPane.setContent(vbox);
 
-        config.getCategorie();
-        CategorieFilter.getItems().add("tout");
-        CategorieFilter.getItems().addAll(config.getCategorie());
-        TypeFilter.getItems().add("tout");
-        TypeFilter.getItems().addAll(config.getType());
-
-        scrollPane.setContent(gridPane);
-
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
-                TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
-                FiltrerButton, scrollPane);
+        this.getChildren().addAll(background, sideBar, Projets, Listes, Historiques, Statistiques, projetsText,
+                CategorieFilter, TypeFilter, rechercheInput, rechercheButton, buttonAjouter, FiltrerButton,
+                scrollPane);
+        scrollPane.setHvalue(scrollPane.getHmax());
     }
 }
