@@ -29,9 +29,10 @@ public class DAOprojet {
             projet.setDescriptionProjet(document.getString("Description"));
             projet.setIdProjet(document.getObjectId("_id"));
             projet.setTypeProjet(document.getString("Type"));
-            projet.setListeTaches((ArrayList)document.getList("Taches", ObjectId.class));
-            projet.setListeSeances((ArrayList)document.getList("Seances", ObjectId.class));
-            projet.setListeDocument((ArrayList)document.getList("Documents", ObjectId.class));
+            projet.setStatus(document.getString("Status"));
+            projet.setListeTaches((ArrayList) document.getList("Taches", ObjectId.class));
+            projet.setListeSeances((ArrayList) document.getList("Seances", ObjectId.class));
+            projet.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
             Projects.add(projet);
         }
         return Projects;
@@ -52,15 +53,15 @@ public class DAOprojet {
         projet.setDescriptionProjet(document.getString("Description"));
         projet.setIdProjet(document.getObjectId("_id"));
         projet.setTypeProjet(document.getString("Type"));
+        projet.setStatus(document.getString("Status"));
         projet.setListeTaches((ArrayList) document.getList("Taches", ObjectId.class));
         projet.setListeSeances((ArrayList) document.getList("Seances", ObjectId.class));
         projet.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
-
         return projet;
     }
 
-    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) {
-        Projet projet = new Projet(nomProjet,categorie, type, description, debut, fin);
+    public void add(String nomProjet, String categorie, String type, String description, Date debut, Date fin) {
+        Projet projet = new Projet(nomProjet, categorie, type, description, debut, fin);
         HashMap<String, Object> InfoProjet = new HashMap<>();
         InfoProjet.put("Nom", projet.getNomProjet());
         InfoProjet.put("Categorie", projet.getCategorieProjet());
@@ -71,7 +72,7 @@ public class DAOprojet {
         InfoProjet.put("Taches", new ArrayList<>());
         InfoProjet.put("Seances", new ArrayList<>());
         InfoProjet.put("Documents", new ArrayList<>());
-        InfoProjet.put("Statut", "Ouvert");
+        InfoProjet.put("Status", "Ouvert");
         connexion.insert(InfoProjet, "Projets");
     }
 

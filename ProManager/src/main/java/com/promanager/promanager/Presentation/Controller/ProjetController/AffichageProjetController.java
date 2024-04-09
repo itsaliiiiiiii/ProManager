@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.TachesProjet;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,10 +26,13 @@ public class AffichageProjetController {
     private Button clonerButton;
     private Button cloturerButton;
     private Button PrecedentButton;
-    Stage stage ;
+    private Button documentsButton;
+    private Button seancesButton;
+    private Button tachesButton;
+    Stage stage;
 
-    public AffichageProjetController(AffichageProjet view, Stage stage) {
-        this.idProjet = view.getIdProjet();
+    public AffichageProjetController(AffichageProjet view, Stage stage,ObjectId id) {
+        this.idProjet = id;
         this.nomProjetText = view.getNomProjet();
         this.categorieText = view.getCategorie();
         this.typeText = view.getType();
@@ -39,17 +43,32 @@ public class AffichageProjetController {
         this.clonerButton = view.getClonerButton();
         this.cloturerButton = view.getClonerButton();
         this.PrecedentButton = view.getPrecedentButton();
+        this.documentsButton = view.getDocumentsButton();
+        this.seancesButton = view.getSeancesButton();
+        this.tachesButton = view.getTachesButton();
         this.stage = stage;
 
-        
         PrecedentButton.setOnAction(event -> {
             openProjet();
+        });
+        tachesButton.setOnAction(event -> {
+            openTachesProjet();
         });
     }
 
     private void openProjet() {
         ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
         Parent projetsRoot = projetsPage;
+        Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(true);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+    private void openTachesProjet() {
+        TachesProjet tachesProjet = new TachesProjet(idProjet,stage);
+        Parent projetsRoot = tachesProjet;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);

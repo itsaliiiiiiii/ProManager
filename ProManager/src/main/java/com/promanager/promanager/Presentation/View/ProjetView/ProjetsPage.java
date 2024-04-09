@@ -279,13 +279,13 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 500.0);
+        scrollPane.setPrefSize(819.0, 600.0);
         scrollPane.setLayoutX(338.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
         scrollPane.prefHeightProperty().bind(Bindings.createDoubleBinding(
-                () -> 400 + (-800 + heightWindow().get()),
+                () -> 600 + (-800 + heightWindow().get()),
                 heightWindow()));
         scrollPane.prefWidthProperty().bind(Bindings.createDoubleBinding(
                 () -> 819 + (-1300 + widthWindow().get()),
@@ -321,26 +321,29 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setFitToHeight(true);
         int row = 0;
         int col = 0;
-        ArrayList<Projet> filterProjets;
-
+        ArrayList<Projet> filterProjets = listProjets.stream()
+                .filter(project -> project.getStatus().equals("Ouvert"))
+                .collect(Collectors.toCollection(ArrayList::new));
+        ;
+        ArrayList<Projet> fitrer;
         if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            filterProjets = listProjets.stream()
+            fitrer = filterProjets.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
                             project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[0].equals("tout")) {
-            filterProjets = listProjets.stream()
+            fitrer = filterProjets.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[1].equals("tout")) {
-            filterProjets = listProjets.stream()
+            fitrer = filterProjets.stream()
                     .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else {
-            filterProjets = new ArrayList<>(listProjets);
+            fitrer = new ArrayList<>(filterProjets);
         }
 
-        for (Projet proj : filterProjets) {
+        for (Projet proj : fitrer) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);

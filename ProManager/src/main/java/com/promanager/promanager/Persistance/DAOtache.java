@@ -35,7 +35,7 @@ public class DAOtache {
     }
 
     public Tache get(ObjectId id) {
-        Document document = connexion.select(id, "Documents");
+        Document document = connexion.select(id, "Taches");
         Tache tache = new Tache();
         tache.setIdTache(document.getObjectId("_id"));
         tache.setCategorieTache(document.getString("Categorie"));

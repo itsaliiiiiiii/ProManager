@@ -34,6 +34,9 @@ public class AffichageProjet extends AnchorPane {
     private Button PrecedentButton;
     private AffichageProjetController controller;
     private gestionProjet gProjet;
+    private Button documentsButton;
+    private Button seancesButton;
+    private Button tachesButton;
 
     public AffichageProjet(ObjectId id, Stage stage) {
         nomProjet = new Text("Nom Projet");
@@ -46,9 +49,12 @@ public class AffichageProjet extends AnchorPane {
         clonerButton = new Button("cloner");
         cloturerButton = new Button("Cloturer");
         PrecedentButton = new Button("Precedent");
+        documentsButton = new Button("Documents");
+        seancesButton = new Button("Seances");
+        tachesButton = new Button("Taches");
         gProjet = new gestionProjet();
-        this.controller = new AffichageProjetController(this, stage);
         this.idProjet = id;
+        this.controller = new AffichageProjetController(this, stage, idProjet);
         design();
     }
 
@@ -66,6 +72,18 @@ public class AffichageProjet extends AnchorPane {
 
     public Text getType() {
         return type;
+    }
+
+    public Button getDocumentsButton() {
+        return documentsButton;
+    }
+
+    public Button getSeancesButton() {
+        return seancesButton;
+    }
+
+    public Button getTachesButton() {
+        return tachesButton;
     }
 
     public Text getDateDepart() {
@@ -152,9 +170,32 @@ public class AffichageProjet extends AnchorPane {
         PrecedentButton.setPrefWidth(150.0);
         PrecedentButton.setPrefHeight(40.0);
         PrecedentButton.setFont(new Font(18.0));
-
         PrecedentButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         PrecedentButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
+        documentsButton.setLayoutX(1100.0);
+        documentsButton.setLayoutY(700.0);
+        documentsButton.setPrefWidth(150.0);
+        documentsButton.setPrefHeight(40.0);
+        documentsButton.setFont(new Font(18.0));
+        documentsButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        documentsButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
+        seancesButton.setLayoutX(940.0);
+        seancesButton.setLayoutY(700.0);
+        seancesButton.setPrefWidth(150.0);
+        seancesButton.setPrefHeight(40.0);
+        seancesButton.setFont(new Font(18.0));
+        seancesButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        seancesButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
+        tachesButton.setLayoutX(780.0);
+        tachesButton.setLayoutY(700.0);
+        tachesButton.setPrefWidth(150.0);
+        tachesButton.setPrefHeight(40.0);
+        tachesButton.setFont(new Font(18.0));
+        tachesButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        tachesButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
         Projet Projet = gProjet.get(idProjet);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -167,11 +208,9 @@ public class AffichageProjet extends AnchorPane {
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
 
-        
-
         getChildren().addAll(
                 nomProjet, categorie, type, dateDepart,
                 description, dateFin, modifierButton,
-                clonerButton, cloturerButton, PrecedentButton);
+                clonerButton, cloturerButton, PrecedentButton, documentsButton, seancesButton, tachesButton);
     }
 }

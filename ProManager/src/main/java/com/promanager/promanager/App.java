@@ -1,17 +1,8 @@
 package com.promanager.promanager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.bson.types.ObjectId;
-
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Persistance.Connexion;
 import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Persistance.DAOprojet;
 import com.promanager.promanager.Presentation.View.LoginPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

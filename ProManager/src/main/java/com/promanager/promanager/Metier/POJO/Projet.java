@@ -13,6 +13,7 @@ public class Projet {
     private String descriptionProjet;
     private Date dateDepartProjet;
     private Date dateFinProjet;
+    private String Status ;
     ArrayList<ObjectId> ListeTaches;
     ArrayList<ObjectId> ListeSeances;
     ArrayList<ObjectId> ListeDocument;
@@ -23,6 +24,21 @@ public class Projet {
         ListeDocument = new ArrayList<>();
     }
 
+    public Projet(String nomProjet,
+            String categorieProjet, String typeProjet, String descriptionProjet,
+            Date dateDepartProjet, Date dateFinProjet,String Status) {
+        this.nomProjet=nomProjet;
+        this.categorieProjet = categorieProjet;
+        this.typeProjet = typeProjet;
+        this.descriptionProjet = descriptionProjet;
+        this.dateDepartProjet = dateDepartProjet;
+        this.dateFinProjet = dateFinProjet;
+        this.Status = Status;
+        ListeTaches = new ArrayList<>();
+        ListeSeances = new ArrayList<>();
+        ListeDocument = new ArrayList<>();
+
+    }
     public Projet(String nomProjet,
             String categorieProjet, String typeProjet, String descriptionProjet,
             Date dateDepartProjet, Date dateFinProjet) {
@@ -38,6 +54,22 @@ public class Projet {
 
     }
 
+    public Projet(
+            ObjectId idProjet,String nomProjet, String categorieProjet, String typeProjet, String descriptionProjet,
+            Date dateDepartProjet, Date dateFinProjet, String Status) {
+        this.idProjet = idProjet;
+        this.nomProjet=nomProjet;
+        this.categorieProjet = categorieProjet;
+        this.typeProjet = typeProjet;
+        this.descriptionProjet = descriptionProjet;
+        this.dateDepartProjet = dateDepartProjet;
+        this.dateFinProjet = dateFinProjet;
+        this.Status = Status;
+        ListeTaches = new ArrayList<>();
+        ListeSeances = new ArrayList<>();
+        ListeDocument = new ArrayList<>();
+
+    }
     public Projet(
             ObjectId idProjet,String nomProjet, String categorieProjet, String typeProjet, String descriptionProjet,
             Date dateDepartProjet, Date dateFinProjet) {
@@ -134,6 +166,13 @@ public class Projet {
         this.nomProjet = nomProjet;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
     @Override
     public String toString() {
         return "Projet{" +
@@ -149,4 +188,6 @@ public class Projet {
                 ", ListeDocument=" + ListeDocument +
                 '}';
     }
+
+    
 }
