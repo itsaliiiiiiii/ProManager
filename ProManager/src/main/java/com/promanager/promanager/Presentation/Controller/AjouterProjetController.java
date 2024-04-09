@@ -70,14 +70,25 @@ public class AjouterProjetController {
         });
     }
     private void AjouterProjet() throws AjouterProjetExeption{
-        gestionProjet gProjet = new gestionProjet();
-        gProjet.add(InputNomProjet.getText(),
-                comboBoxCategorie.getSelectionModel().getSelectedItem(), 
-                comboBoxType.getSelectionModel().getSelectedItem(), Description.getText(),
-                Date.from(Instant.from((PickerDateDepart
-                        .getValue()).atStartOfDay(ZoneId.systemDefault()))), 
-                Date.from(Instant.from((PickerDateFin
-                        .getValue()).atStartOfDay(ZoneId.systemDefault()))));
+        if (InputNomProjet.getText() != null &&
+                comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
+                comboBoxType.getSelectionModel().getSelectedItem() != null &&
+                Description.getText() != null &&
+                PickerDateDepart.getValue() != null &&
+                PickerDateFin.getValue() != null) {
+
+            gestionProjet gProjet = new gestionProjet();
+            gProjet.add(InputNomProjet.getText(),
+                    comboBoxCategorie.getSelectionModel().getSelectedItem(),
+                    comboBoxType.getSelectionModel().getSelectedItem(), Description.getText(),
+                    Date.from(Instant.from((PickerDateDepart
+                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
+                    Date.from(Instant.from((PickerDateFin
+                            .getValue()).atStartOfDay(ZoneId.systemDefault()))));
+        } else {
+            throw new AjouterProjetExeption();
+        }
+        
     }
     private void openProjetsPage() {
         ProjetsPage projetsPage = new ProjetsPage(stage);

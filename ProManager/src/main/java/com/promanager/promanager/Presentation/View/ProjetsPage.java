@@ -241,7 +241,7 @@ public class ProjetsPage extends AnchorPane {
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
         this.rechercheInput.setLayoutY(72.0);
-        this.rechercheInput.setLayoutX(876);
+        this.rechercheInput.setLayoutX(886);
         this.rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
 
         this.rechercheButton.setLayoutX(1030.0);

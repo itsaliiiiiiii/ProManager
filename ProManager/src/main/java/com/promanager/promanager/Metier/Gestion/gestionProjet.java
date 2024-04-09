@@ -39,7 +39,8 @@ public class gestionProjet {
 
     public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) throws AjouterProjetExeption {
         Date currentDate = new Date();
-        if (config.check(categorie, "Categorie") &&
+        if (nomProjet != null && categorie != null && type != null && description != null && debut != null
+                && fin != null && config.check(categorie, "Categorie") &&
                 config.check(type, "Type") &&
                 (debut.equals(currentDate) || debut.after(currentDate)) &&
                 fin.after(debut)) {
