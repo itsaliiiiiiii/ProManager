@@ -9,10 +9,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
-import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Metier.POJO.Tache;
 
 public class DAOprojet {
 
@@ -55,9 +52,9 @@ public class DAOprojet {
         projet.setDescriptionProjet(document.getString("Description"));
         projet.setIdProjet(document.getObjectId("_id"));
         projet.setTypeProjet(document.getString("Type"));
-        projet.setListeTaches((ArrayList) document.getList("Taches", Tache.class));
-        projet.setListeSeances((ArrayList) document.getList("Seances", Seance.class));
-        projet.setListeDocument((ArrayList) document.getList("Documents", Document_.class));
+        projet.setListeTaches((ArrayList) document.getList("Taches", ObjectId.class));
+        projet.setListeSeances((ArrayList) document.getList("Seances", ObjectId.class));
+        projet.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
 
         return projet;
     }

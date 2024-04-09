@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.View;
+package com.promanager.promanager.Presentation.View.ProjetView;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -8,7 +8,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Presentation.Controller.ProjetsPageController;
+import com.promanager.promanager.Presentation.Controller.ProjetController.ProjetsPageController;
 
 import java.text.SimpleDateFormat;
 
@@ -279,7 +279,7 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 400.0);
+        scrollPane.setPrefSize(819.0, 500.0);
         scrollPane.setLayoutX(338.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
@@ -345,6 +345,7 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);
             elemProjet.setMaxHeight(150);
+            elemProjet.setMinHeight(130);
             elemProjet.setMaxWidth(250);
             elemProjet.setStyle(
                     "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");

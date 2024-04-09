@@ -2,7 +2,7 @@ package com.promanager.promanager.Presentation.Controller;
 
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.View.LoginPage;
-import com.promanager.promanager.Presentation.View.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

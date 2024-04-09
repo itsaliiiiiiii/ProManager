@@ -1,13 +1,16 @@
 package com.promanager.promanager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Persistance.Connexion;
 import com.promanager.promanager.Persistance.DAOconfiguration;
+import com.promanager.promanager.Persistance.DAOprojet;
 import com.promanager.promanager.Presentation.View.LoginPage;
-import com.promanager.promanager.Presentation.View.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,7 +31,7 @@ public class App extends Application {
             stage.setTitle("ProManager");
             stage.show();
         } else {
-            ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
+            ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
             Scene projectsScene = new Scene(projetsPage, 1300, 800);
             stage.setScene(projectsScene);
             stage.setMinWidth(1300);

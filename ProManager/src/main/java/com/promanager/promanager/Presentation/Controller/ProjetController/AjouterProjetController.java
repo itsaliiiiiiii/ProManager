@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.Controller;
+package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -6,8 +6,8 @@ import java.util.Date;
 
 import com.promanager.promanager.Metier.Exeptions.AjouterProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Presentation.View.AjouterProjetPage;
-import com.promanager.promanager.Presentation.View.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
+import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

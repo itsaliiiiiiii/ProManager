@@ -1,10 +1,10 @@
-package com.promanager.promanager.Presentation.Controller;
+package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.View.AffichageProjet;
-import com.promanager.promanager.Presentation.View.AjouterProjetPage;
-import com.promanager.promanager.Presentation.View.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
+import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
+import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,7 +73,7 @@ public class ProjetsPageController {
     public void afficherProjet(ObjectId id){
         stage.setWidth(1300);
         stage.setHeight(800);
-        AffichageProjet AjouterPage = new AffichageProjet(id);
+        AffichageProjet AjouterPage = new AffichageProjet(id, stage);
         Parent root = AjouterPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);

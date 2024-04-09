@@ -1,7 +1,7 @@
-package com.promanager.promanager.Presentation.View;
+package com.promanager.promanager.Presentation.View.ProjetView;
 
 import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Presentation.Controller.AjouterProjetController;
+import com.promanager.promanager.Presentation.Controller.ProjetController.AjouterProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;

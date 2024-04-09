@@ -24,7 +24,7 @@ public class DAOliste {
             liste.setIdListe(document.getObjectId("_id"));
             liste.setDescriptionListe(document.getString("Description"));
             liste.setNomListe(document.getString("Nom"));
-            liste.setListeTache((ArrayList) document.getList("Taches", Tache.class));
+            liste.setListeTache((ArrayList) document.getList("Taches", ObjectId.class));
             listes.add(liste);
         }
         return listes;
@@ -41,7 +41,7 @@ public class DAOliste {
         liste.setIdListe(document.getObjectId("_id"));
         liste.setDescriptionListe(document.getString("Description"));
         liste.setNomListe(document.getString("Nom"));
-        liste.setListeTache((ArrayList) document.getList("Taches", Tache.class));
+        liste.setListeTache((ArrayList) document.getList("Taches", ObjectId.class));
         return liste;
     }
 
