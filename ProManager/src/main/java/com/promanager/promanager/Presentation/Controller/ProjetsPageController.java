@@ -73,7 +73,7 @@ public class ProjetsPageController {
     public void afficherProjet(ObjectId id){
         stage.setWidth(1300);
         stage.setHeight(800);
-        AffichageProjet AjouterPage = new AffichageProjet();
+        AffichageProjet AjouterPage = new AffichageProjet(id);
         Parent root = AjouterPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
