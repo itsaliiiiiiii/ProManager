@@ -1,5 +1,6 @@
 package com.promanager.promanager.Presentation.View;
 
+import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.AjouterProjetController;
 
 import javafx.scene.control.Button;
@@ -8,7 +9,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -28,7 +31,11 @@ public class AjouterProjetPage extends AnchorPane {
     private Button buttonAjouter;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
-    AjouterProjetController controller;
+    private Stage stage;
+    @SuppressWarnings("unused")
+    private AjouterProjetController controller;
+
+    private DAOconfiguration config;
 
     public Text getAjouterProjet() {
         return AjouterProjet;
@@ -91,128 +98,164 @@ public class AjouterProjetPage extends AnchorPane {
     }
 
     public AjouterProjetPage(Stage stage) {
-
+        AjouterProjet = new Text("Ajouter Projet");
+        NomProjet = new Text("Nom Projet");
+        InputNomProjet = new TextField();
+        Type = new Text("Type");
+        Categorie = new Text("Categorie");
+        comboBoxCategorie = new ComboBox<>();
+        InputDescription = new TextArea();
+        Description = new Text("Description");
+        PickerDateFin = new DatePicker();
+        DateFin = new Text("Date Fin");
+        DateDepart = new Text("Date Depart");
+        comboBoxType = new ComboBox<>();
+        buttonAjouter = new Button("Ajouter");
+        PickerDateDepart = new DatePicker();
+        buttonAnnuler = new Button("Annulé");
+        this.stage = stage;
         this.controller = new AjouterProjetController(this, stage);
-
         this.design();
     }
 
     private void design() {
-        AjouterProjet = new Text("Ajouter Projet");
-        AjouterProjet.setLayoutX(517.0);
-        AjouterProjet.setLayoutY(126.0);
-        AjouterProjet.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        AjouterProjet.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        AjouterProjet.setStrokeWidth(0.0);
-        AjouterProjet.setFont(Font.font("System Bold", 48.0));
 
-        NomProjet = new Text("Nom Projet");
-        NomProjet.setLayoutX(266.0);
-        NomProjet.setLayoutY(226.0);
-        NomProjet.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        NomProjet.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        NomProjet.setStrokeWidth(0.0);
-        NomProjet.setFont(Font.font(32.0));
+        AjouterProjet.setLayoutX(470.0);
+        AjouterProjet.setLayoutY(100.0);
+        AjouterProjet.setFont(Font.font("Arial", FontWeight.BOLD, 48.0));
+        AjouterProjet.setFill(Color.web("#6a82ab"));
+        AjouterProjet.setText("Ajouter un Projet");
 
-        InputNomProjet = new TextField();
-        InputNomProjet.setLayoutX(264.0);
-        InputNomProjet.setLayoutY(243.0);
-        InputNomProjet.setPrefHeight(40.0);
-        InputNomProjet.setPrefWidth(283.0);
-        this.InputNomProjet.setStyle(
-                "-fx-background-color:#f4f4f4; -fx-border-radius:9px; -fx-background-radius:9px; -fx-border-color:#546379; -fx-border-width:2px;");
+        NomProjet.setLayoutX(300.0);
+        NomProjet.setLayoutY(190.0);
+        NomProjet.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        NomProjet.setFill(Color.web("#6a82ab"));
+        NomProjet.setText("Nom du Projet");
 
-        Type = new Text("Type");
-        Type.setLayoutX(264.0);
-        Type.setLayoutY(372.0);
-        Type.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        Type.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Type.setStrokeWidth(0.0);
-        Type.setFont(Font.font(32.0));
+        InputNomProjet.setLayoutX(300.0);
+        InputNomProjet.setLayoutY(200.0);
+        InputNomProjet.setPrefWidth(400.0);
+        InputNomProjet.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
+        InputNomProjet.setFont(Font.font("Arial", 18.0));
 
-        comboBoxType = new ComboBox<>();
-        comboBoxType.setLayoutX(267.0);
-        comboBoxType.setLayoutY(391.0);
-        comboBoxType.setPrefHeight(41.0);
-        comboBoxType.setPrefWidth(277.0);
-        comboBoxType.setStyle("-fx-background-color: #fff;");
+        Type.setLayoutX(300.0);
+        Type.setLayoutY(280.0);
+        Type.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        Type.setFill(Color.web("#6a82ab"));
+        Type.setText("Type");
 
-        Categorie = new Text("Categorie");
-        Categorie.setLayoutX(264.0);
-        Categorie.setLayoutY(462.0);
-        Categorie.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        Categorie.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Categorie.setStrokeWidth(0.0);
-        Categorie.setFont(Font.font(32.0));
+        comboBoxType.setLayoutX(300.0);
+        comboBoxType.setLayoutY(290.0);
+        comboBoxType.setPrefWidth(400.0);
+        comboBoxType.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
 
-        comboBoxCategorie = new ComboBox<>();
-        comboBoxCategorie.setLayoutX(267.0);
-        comboBoxCategorie.setLayoutY(491.0);
-        comboBoxCategorie.setPrefHeight(41.0);
-        comboBoxCategorie.setPrefWidth(277.0);
+        Categorie.setLayoutX(300.0);
+        Categorie.setLayoutY(370.0);
+        Categorie.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        Categorie.setFill(Color.web("#6a82ab"));
+        Categorie.setText("Catégorie");
 
-        InputDescription = new TextArea();
-        InputDescription.setLayoutX(924.0);
-        InputDescription.setLayoutY(464.0);
-        InputDescription.setPrefHeight(200.0);
-        InputDescription.setPrefWidth(282.0);
-        this.InputDescription.setStyle(
-                "-fx-background-color:#f4f4f4; -fx-border-radius:9px; -fx-background-radius:9px; -fx-border-color:#546379; -fx-border-width:2px;");
+        comboBoxCategorie.setLayoutX(300.0);
+        comboBoxCategorie.setLayoutY(380.0);
+        comboBoxCategorie.setPrefWidth(400.0);
+        comboBoxCategorie.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
 
-        Description = new Text("Description");
-        Description.setLayoutX(924.0);
-        Description.setLayoutY(407.0);
-        Description.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        Description.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Description.setStrokeWidth(0.0);
-        Description.setFont(Font.font(32.0));
+        Description.setLayoutX(300.0);
+        Description.setLayoutY(460.0);
+        Description.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        Description.setFill(Color.web("#6a82ab"));
+        Description.setText("Description");
 
-        PickerDateFin = new DatePicker();
-        PickerDateFin.setLayoutX(928.0);
-        PickerDateFin.setLayoutY(330.0);
-        PickerDateFin.setPrefHeight(40.0);
-        PickerDateFin.setPrefWidth(245.0);
+        InputDescription.setLayoutX(300.0);
+        InputDescription.setLayoutY(470.0);
+        InputDescription.setPrefWidth(400.0);
+        InputDescription.setPrefHeight(100.0);
+        InputDescription.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
+        InputDescription.setFont(Font.font("Arial", 18.0));
 
-        DateFin = new Text("Date Fin");
-        DateFin.setLayoutX(932.0);
-        DateFin.setLayoutY(312.0);
-        DateFin.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        DateFin.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        DateFin.setStrokeWidth(0.0);
-        DateFin.setFont(Font.font(32.0));
+        DateDepart.setLayoutX(800.0);
+        DateDepart.setLayoutY(190.0);
+        DateDepart.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        DateDepart.setFill(Color.web("#6a82ab"));
+        DateDepart.setText("Date de Début");
 
-        PickerDateDepart = new DatePicker();
-        PickerDateDepart.setLayoutX(925.0);
-        PickerDateDepart.setLayoutY(225.0);
-        PickerDateDepart.setPrefHeight(40.0);
-        PickerDateDepart.setPrefWidth(245.0);
+        PickerDateDepart.setLayoutX(800.0);
+        PickerDateDepart.setLayoutY(200.0);
+        PickerDateDepart.setPrefWidth(200.0);
 
-        DateDepart = new Text("Date Depart");
-        DateDepart.setLayoutX(929.0);
-        DateDepart.setLayoutY(207.0);
-        DateDepart.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        DateDepart.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        DateDepart.setStrokeWidth(0.0);
-        DateDepart.setFont(Font.font(32.0));
+        DateFin.setLayoutX(800.0);
+        DateFin.setLayoutY(270.0);
+        DateFin.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        DateFin.setFill(Color.web("#6a82ab"));
+        DateFin.setText("Date de Fin");
 
-        buttonAjouter = new Button("Ajouter");
-        buttonAjouter.setLayoutX(986.0);
-        buttonAjouter.setLayoutY(687.0);
-        buttonAjouter.setMnemonicParsing(false);
-        buttonAjouter.setPrefHeight(56.0);
-        buttonAjouter.setPrefWidth(162.0);
-        buttonAjouter.setFont(Font.font(25.0));
+        PickerDateFin.setLayoutX(800.0);
+        PickerDateFin.setLayoutY(280.0);
+        PickerDateFin.setPrefWidth(200.0);
 
-        buttonAnnuler = new Button("Annulé");
-        buttonAnnuler.setLayoutX(293.0);
-        buttonAnnuler.setLayoutY(685.0);
-        buttonAnnuler.setMnemonicParsing(false);
-        buttonAnnuler.setPrefHeight(56.0);
-        buttonAnnuler.setPrefWidth(162.0);
-        buttonAnnuler.setFont(Font.font(25.0));
+        buttonAjouter.setLayoutX(800.0);
+        buttonAjouter.setLayoutY(480.0);
+        buttonAjouter.setPrefWidth(150.0);
+        buttonAjouter.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        buttonAjouter.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+        buttonAjouter.setText("Ajouter");
 
-        getChildren().addAll(AjouterProjet, NomProjet, InputNomProjet, Type, comboBoxType, Categorie,
-                comboBoxCategorie, Description, InputDescription, PickerDateFin, DateFin,
-                PickerDateDepart, DateDepart, buttonAjouter, buttonAnnuler);
+        buttonAnnuler.setLayoutX(800.0);
+        buttonAnnuler.setLayoutY(530.0);
+        buttonAnnuler.setPrefWidth(150.0);
+        buttonAnnuler.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        buttonAnnuler.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+        buttonAnnuler.setText("Annuler");
+
+        this.config = new DAOconfiguration();
+        config.getCategorie();
+        comboBoxCategorie.getItems().addAll(config.getCategorie());
+        comboBoxType.getItems().addAll(config.getType());
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double widthChange = (newVal.doubleValue() - oldVal.doubleValue()) / 2;
+            buttonAnnuler.setLayoutX(buttonAnnuler.getLayoutX() + widthChange);
+            buttonAjouter.setLayoutX(buttonAjouter.getLayoutX() + widthChange);
+            PickerDateFin.setLayoutX(PickerDateFin.getLayoutX() + widthChange);
+            DateFin.setLayoutX(DateFin.getLayoutX() + widthChange);
+            PickerDateDepart.setLayoutX(PickerDateDepart.getLayoutX() + widthChange);
+            Description.setLayoutX(Description.getLayoutX() + widthChange);
+            AjouterProjet.setLayoutX(AjouterProjet.getLayoutX() + widthChange);
+            NomProjet.setLayoutX(NomProjet.getLayoutX() + widthChange);
+            InputNomProjet.setLayoutX(InputNomProjet.getLayoutX() + widthChange);
+            Type.setLayoutX(Type.getLayoutX() + widthChange);
+            comboBoxType.setLayoutX(comboBoxType.getLayoutX() + widthChange);
+            Categorie.setLayoutX(Categorie.getLayoutX() + widthChange);
+            comboBoxCategorie.setLayoutX(comboBoxCategorie.getLayoutX() + widthChange);
+            InputDescription.setLayoutX(InputDescription.getLayoutX() + widthChange);
+            DateDepart.setLayoutX(DateDepart.getLayoutX() + widthChange);
+
+        });
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double heightChange = (newVal.doubleValue() - oldVal.doubleValue()) / 2;
+            buttonAnnuler.setLayoutY(buttonAnnuler.getLayoutY() + heightChange);
+            buttonAjouter.setLayoutY(buttonAjouter.getLayoutY() + heightChange);
+            PickerDateFin.setLayoutY(PickerDateFin.getLayoutY() + heightChange);
+            DateFin.setLayoutY(DateFin.getLayoutY() + heightChange);
+            PickerDateDepart.setLayoutY(PickerDateDepart.getLayoutY() + heightChange);
+            Description.setLayoutY(Description.getLayoutY() + heightChange);
+            AjouterProjet.setLayoutY(AjouterProjet.getLayoutY() + heightChange);
+            NomProjet.setLayoutY(NomProjet.getLayoutY() + heightChange);
+            InputNomProjet.setLayoutY(InputNomProjet.getLayoutY() + heightChange);
+            Type.setLayoutY(Type.getLayoutY() + heightChange);
+            comboBoxType.setLayoutY(comboBoxType.getLayoutY() + heightChange);
+            Categorie.setLayoutY(Categorie.getLayoutY() + heightChange);
+            comboBoxCategorie.setLayoutY(comboBoxCategorie.getLayoutY() + heightChange);
+            InputDescription.setLayoutY(InputDescription.getLayoutY() + heightChange);
+            DateDepart.setLayoutY(DateDepart.getLayoutY() + heightChange);
+
+        });
+
+        getChildren().addAll(AjouterProjet, NomProjet, InputNomProjet, Type,
+                comboBoxType, Categorie,
+                comboBoxCategorie, Description, InputDescription, DateDepart,
+                PickerDateDepart, DateFin,
+                PickerDateFin, buttonAjouter, buttonAnnuler);
     }
+
 }

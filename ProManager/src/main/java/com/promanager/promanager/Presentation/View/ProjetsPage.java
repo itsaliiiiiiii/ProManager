@@ -36,12 +36,12 @@ public class ProjetsPage extends AnchorPane {
     private Text projetsText;
     private ComboBox<String> CategorieFilter;
     private ComboBox<String> TypeFilter;
-    private ProjetsPageController controller;
     private TextField rechercheInput;
     private Button rechercheButton;
-    private Button AjouterProjet;
+    private Button buttonAjouter;
     private Button FiltrerButton;
     private Stage stage;
+    private ProjetsPageController controller;
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
@@ -49,6 +49,7 @@ public class ProjetsPage extends AnchorPane {
     private DAOconfiguration config;
 
     public ProjetsPage(Stage stage) {
+        this.stage = stage;
         this.background = new AnchorPane();
         this.sideBar = new Pane();
         this.Projets = new Button("Projets");
@@ -59,11 +60,10 @@ public class ProjetsPage extends AnchorPane {
         this.CategorieFilter = new ComboBox<>();
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
-        this.rechercheButton = new Button();
-        this.FiltrerButton = new Button();
-        this.AjouterProjet= new Button();
-        this.stage = stage;
-        this.controller = new ProjetsPageController(this,stage);
+        this.rechercheButton = new Button("Rechercher");
+        this.FiltrerButton = new Button("Filtrer");
+        this.buttonAjouter = new Button("Ajouter Projet");
+        this.controller = new ProjetsPageController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
 
@@ -85,8 +85,8 @@ public class ProjetsPage extends AnchorPane {
         return Projets;
     }
 
-    public Button getAjouterProjet() {
-        return AjouterProjet;
+    public Button getButtonAjouter() {
+        return buttonAjouter;
     }
 
     public Button getFiltrerButton() {
@@ -138,50 +138,45 @@ public class ProjetsPage extends AnchorPane {
     }
 
     public void init() {
-        sideBar = new Pane();
-        sideBar.setLayoutX(-29.0);
-        sideBar.setLayoutY(0);
-        sideBar.setPrefHeight(805.0);
-        sideBar.setPrefWidth(240.0);
-        sideBar.prefHeightProperty().bind(heightWindow().subtract(25));
-        sideBar.setStyle(
+        this.sideBar.setLayoutX(-29.0);
+        this.sideBar.setLayoutY(0);
+        this.sideBar.setPrefHeight(805.0);
+        this.sideBar.setPrefWidth(240.0);
+        this.sideBar.prefHeightProperty().bind(heightWindow().subtract(25));
+        this.sideBar.setStyle(
                 "-fx-background-color: #6a82ab; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: black; -fx-opacity:0.8;");
 
-        Projets = new Button("Projets");
-        Projets.setLayoutX(0.0);
-        Projets.setLayoutY(30.0);
-        Projets.setPrefHeight(70.0);
-        Projets.setPrefWidth(210.0);
-        Projets.setStyle("-fx-background-color: transparent; ");
-        Projets.setTextFill(javafx.scene.paint.Color.WHITE);
-        Projets.setFont(Font.font("Arial Bold", 31.0));
+        this.Projets.setLayoutX(0.0);
+        this.Projets.setLayoutY(30.0);
+        this.Projets.setPrefHeight(70.0);
+        this.Projets.setPrefWidth(210.0);
+        this.Projets.setStyle("-fx-background-color: transparent; ");
+        this.Projets.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.Projets.setFont(Font.font("Arial Bold", 31.0));
 
-        Listes = new Button("Listes");
-        Listes.setLayoutX(0.0);
-        Listes.setLayoutY(100.0);
-        Listes.setPrefHeight(70.0);
-        Listes.setPrefWidth(210.0);
-        Listes.setStyle("-fx-background-color: transparent; ");
-        Listes.setTextFill(javafx.scene.paint.Color.WHITE);
-        Listes.setFont(Font.font("Arial Bold", 31.0));
+        this.Listes.setLayoutX(0.0);
+        this.Listes.setLayoutY(100.0);
+        this.Listes.setPrefHeight(70.0);
+        this.Listes.setPrefWidth(210.0);
+        this.Listes.setStyle("-fx-background-color: transparent; ");
+        this.Listes.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.Listes.setFont(Font.font("Arial Bold", 31.0));
 
-        Historiques = new Button("Historiques");
-        Historiques.setLayoutX(0.0);
-        Historiques.setLayoutY(170.0);
-        Historiques.setPrefHeight(70.0);
-        Historiques.setPrefWidth(210.0);
-        Historiques.setStyle("-fx-background-color: transparent; ");
-        Historiques.setTextFill(javafx.scene.paint.Color.WHITE);
-        Historiques.setFont(Font.font("Arial Bold", 31.0));
+        this.Historiques.setLayoutX(0.0);
+        this.Historiques.setLayoutY(170.0);
+        this.Historiques.setPrefHeight(70.0);
+        this.Historiques.setPrefWidth(210.0);
+        this.Historiques.setStyle("-fx-background-color: transparent; ");
+        this.Historiques.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.Historiques.setFont(Font.font("Arial Bold", 31.0));
 
-        Statistiques = new Button("Statistiques");
-        Statistiques.setLayoutX(0.0);
-        Statistiques.setLayoutY(240.0);
-        Statistiques.setPrefHeight(70.0);
-        Statistiques.setPrefWidth(210.0);
-        Statistiques.setStyle("-fx-background-color: transparent; ");
-        Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
-        Statistiques.setFont(Font.font("Arial Bold", 31.0));
+        this.Statistiques.setLayoutX(0.0);
+        this.Statistiques.setLayoutY(240.0);
+        this.Statistiques.setPrefHeight(70.0);
+        this.Statistiques.setPrefWidth(210.0);
+        this.Statistiques.setStyle("-fx-background-color: transparent; ");
+        this.Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.Statistiques.setFont(Font.font("Arial Bold", 31.0));
 
         this.Statistiques.setOnMouseEntered(event -> {
             this.Statistiques.setStyle(
@@ -216,63 +211,59 @@ public class ProjetsPage extends AnchorPane {
                     "-fx-background-color: transparent; ");
         });
 
-        projetsText = new Text("Projets");
-        projetsText.setLayoutX(240.0);
-        projetsText.setLayoutY(96.0);
-        projetsText.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        projetsText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        projetsText.setStrokeWidth(0.0);
-        projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
-        projetsText.setWrappingWidth(188.78101640354225);
+        this.projetsText.setLayoutX(240.0);
+        this.projetsText.setLayoutY(96.0);
+        this.projetsText.setFill(javafx.scene.paint.Color.web("#6a82ab"));
+        this.projetsText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        this.projetsText.setStrokeWidth(0.0);
+        this.projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
+        this.projetsText.setWrappingWidth(188.78101640354225);
 
-        CategorieFilter = new ComboBox<>();
-        CategorieFilter.setLayoutX(406.0);
-        CategorieFilter.setLayoutY(72.0);
-        CategorieFilter.setPrefHeight(26.0);
-        CategorieFilter.setPrefWidth(130.0);
-        CategorieFilter.setPromptText("Categorie");
-        CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
+        this.CategorieFilter.setLayoutX(406.0);
+        this.CategorieFilter.setLayoutY(72.0);
+        this.CategorieFilter.setPrefHeight(26.0);
+        this.CategorieFilter.setPrefWidth(130.0);
+        this.CategorieFilter.setPromptText("Categorie");
+        this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        TypeFilter = new ComboBox<>();
-        TypeFilter.setLayoutX(545.0);
-        TypeFilter.setLayoutY(72.0);
-        TypeFilter.setPrefHeight(26.0);
-        TypeFilter.setPrefWidth(108.0);
-        TypeFilter.setPromptText("Type");
-        TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
+        this.TypeFilter.setLayoutX(545.0);
+        this.TypeFilter.setLayoutY(72.0);
+        this.TypeFilter.setPrefHeight(26.0);
+        this.TypeFilter.setPrefWidth(108.0);
+        this.TypeFilter.setPromptText("Type");
+        this.TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        FiltrerButton = new Button("Filtrer");
-        FiltrerButton.setLayoutX(660.0);
-        FiltrerButton.setLayoutY(72.0);
-        FiltrerButton.setStyle("-fx-background-color: #6a82ab;");
-        FiltrerButton.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.FiltrerButton.setLayoutX(660.0);
+        this.FiltrerButton.setLayoutY(72.0);
+        this.FiltrerButton.setStyle("-fx-background-color: #6a82ab;");
+        this.FiltrerButton.setTextFill(javafx.scene.paint.Color.WHITE);
 
-        rechercheInput = new TextField();
-        rechercheInput.setPrefWidth(100);
-        rechercheInput.setPrefWidth(150.0);
-        rechercheInput.setLayoutY(72.0);
-        rechercheInput.setLayoutX(886);
-        rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
+        this.rechercheInput.setPrefWidth(100);
+        this.rechercheInput.setPrefWidth(150.0);
+        this.rechercheInput.setLayoutY(72.0);
+        this.rechercheInput.setLayoutX(876);
+        this.rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
 
-        rechercheButton = new Button("Rechercher");
-        rechercheButton.setLayoutX(1030.0);
-        rechercheButton.setLayoutY(72.0);
-        rechercheButton.setStyle("-fx-background-color: #6a82ab;");
-        rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.rechercheButton.setLayoutX(1030.0);
+        this.rechercheButton.setLayoutY(72.0);
+        this.rechercheButton.setStyle("-fx-background-color: #6a82ab;");
+        this.rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);
 
-        AjouterProjet = new Button("Ajouter Projet");
-        AjouterProjet.setLayoutX(1133.0);
-        AjouterProjet.setLayoutY(72.0);
-        AjouterProjet.setPrefHeight(26.0);
-        AjouterProjet.setPrefWidth(125.0);
-        AjouterProjet.setStyle("-fx-background-color: #6a82ab;");
-        AjouterProjet.setTextFill(javafx.scene.paint.Color.WHITE);
-        AjouterProjet.setFont(Font.font("System Italic", 13.0));
+        this.buttonAjouter.setLayoutX(1132.0);
+        this.buttonAjouter.setLayoutY(72.0);
+        this.buttonAjouter.setMnemonicParsing(false);
+
+        this.buttonAjouter.setPrefHeight(26.0);
+        this.buttonAjouter.setPrefWidth(125.0);
+        this.buttonAjouter.setStyle("-fx-background-color: #6a82ab;");
+        this.buttonAjouter.setTextFill(javafx.scene.paint.Color.WHITE);
+        this.buttonAjouter.setFont(Font.font("System", 13.0));
+        this.buttonAjouter.setDisable(false);
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             rechercheInput.setLayoutX(newVal.doubleValue() - 410);
             rechercheButton.setLayoutX(newVal.doubleValue() - 250);
-            AjouterProjet.setLayoutX(newVal.doubleValue() - 150);
+            buttonAjouter.setLayoutX(newVal.doubleValue() - 150);
         });
 
         ScrollPane scrollPane = new ScrollPane();
@@ -325,7 +316,7 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setMaxHeight(150);
             elemProjet.setMaxWidth(250);
             elemProjet.setStyle(
-                    "-fx-background-color: #6a82ab88;;");
+                    "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");
 
             VBox vbox = new VBox();
             vbox.setLayoutX(-4.0);
@@ -350,7 +341,7 @@ public class ProjetsPage extends AnchorPane {
             DateDepart.setTextFill(Color.WHITE);
             DateFin.setTextFill(Color.WHITE);
 
-            vbox.getChildren().addAll(Nom,Categorie, Description, Type, DateDepart, DateFin);
+            vbox.getChildren().addAll(Nom, Categorie, Description, Type, DateDepart, DateFin);
 
             gridPane.add(elemProjet, col, row);
 
@@ -374,7 +365,7 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setContent(gridPane);
 
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
-                TypeFilter, rechercheInput, rechercheButton, AjouterProjet,
+                TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
                 FiltrerButton, scrollPane);
 
     }

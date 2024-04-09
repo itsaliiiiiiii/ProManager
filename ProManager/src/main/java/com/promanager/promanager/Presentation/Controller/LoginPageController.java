@@ -28,7 +28,6 @@ public class LoginPageController {
         this.loginButton.setOnAction(event -> {
             verificationMail();
         });
-
     }
 
     public void verificationMail() {

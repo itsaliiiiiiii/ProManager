@@ -1,5 +1,11 @@
 package com.promanager.promanager.Presentation.Controller;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+
+import com.promanager.promanager.Metier.Exeptions.AjouterProjetExeption;
+import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Presentation.View.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetsPage;
 
@@ -49,7 +55,38 @@ public class AjouterProjetController {
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
         this.stage = stage;
-        
-    }
 
+        this.buttonAnnuler.setOnAction(event -> {
+            openProjetsPage();
+        });
+        
+        this.buttonAjouter.setOnAction(event -> {
+            try{
+                AjouterProjet();
+                openProjetsPage();
+            }catch(AjouterProjetExeption e){
+                e.MessageErreurAjouterProjet();
+            }
+        });
+    }
+    private void AjouterProjet() throws AjouterProjetExeption{
+        gestionProjet gProjet = new gestionProjet();
+        gProjet.add(InputNomProjet.getText(),
+                comboBoxCategorie.getSelectionModel().getSelectedItem(), 
+                comboBoxType.getSelectionModel().getSelectedItem(), Description.getText(),
+                Date.from(Instant.from((PickerDateDepart
+                        .getValue()).atStartOfDay(ZoneId.systemDefault()))), 
+                Date.from(Instant.from((PickerDateFin
+                        .getValue()).atStartOfDay(ZoneId.systemDefault()))));
+    }
+    private void openProjetsPage() {
+        ProjetsPage projetsPage = new ProjetsPage(stage);
+        Parent projetsRoot = projetsPage;
+        Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(true);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
 }

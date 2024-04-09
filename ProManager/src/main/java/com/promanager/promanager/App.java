@@ -29,11 +29,8 @@ public class App extends Application {
             stage.show();
         } else {
             ProjetsPage projetsPage = new ProjetsPage(stage);
-            Scene projectsScene = new Scene(projetsPage, 1000, 600);
+            Scene projectsScene = new Scene(projetsPage, 1300, 800);
             stage.setScene(projectsScene);
-            stage.setMinWidth(1000);
-            stage.setMinHeight(600);
-            stage.setTitle("ProManager - Projects");
             stage.setMinWidth(1300);
             stage.setMinHeight(800);
             stage.setTitle("ProManager");

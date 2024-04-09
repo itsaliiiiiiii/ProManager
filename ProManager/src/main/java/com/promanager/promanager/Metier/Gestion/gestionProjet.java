@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Exeptions.AjouterProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Persistance.DAOprojet;
@@ -36,7 +37,7 @@ public class gestionProjet {
         return projet.get(id);
     }
 
-    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) {
+    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) throws AjouterProjetExeption {
         Date currentDate = new Date();
         if (config.check(categorie, "Categorie") &&
                 config.check(type, "Type") &&
@@ -44,7 +45,7 @@ public class gestionProjet {
                 fin.after(debut)) {
             projet.add(nomProjet,categorie, type, description, debut, fin);
         } else {
-            System.out.println("Categorie ou Type incorrect !");
+            throw new AjouterProjetExeption();
         }
     }
 
