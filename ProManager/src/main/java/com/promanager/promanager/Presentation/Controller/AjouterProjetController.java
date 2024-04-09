@@ -94,7 +94,7 @@ public class AjouterProjetController {
     }
 
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage);
+        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);

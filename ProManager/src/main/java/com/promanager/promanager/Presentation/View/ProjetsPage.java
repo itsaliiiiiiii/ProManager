@@ -1,6 +1,7 @@
 package com.promanager.promanager.Presentation.View;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
@@ -48,10 +49,11 @@ public class ProjetsPage extends AnchorPane {
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
+    private String[] FiltrageProj;
 
     private DAOconfiguration config;
 
-    public ProjetsPage(Stage stage) {
+    public ProjetsPage(Stage stage, String Ftype, String Fcategorie) {
         this.stage = stage;
         this.background = new AnchorPane();
         this.sideBar = new Pane();
@@ -69,6 +71,9 @@ public class ProjetsPage extends AnchorPane {
         this.controller = new ProjetsPageController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
+        FiltrageProj = new String[2];
+        this.FiltrageProj[0] = Ftype;
+        this.FiltrageProj[1] = Fcategorie;
 
         this.config = new DAOconfiguration();
         this.gProjet = new gestionProjet();
@@ -312,7 +317,26 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setFitToHeight(true);
         int row = 0;
         int col = 0;
-        for (Projet proj : listProjets) {
+        ArrayList<Projet> filterProjets;
+
+        if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
+            filterProjets = listProjets.stream()
+                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
+                            project.getCategorieProjet().equals(FiltrageProj[1]))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (!FiltrageProj[0].equals("tout")) {
+            filterProjets = listProjets.stream()
+                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (!FiltrageProj[1].equals("tout")) {
+            filterProjets = listProjets.stream()
+                    .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else {
+            filterProjets = new ArrayList<>(listProjets);
+        }
+
+        for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);
@@ -321,8 +345,8 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setStyle(
                     "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");
 
-            VBox vbox = new VBox(10);
-            vbox.setPadding(new Insets(10,0,0,30));
+            VBox vbox = new VBox(5);
+            vbox.setPadding(new Insets(10, 0, 0, 30));
 
             vbox.setLayoutX(-4.0);
             vbox.setPrefHeight(211.0);
@@ -335,15 +359,17 @@ public class ProjetsPage extends AnchorPane {
             Label Nom = new Label(proj.getNomProjet());
             Nom.setStyle("-fx-font-size: 45px; -fx-font-weight: bold;");
             Label Categorie = new Label(proj.getCategorieProjet());
+            Label type = new Label(proj.getTypeProjet());
             // Label DateFin = new Label((proj.getDateFinProjet().toString()));
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Label DateFin = new Label(sdf.format(proj.getDateFinProjet()));
 
             Nom.setTextFill(Color.WHITE);
+            type.setTextFill(Color.WHITE);
             Categorie.setTextFill(Color.WHITE);
             DateFin.setTextFill(Color.WHITE);
 
-            vbox.getChildren().addAll(Nom, Categorie, DateFin);
+            vbox.getChildren().addAll(Nom, Categorie, type, DateFin);
             gridPane.add(elemProjet, col, row);
 
             col++;
@@ -358,9 +384,9 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setFitToHeight(true);
 
         config.getCategorie();
-        CategorieFilter.getItems().add("Tout");
+        CategorieFilter.getItems().add("tout");
         CategorieFilter.getItems().addAll(config.getCategorie());
-        TypeFilter.getItems().add("Tout");
+        TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
 
         scrollPane.setContent(gridPane);

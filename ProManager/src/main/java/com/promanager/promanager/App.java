@@ -28,7 +28,7 @@ public class App extends Application {
             stage.setTitle("ProManager");
             stage.show();
         } else {
-            ProjetsPage projetsPage = new ProjetsPage(stage);
+            ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
             Scene projectsScene = new Scene(projetsPage, 1300, 800);
             stage.setScene(projectsScene);
             stage.setMinWidth(1300);
@@ -36,7 +36,6 @@ public class App extends Application {
             stage.setTitle("ProManager");
             stage.show();
         }
-
     }
 
     public static void main(String[] args) {
