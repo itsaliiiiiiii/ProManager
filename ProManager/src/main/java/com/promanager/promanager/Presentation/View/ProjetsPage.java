@@ -7,7 +7,10 @@ import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.ProjetsPageController;
 
+import java.text.SimpleDateFormat;
+
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -267,13 +270,13 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 584.0);
+        scrollPane.setPrefSize(819.0, 400.0);
         scrollPane.setLayoutX(338.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
         scrollPane.prefHeightProperty().bind(Bindings.createDoubleBinding(
-                () -> 584 + (-800 + heightWindow().get()),
+                () -> 400 + (-800 + heightWindow().get()),
                 heightWindow()));
         scrollPane.prefWidthProperty().bind(Bindings.createDoubleBinding(
                 () -> 819 + (-1300 + widthWindow().get()),
@@ -318,7 +321,9 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setStyle(
                     "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");
 
-            VBox vbox = new VBox();
+            VBox vbox = new VBox(10);
+            vbox.setPadding(new Insets(10,0,0,30));
+
             vbox.setLayoutX(-4.0);
             vbox.setPrefHeight(211.0);
             vbox.setPrefWidth(223.0);
@@ -328,21 +333,17 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setPrefWidth(20.0);
 
             Label Nom = new Label(proj.getNomProjet());
+            Nom.setStyle("-fx-font-size: 45px; -fx-font-weight: bold;");
             Label Categorie = new Label(proj.getCategorieProjet());
-            Label Description = new Label(proj.getDescriptionProjet());
-            Label Type = new Label(proj.getTypeProjet());
-            Label DateDepart = new Label((proj.getDateDepartProjet()).toString());
-            Label DateFin = new Label((proj.getDateFinProjet().toString()));
+            // Label DateFin = new Label((proj.getDateFinProjet().toString()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Label DateFin = new Label(sdf.format(proj.getDateFinProjet()));
 
             Nom.setTextFill(Color.WHITE);
             Categorie.setTextFill(Color.WHITE);
-            Description.setTextFill(Color.WHITE);
-            Type.setTextFill(Color.WHITE);
-            DateDepart.setTextFill(Color.WHITE);
             DateFin.setTextFill(Color.WHITE);
 
-            vbox.getChildren().addAll(Nom, Categorie, Description, Type, DateDepart, DateFin);
-
+            vbox.getChildren().addAll(Nom, Categorie, DateFin);
             gridPane.add(elemProjet, col, row);
 
             col++;
@@ -367,6 +368,5 @@ public class ProjetsPage extends AnchorPane {
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
                 FiltrerButton, scrollPane);
-
     }
 }

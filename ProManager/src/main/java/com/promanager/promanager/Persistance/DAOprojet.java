@@ -71,6 +71,10 @@ public class DAOprojet {
         InfoProjet.put("Description", projet.getDescriptionProjet());
         InfoProjet.put("DateDebut", projet.getDateDepartProjet());
         InfoProjet.put("DateFin", projet.getDateFinProjet());
+        InfoProjet.put("Taches", new ArrayList<>());
+        InfoProjet.put("Seances", new ArrayList<>());
+        InfoProjet.put("Documents", new ArrayList<>());
+        InfoProjet.put("Statut", "Ouvert");
         connexion.insert(InfoProjet, "Projets");
     }
 

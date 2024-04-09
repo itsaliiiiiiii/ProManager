@@ -171,6 +171,7 @@ public class AjouterProjetPage extends AnchorPane {
         InputDescription.setPrefWidth(400.0);
         InputDescription.setPrefHeight(100.0);
         InputDescription.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
+        InputDescription.setText(" ");
         InputDescription.setFont(Font.font("Arial", 18.0));
 
         DateDepart.setLayoutX(800.0);

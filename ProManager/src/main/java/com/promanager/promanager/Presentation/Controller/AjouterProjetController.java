@@ -59,24 +59,26 @@ public class AjouterProjetController {
         this.buttonAnnuler.setOnAction(event -> {
             openProjetsPage();
         });
-        
+
         this.buttonAjouter.setOnAction(event -> {
-            try{
+            try {
                 AjouterProjet();
                 openProjetsPage();
-            }catch(AjouterProjetExeption e){
+            } catch (AjouterProjetExeption e) {
                 e.MessageErreurAjouterProjet();
             }
         });
     }
-    private void AjouterProjet() throws AjouterProjetExeption{
+
+    private void AjouterProjet() throws AjouterProjetExeption {
         if (InputNomProjet.getText() != null &&
                 comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
                 comboBoxType.getSelectionModel().getSelectedItem() != null &&
-                Description.getText() != null &&
                 PickerDateDepart.getValue() != null &&
                 PickerDateFin.getValue() != null) {
-
+            if (Description.getText() == null) {
+                Description.setText("  ");
+            }
             gestionProjet gProjet = new gestionProjet();
             gProjet.add(InputNomProjet.getText(),
                     comboBoxCategorie.getSelectionModel().getSelectedItem(),
@@ -88,8 +90,9 @@ public class AjouterProjetController {
         } else {
             throw new AjouterProjetExeption();
         }
-        
+
     }
+
     private void openProjetsPage() {
         ProjetsPage projetsPage = new ProjetsPage(stage);
         Parent projetsRoot = projetsPage;
