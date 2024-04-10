@@ -36,7 +36,6 @@ public class TachesProjet extends AnchorPane {
     private TextFlow description;
     private Text dateFin;
     private Button PrecedentButton;
-    private Button SupprimerButton;
     private Button AjouterButton;
     private TachesProjetController controller;
     private gestionProjet gProjet;
@@ -45,7 +44,7 @@ public class TachesProjet extends AnchorPane {
     private Stage stage;
     private Label textTaches;
     private ScrollPane scrollPane;
-    private VBox taskList;
+    private VBox tacheListe;
     private ArrayList<ObjectId> idsTaches;
     private String elemTache;
     private Tache tache;
@@ -60,7 +59,6 @@ public class TachesProjet extends AnchorPane {
         dateFin = new Text("Date Fin");
         PrecedentButton = new Button("Precedent");
         AjouterButton = new Button("Ajouter");
-        SupprimerButton = new Button("Supprimer");
         gProjet = new gestionProjet();
         gTaches = new DAOtache();
         tache = new Tache();
@@ -105,10 +103,6 @@ public class TachesProjet extends AnchorPane {
         return PrecedentButton;
     }
 
-    public Button getSupprimerButton() {
-        return SupprimerButton;
-    }
-
     public Button getAjouterButton() {
         return AjouterButton;
     }
@@ -141,13 +135,12 @@ public class TachesProjet extends AnchorPane {
         dateFin.setFont(new Font(20.0));
 
         scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(1200, 270);
-        scrollPane.setLayoutX(50.0);
-        scrollPane.setLayoutY(400.0);
-        scrollPane.setPrefWidth(1200);
-        scrollPane.setPrefHeight(270);
+        scrollPane.setLayoutX(200.0);
+        scrollPane.setLayoutY(420.0);
+        scrollPane.setPrefWidth(1100);
+        scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        taskList = new VBox(10);
+        tacheListe = new VBox(10);
 
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
@@ -157,15 +150,7 @@ public class TachesProjet extends AnchorPane {
         PrecedentButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         PrecedentButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
-        SupprimerButton.setLayoutX(1100.0);
-        SupprimerButton.setLayoutY(340.0);
-        SupprimerButton.setPrefWidth(150.0);
-        SupprimerButton.setPrefHeight(40.0);
-        SupprimerButton.setFont(new Font(18.0));
-        SupprimerButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
-        SupprimerButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-
-        AjouterButton.setLayoutX(930.0);
+        AjouterButton.setLayoutX(1100.0);
         AjouterButton.setLayoutY(340.0);
         AjouterButton.setPrefWidth(150.0);
         AjouterButton.setPrefHeight(40.0);
@@ -186,19 +171,22 @@ public class TachesProjet extends AnchorPane {
 
         for (ObjectId idTache : idsTaches) {
             tache = gTaches.get(idTache);
-            elemTache = "Categorie : " + tache.getCategorieTache() + " Date Depart : "
-                    + sdf.format(tache.getDateDepartTache()) + " Date Fin : " + sdf.format(tache.getDateFinTache())
-                    + " Description  : " + tache.getDescriptionTache();
-            Label taskLabel = new Label(elemTache);
-            taskLabel.setOnMouseClicked(event -> {
+            elemTache = "Categorie : " + tache.getCategorieTache() + " - Date Depart : "
+                    + sdf.format(tache.getDateDepartTache()) + " - Date Fin : " + sdf.format(tache.getDateFinTache());
+            Label LabelTache = new Label(elemTache);
+            LabelTache.setFont(Font.font(25));
+            LabelTache.setPrefHeight(60);
+            LabelTache.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
+            LabelTache.setOnMouseClicked(event -> {
                 System.out.println("Selected task ID: " + idTache);
             });
-            taskList.getChildren().add(taskLabel);
+            tacheListe.getChildren().add(LabelTache);
         }
 
-        scrollPane.setContent(taskList);
+        scrollPane.setContent(tacheListe);
 
-        getChildren().addAll(nomProjet, categorie, type, dateDepart, dateFin, PrecedentButton, scrollPane, textTaches);
+        getChildren().addAll(nomProjet, categorie, type, dateDepart, dateFin, PrecedentButton, scrollPane, textTaches,
+                AjouterButton);
     }
 }

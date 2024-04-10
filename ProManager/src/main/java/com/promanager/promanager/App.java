@@ -1,15 +1,14 @@
 package com.promanager.promanager;
 
+
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.View.LoginPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-// @SuppressWarnings("unused")
-// public class App {
-@SuppressWarnings("unused")
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
