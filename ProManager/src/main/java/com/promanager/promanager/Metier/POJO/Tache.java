@@ -11,7 +11,7 @@ public class Tache {
     private String descriptionTache;
     private Date dateDepartTache;
     private Date dateFinTache;
-    ArrayList<Document_> ListeDocument;
+    ArrayList<ObjectId> ListeDocument;
 
     public Tache() {
         ListeDocument = new ArrayList<>();
@@ -80,11 +80,11 @@ public class Tache {
         this.dateFinTache = dateFinTache;
     }
 
-    public ArrayList<Document_> getListeDocument() {
+    public ArrayList<ObjectId> getListeDocument() {
         return ListeDocument;
     }
 
-    public void setListeDocument(ArrayList<Document_> listeDocument) {
+    public void setListeDocument(ArrayList<ObjectId> listeDocument) {
         ListeDocument = listeDocument;
     }
 

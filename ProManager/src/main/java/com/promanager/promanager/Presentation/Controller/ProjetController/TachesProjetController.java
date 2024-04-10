@@ -2,31 +2,28 @@ package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-
-import java.util.HashMap;
 
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.TachesProjet;
+import com.promanager.promanager.Presentation.View.TacheView.AffichageTaches;
 
 public class TachesProjetController {
     private Button AjouterButton;
     private Button PrecedentButton;
-    private ListView<HashMap<String, ObjectId>> ListTaches;
+    private Stage stage;
 
     public TachesProjetController(TachesProjet view, Stage stage, ObjectId id) {
         this.AjouterButton = view.getAjouterButton();
         this.PrecedentButton = view.getPrecedentButton();
-
+        this.stage = stage;
         PrecedentButton.setOnAction(event -> {
             stage.setWidth(1300);
             stage.setHeight(800);
             AffichageProjet AjouterPage = new AffichageProjet(id, stage);
-            AffichageProjet root = AjouterPage;
-            Scene projectsScene = new Scene(root, 1300, 800);
+            Scene projectsScene = new Scene(AjouterPage, 1300, 800);
             stage.setScene(projectsScene);
             stage.setTitle("ProManager");
             stage.setResizable(false);
@@ -34,17 +31,17 @@ public class TachesProjetController {
             stage.setMinHeight(800);
             stage.show();
         });
-
-        // AjouterButton.setOnAction(event -> {
-        //     HashMap<String, ObjectId> selectedItem = ListTaches.getSelectionModel().getSelectedItem();
-        //     if (selectedItem != null) {
-        //         for (String key : selectedItem.keySet()) {
-        //             ObjectId selectedId = selectedItem.get(key);
-        //             System.out.println("Selected ID: " + selectedId);
-        //         }
-        //     } else {
-        //         System.out.println("No item selected.");
-        //     }
-        // });
+    }
+    public void openTache(ObjectId id,ObjectId idProjet){
+        stage.setWidth(1300);
+        stage.setHeight(800);
+        AffichageTaches AjouterPage = new AffichageTaches(id, idProjet,stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
     }
 }

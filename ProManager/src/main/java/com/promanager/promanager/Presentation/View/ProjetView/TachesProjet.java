@@ -63,7 +63,7 @@ public class TachesProjet extends AnchorPane {
         gTaches = new DAOtache();
         tache = new Tache();
         Projet = new Projet();
-        textTaches = new Label("> Liste Taches");
+        textTaches = new Label("~ Liste Taches :");
         idsTaches = new ArrayList<>();
         elemTache = new String();
         this.stage = stage;
@@ -135,9 +135,9 @@ public class TachesProjet extends AnchorPane {
         dateFin.setFont(new Font(20.0));
 
         scrollPane = new ScrollPane();
-        scrollPane.setLayoutX(200.0);
+        scrollPane.setLayoutX(50.0);
         scrollPane.setLayoutY(420.0);
-        scrollPane.setPrefWidth(1100);
+        scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
         tacheListe = new VBox(10);
@@ -163,7 +163,6 @@ public class TachesProjet extends AnchorPane {
         nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
         categorie.setText("Categorie : " + Projet.getCategorieProjet());
         type.setText("Type : " + Projet.getTypeProjet());
-
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
 
@@ -176,10 +175,12 @@ public class TachesProjet extends AnchorPane {
             Label LabelTache = new Label(elemTache);
             LabelTache.setFont(Font.font(25));
             LabelTache.setPrefHeight(60);
+            LabelTache.setPrefWidth(1200);
+
             LabelTache.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
             LabelTache.setOnMouseClicked(event -> {
-                System.out.println("Selected task ID: " + idTache);
+                controller.openTache(idTache, idProjet);
             });
             tacheListe.getChildren().add(LabelTache);
         }
