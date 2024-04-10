@@ -279,13 +279,13 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 600.0);
+        scrollPane.setPrefSize(819.0, 500.0);
         scrollPane.setLayoutX(338.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
         scrollPane.prefHeightProperty().bind(Bindings.createDoubleBinding(
-                () -> 600 + (-800 + heightWindow().get()),
+                () -> 400 + (-800 + heightWindow().get()),
                 heightWindow()));
         scrollPane.prefWidthProperty().bind(Bindings.createDoubleBinding(
                 () -> 819 + (-1300 + widthWindow().get()),
@@ -294,6 +294,7 @@ public class ProjetsPage extends AnchorPane {
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
+        gridPane.prefHeightProperty().bind(scrollPane.prefHeightProperty());
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -320,29 +321,26 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setFitToHeight(true);
         int row = 0;
         int col = 0;
-        ArrayList<Projet> filterProjets = listProjets.stream()
-                .filter(project -> project.getStatus().equals("Ouvert"))
-                .collect(Collectors.toCollection(ArrayList::new));
-        ;
-        ArrayList<Projet> fitrer;
+        ArrayList<Projet> filterProjets;
+
         if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            fitrer = filterProjets.stream()
+            filterProjets = listProjets.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
                             project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[0].equals("tout")) {
-            fitrer = filterProjets.stream()
+            filterProjets = listProjets.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[1].equals("tout")) {
-            fitrer = filterProjets.stream()
+            filterProjets = listProjets.stream()
                     .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else {
-            fitrer = new ArrayList<>(filterProjets);
+            filterProjets = new ArrayList<>(listProjets);
         }
 
-        for (Projet proj : fitrer) {
+        for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);
@@ -388,7 +386,8 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    controller.afficherProjet(proj.getIdProjet());
+                    ObjectId projectId = proj.getIdProjet();
+                    controller.afficherProjet(projectId);
                 }
             });
         }
@@ -396,14 +395,14 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setContent(gridPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
-        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setFitToHeight(false);
 
         config.getCategorie();
         CategorieFilter.getItems().add("tout");
         CategorieFilter.getItems().addAll(config.getCategorie());
         TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
+
+        scrollPane.setContent(gridPane);
 
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
