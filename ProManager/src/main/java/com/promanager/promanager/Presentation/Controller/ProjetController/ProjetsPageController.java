@@ -68,6 +68,7 @@ public class ProjetsPageController {
         stage.setTitle("ProManager");
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
+        stage.setResizable(false);
         stage.show();
     }
     

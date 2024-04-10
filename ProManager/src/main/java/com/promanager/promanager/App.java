@@ -26,6 +26,7 @@ public class App extends Application {
             stage.setScene(projectsScene);
             stage.setMinWidth(1300);
             stage.setMinHeight(800);
+            stage.setResizable(false);
             stage.setTitle("ProManager");
             stage.show();
         }

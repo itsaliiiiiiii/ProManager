@@ -97,7 +97,7 @@ public class AjouterProjetController {
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(projectsScene);
         stage.show();
     }

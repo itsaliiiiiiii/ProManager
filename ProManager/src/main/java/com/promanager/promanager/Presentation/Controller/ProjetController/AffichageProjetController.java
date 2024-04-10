@@ -31,7 +31,7 @@ public class AffichageProjetController {
     private Button tachesButton;
     Stage stage;
 
-    public AffichageProjetController(AffichageProjet view, Stage stage,ObjectId id) {
+    public AffichageProjetController(AffichageProjet view, Stage stage, ObjectId id) {
         this.idProjet = id;
         this.nomProjetText = view.getNomProjet();
         this.categorieText = view.getCategorie();
@@ -62,12 +62,13 @@ public class AffichageProjetController {
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(projectsScene);
         stage.show();
     }
+
     private void openTachesProjet() {
-        TachesProjet tachesProjet = new TachesProjet(idProjet,stage);
+        TachesProjet tachesProjet = new TachesProjet(idProjet, stage);
         Parent projetsRoot = tachesProjet;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);

@@ -51,12 +51,12 @@ public class LoginPageController {
     }
 
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
+        ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(projectsScene);
         stage.show();
     }
