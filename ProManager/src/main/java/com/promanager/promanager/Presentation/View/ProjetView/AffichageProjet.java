@@ -53,7 +53,7 @@ public class AffichageProjet extends AnchorPane {
         seancesButton = new Button("Seances");
         tachesButton = new Button("Taches");
         gProjet = new gestionProjet();
-        this.idProjet = id;
+        idProjet = id;
         this.controller = new AffichageProjetController(this, stage, idProjet);
         design();
     }

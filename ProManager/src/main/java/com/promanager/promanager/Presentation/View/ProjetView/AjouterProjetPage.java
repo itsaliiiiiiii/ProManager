@@ -119,7 +119,6 @@ public class AjouterProjetPage extends AnchorPane {
     }
 
     private void design() {
-
         AjouterProjet.setLayoutX(470.0);
         AjouterProjet.setLayoutY(100.0);
         AjouterProjet.setFont(Font.font("Arial", FontWeight.BOLD, 48.0));

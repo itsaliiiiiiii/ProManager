@@ -26,7 +26,7 @@ public class gestionTache {
     public Tache get(Integer index){
         return tache.get(index);
     }
-    public Tache get(ObjectId id){
+    public Tache get_Tache(ObjectId id){
         return tache.get(id);
     }
     public void add(String categorie, String description, Date dateDepart, Date dateFinTache){

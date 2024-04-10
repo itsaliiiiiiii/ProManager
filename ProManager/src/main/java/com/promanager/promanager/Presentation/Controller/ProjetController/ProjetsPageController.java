@@ -70,6 +70,7 @@ public class ProjetsPageController {
         stage.setMinHeight(800);
         stage.show();
     }
+    
     public void afficherProjet(ObjectId id){
         stage.setWidth(1300);
         stage.setHeight(800);

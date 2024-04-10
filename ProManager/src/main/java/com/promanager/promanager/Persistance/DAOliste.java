@@ -9,7 +9,6 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Liste;
-import com.promanager.promanager.Metier.POJO.Tache;
 
 public class DAOliste {
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");

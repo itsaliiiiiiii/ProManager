@@ -9,20 +9,25 @@ import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
+import com.promanager.promanager.Persistance.DAOtache;
 import com.promanager.promanager.Presentation.Controller.ProjetController.TachesProjetController;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class TachesProjet extends AnchorPane {
     private ObjectId idProjet;
     private Text nomProjet;
@@ -32,11 +37,12 @@ public class TachesProjet extends AnchorPane {
     private TextFlow description;
     private Text dateFin;
     private Button PrecedentButton;
-    @SuppressWarnings("unused")
     private TachesProjetController controller;
     private gestionProjet gProjet;
     private Projet Projet;
-    private gestionTache gTaches;
+    private DAOtache gTaches;
+    private Stage stage;
+    private Label textTaches;
 
     public TachesProjet(ObjectId id, Stage stage) {
         this.idProjet = id;
@@ -48,8 +54,10 @@ public class TachesProjet extends AnchorPane {
         dateFin = new Text("Date Fin");
         PrecedentButton = new Button("Precedent");
         gProjet = new gestionProjet();
-        gTaches = new gestionTache();
+        gTaches = new DAOtache();
         Projet = new Projet();
+        textTaches = new Label("> Liste Taches");
+        this.stage = stage;
         this.controller = new TachesProjetController(this, stage, idProjet);
         design();
     }
@@ -87,10 +95,16 @@ public class TachesProjet extends AnchorPane {
     }
 
     private void design() {
+        ScrollPane BigScroll = new ScrollPane();
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
         nomProjet.setLayoutX(50.0);
         nomProjet.setLayoutY(90.0);
         nomProjet.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
+
+        textTaches.setStyle(" -fx-text-fill: #6a82ab;");
+        textTaches.setLayoutX(50.0);
+        textTaches.setLayoutY(340.0);
+        textTaches.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
 
         categorie.setLayoutX(50.0);
         categorie.setLayoutY(140.0);
@@ -104,10 +118,6 @@ public class TachesProjet extends AnchorPane {
         dateDepart.setLayoutY(240.0);
         dateDepart.setFont(new Font(20.0));
 
-        description.setLayoutX(50.0);
-        description.setLayoutY(310.0);
-        description.setPrefHeight(400.0);
-        description.setPrefWidth(50.0);
 
         dateFin.setLayoutX(50.0);
         dateFin.setLayoutY(290.0);
@@ -126,31 +136,45 @@ public class TachesProjet extends AnchorPane {
         nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
         categorie.setText("Categorie : " + Projet.getCategorieProjet());
         type.setText("Type : " + Projet.getTypeProjet());
-        Label desc = new Label(Projet.getDescriptionProjet());
-        desc.setFont(new Font(15.0));
-        description.getChildren().add(desc);
+
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
 
         ArrayList<ObjectId> idsTaches = Projet.getListeTaches();
-        ScrollPane scroll = new ScrollPane();
         ListView<HBox> listTaches = new ListView<>();
-        scroll.setPrefSize(819.0, 600.0);
-        scroll.setLayoutX(338.0);
-        scroll.setLayoutY(171.0);
-        scroll.setStyle("-fx-background-color: transparent;");
+        listTaches.setLayoutX(50.0);
+        listTaches.setLayoutY(400.0);
+        listTaches.setPrefWidth(1200);
+        listTaches.setPrefHeight(270);
+        listTaches.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
+
         Tache tache = new Tache();
+        HBox elemTache;
         for (ObjectId idTache : idsTaches) {
-            HBox elemTache = new HBox();
+            elemTache = new HBox();
+            elemTache.setSpacing(30);
             tache = gTaches.get(idTache);
-            elemTache.getChildren().addAll(new Label(tache.getCategorieTache()),
-                    new Label(sdf.format(tache.getDateDepartTache())), new Label(sdf.format(tache.getDateFinTache())),
-                    new Label(tache.getDescriptionTache()));
+
+            Label cat = new Label("Categorie : " + tache.getCategorieTache());
+            cat.setFont(Font.font("Arial", 20));
+            Label dateDep = new Label("Date Depart : " + sdf.format(tache.getDateDepartTache()));
+            dateDep.setFont(Font.font("Arial", 20));
+            Label dateFin = new Label("Date Fin : " + sdf.format(tache.getDateFinTache()));
+            dateFin.setFont(Font.font("Arial", 20));
+            Label Desc = new Label("Description  : " + tache.getDescriptionTache());
+            Desc.setFont(Font.font("Arial", 20));
+
+            elemTache.getChildren().addAll(cat, dateDep, dateFin, Desc);
             listTaches.getItems().add(elemTache);
         }
-        scroll.setContent(listTaches);
-        getChildren().addAll(
-                nomProjet, categorie, type, dateDepart,
-                description, dateFin, PrecedentButton, scroll);
+        listTaches.getItems().add(new HBox(new Label("  ")));
+
+        Pane content = new Pane();
+        content.getChildren().addAll(nomProjet, categorie, type, dateDepart, dateFin, PrecedentButton, listTaches, textTaches);
+
+        BigScroll.setContent(content);
+        BigScroll.setPrefSize(1300.0, 800.0);
+
+        getChildren().add(BigScroll);
     }
 }

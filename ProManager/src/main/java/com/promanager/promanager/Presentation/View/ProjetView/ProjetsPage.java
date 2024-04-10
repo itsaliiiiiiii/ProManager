@@ -294,7 +294,6 @@ public class ProjetsPage extends AnchorPane {
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.prefHeightProperty().bind(scrollPane.prefHeightProperty());
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -389,8 +388,7 @@ public class ProjetsPage extends AnchorPane {
             elemProjet.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    ObjectId projectId = proj.getIdProjet();
-                    controller.afficherProjet(projectId);
+                    controller.afficherProjet(proj.getIdProjet());
                 }
             });
         }
@@ -398,14 +396,14 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setContent(gridPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setFitToHeight(false);
 
         config.getCategorie();
         CategorieFilter.getItems().add("tout");
         CategorieFilter.getItems().addAll(config.getCategorie());
         TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
-
-        scrollPane.setContent(gridPane);
 
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
