@@ -75,9 +75,27 @@ public class DAOprojet {
         InfoProjet.put("Status", "Ouvert");
         connexion.insert(InfoProjet, "Projets");
     }
-    public void Cloner(ObjectId id){
+
+    public void update(ObjectId id ,String nomProjet, String categorie, String type, String description, Date debut, Date fin) {
+        Projet projet = new Projet(nomProjet, categorie, type, description, debut, fin);
+        HashMap<String, Object> InfoProjet = new HashMap<>();
+        InfoProjet.put("Nom", projet.getNomProjet());
+        InfoProjet.put("Categorie", projet.getCategorieProjet());
+        InfoProjet.put("Type", projet.getTypeProjet());
+        InfoProjet.put("Description", projet.getDescriptionProjet());
+        InfoProjet.put("DateDebut", projet.getDateDepartProjet());
+        InfoProjet.put("DateFin", projet.getDateFinProjet());
+        InfoProjet.put("Taches", new ArrayList<>());
+        InfoProjet.put("Seances", new ArrayList<>());
+        InfoProjet.put("Documents", new ArrayList<>());
+        InfoProjet.put("Status", "Ouvert");
+        connexion.update(id,InfoProjet, "Projets");
+    }
+
+    public void Cloner(ObjectId id) {
         connexion.Duplicate(id, "Projets");
     }
+
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Projets");
     }

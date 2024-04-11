@@ -1,7 +1,9 @@
 package com.promanager.promanager.Presentation.View.ProjetView;
 
+import org.bson.types.ObjectId;
+
 import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Presentation.Controller.ProjetController.AjouterProjetController;
+import com.promanager.promanager.Presentation.Controller.ProjetController.ModifierProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,7 +17,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AjouterProjetPage extends AnchorPane {
+@SuppressWarnings("unused")
+public class ModifierProjet extends AnchorPane {
     private Text AjouterProjet;
     private Text NomProjet;
     private Text Type;
@@ -32,8 +35,7 @@ public class AjouterProjetPage extends AnchorPane {
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
     private Stage stage;
-    @SuppressWarnings("unused")
-    private AjouterProjetController controller;
+    private ModifierProjetController controller;
 
     private DAOconfiguration config;
 
@@ -97,8 +99,8 @@ public class AjouterProjetPage extends AnchorPane {
         return PickerDateFin;
     }
 
-    public AjouterProjetPage(Stage stage) {
-        AjouterProjet = new Text("Ajouter Projet");
+    public ModifierProjet(ObjectId id,Stage stage) {
+        AjouterProjet = new Text("Modifier Projet");
         NomProjet = new Text("Nom Projet");
         InputNomProjet = new TextField();
         Type = new Text("Type");
@@ -110,11 +112,11 @@ public class AjouterProjetPage extends AnchorPane {
         DateFin = new Text("Date Fin");
         DateDepart = new Text("Date Depart");
         comboBoxType = new ComboBox<>();
-        buttonAjouter = new Button("Ajouter");
+        buttonAjouter = new Button("Modifier");
         PickerDateDepart = new DatePicker();
         buttonAnnuler = new Button("Annulé");
         this.stage = stage;
-        this.controller = new AjouterProjetController(this, stage);
+        this.controller = new ModifierProjetController(this, id,stage);
         this.design();
     }
 
@@ -123,7 +125,7 @@ public class AjouterProjetPage extends AnchorPane {
         AjouterProjet.setLayoutY(100.0);
         AjouterProjet.setFont(Font.font("Arial", FontWeight.BOLD, 48.0));
         AjouterProjet.setFill(Color.web("#6a82ab"));
-        AjouterProjet.setText("Ajouter un Projet");
+        AjouterProjet.setText("Modifier un Projet");
 
         NomProjet.setLayoutX(300.0);
         NomProjet.setLayoutY(190.0);
@@ -198,7 +200,7 @@ public class AjouterProjetPage extends AnchorPane {
         buttonAjouter.setPrefWidth(150.0);
         buttonAjouter.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         buttonAjouter.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-        buttonAjouter.setText("Ajouter");
+        buttonAjouter.setText("Modifier");
 
         buttonAnnuler.setLayoutX(800.0);
         buttonAnnuler.setLayoutY(530.0);
@@ -211,6 +213,8 @@ public class AjouterProjetPage extends AnchorPane {
         config.getCategorie();
         comboBoxCategorie.getItems().addAll(config.getCategorie());
         comboBoxType.getItems().addAll(config.getType());
+
+        
 
         getChildren().addAll(AjouterProjet, NomProjet, InputNomProjet, Type,
                 comboBoxType, Categorie,

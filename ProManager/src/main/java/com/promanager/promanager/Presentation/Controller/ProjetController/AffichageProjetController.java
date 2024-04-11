@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
+import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
@@ -68,6 +69,10 @@ public class AffichageProjetController {
         cloturerButton.setOnAction(event -> {
             CloturerProjet();
         });
+
+        modifierButton.setOnAction(event -> {
+            openModifierProjet();
+        });
     }
 
     private void openProjet() {
@@ -84,6 +89,17 @@ public class AffichageProjetController {
     private void openTachesProjet() {
         TachesProjet tachesProjet = new TachesProjet(idProjet, stage);
         Parent projetsRoot = tachesProjet;
+        Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    private void openModifierProjet() {
+        ModifierProjet modifier = new ModifierProjet(idProjet, stage);
+        Parent projetsRoot = modifier;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
@@ -130,7 +146,7 @@ public class AffichageProjetController {
         stage.show();
     }
 
-    private void CloturerProjet(){
+    private void CloturerProjet() {
         Stage stage = new Stage();
         Label message = new Label(
                 "Cloturer Projet ?");

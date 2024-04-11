@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Exeptions.AjouterProjetExeption;
+import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Persistance.DAOprojet;
@@ -38,7 +38,7 @@ public class gestionProjet {
     }
 
     public void add(String nomProjet, String categorie, String type, String description, Date debut, Date fin)
-            throws AjouterProjetExeption {
+            throws ProjetExeption {
         Date currentDate = new Date();
         if (nomProjet != null && categorie != null && type != null && description != null && debut != null
                 && fin != null && config.check(categorie, "Categorie") &&
@@ -47,7 +47,21 @@ public class gestionProjet {
                 fin.after(debut)) {
             projet.add(nomProjet, categorie, type, description, debut, fin);
         } else {
-            throw new AjouterProjetExeption();
+            throw new ProjetExeption();
+        }
+    }
+
+    public void update(ObjectId id ,String nomProjet, String categorie, String type, String description, Date debut, Date fin)
+            throws ProjetExeption {
+        Date currentDate = new Date();
+        if (nomProjet != null && categorie != null && type != null && description != null && debut != null
+                && fin != null && config.check(categorie, "Categorie") &&
+                config.check(type, "Type") &&
+                (debut.equals(currentDate) || debut.after(currentDate)) &&
+                fin.after(debut)) {
+            projet.update(id,nomProjet, categorie, type, description, debut, fin);
+        } else {
+            throw new ProjetExeption();
         }
     }
 

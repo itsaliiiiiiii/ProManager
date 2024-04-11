@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AjouterProjetExeption extends Exception {
+public class ProjetExeption extends Exception {
     public void MessageErreurAjouterProjet() {
         Stage stage = new Stage();
         Label erreurMessage = new Label("Erreur Ajouter projet");

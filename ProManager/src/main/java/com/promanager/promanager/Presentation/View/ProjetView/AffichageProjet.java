@@ -135,7 +135,8 @@ public class AffichageProjet extends AnchorPane {
         description.setLayoutX(50.0);
         description.setLayoutY(310.0);
         description.setPrefHeight(400.0);
-        description.setPrefWidth(50.0);
+        description.setPrefWidth(500.0);
+        description.setMaxWidth(500);
 
         dateFin.setLayoutX(50.0);
         dateFin.setLayoutY(290.0);

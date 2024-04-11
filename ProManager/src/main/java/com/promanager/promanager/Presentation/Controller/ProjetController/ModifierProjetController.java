@@ -4,9 +4,14 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
+import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
+import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;
@@ -20,7 +25,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
-public class AjouterProjetController {
+public class ModifierProjetController {
+    private ObjectId idproj;
     private Text AjouterProjet;
     private Text NomProjet;
     private Text Type;
@@ -36,9 +42,12 @@ public class AjouterProjetController {
     private Button buttonAjouter;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
+    private gestionProjet gProj;
+    private Projet projet;
     private Stage stage;
 
-    public AjouterProjetController(AjouterProjetPage view, Stage stage) {
+    public ModifierProjetController(ModifierProjet view, ObjectId id, Stage stage) {
+        this.idproj = id;
         AjouterProjet = view.getAjouterProjet();
         NomProjet = view.getNomProjet();
         Type = view.getType();
@@ -54,30 +63,40 @@ public class AjouterProjetController {
         this.buttonAjouter = view.getButtonAjouter();
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
+        gProj = new gestionProjet();
         this.stage = stage;
 
+        projet = gProj.get(id);
+        InputNomProjet.setText(projet.getNomProjet());
+        comboBoxCategorie.setValue(projet.getCategorieProjet());
+        comboBoxType.setValue(projet.getTypeProjet());
+        PickerDateDepart.setValue((projet.getDateDepartProjet()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        PickerDateFin.setValue((projet.getDateFinProjet()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        InputDescription.setText(projet.getDescriptionProjet());
+
         this.buttonAnnuler.setOnAction(event -> {
-            openProjetsPage();
+            openAffichageProjet();
         });
 
         this.buttonAjouter.setOnAction(event -> {
             try {
-                AjouterProjet();
-                openProjetsPage();
+                modifierProjet();
+                openAffichageProjet();
             } catch (ProjetExeption e) {
                 e.MessageErreurAjouterProjet();
             }
         });
     }
 
-    private void AjouterProjet() throws ProjetExeption {
+    private void modifierProjet() throws ProjetExeption {
         if (InputNomProjet.getText() != null &&
                 comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
                 comboBoxType.getSelectionModel().getSelectedItem() != null &&
                 PickerDateDepart.getValue() != null &&
                 PickerDateFin.getValue() != null) {
             gestionProjet gProjet = new gestionProjet();
-            gProjet.add(InputNomProjet.getText(),
+            gProjet.update(
+                    idproj, InputNomProjet.getText(),
                     comboBoxCategorie.getSelectionModel().getSelectedItem(),
                     comboBoxType.getSelectionModel().getSelectedItem(),
                     InputDescription.getText().equals(null) ? "--vide--" : InputDescription.getText(),
@@ -91,8 +110,8 @@ public class AjouterProjetController {
 
     }
 
-    private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
+    private void openAffichageProjet() {
+        AffichageProjet projetsPage = new AffichageProjet(idproj, stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
