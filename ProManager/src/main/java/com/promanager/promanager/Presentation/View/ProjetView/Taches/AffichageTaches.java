@@ -34,6 +34,7 @@ public class AffichageTaches extends AnchorPane {
     private ObjectId idTache;
     private Stage stage;
     private Text textT;
+    private Text description;
     private Button PrecedentButton;
     private AffichageTacheController controller;
     private Text categorie;
@@ -65,6 +66,7 @@ public class AffichageTaches extends AnchorPane {
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
         gTache = new DAOtache();
+        description = new Text();
         design();
     }
 
@@ -81,6 +83,10 @@ public class AffichageTaches extends AnchorPane {
         categorie.setLayoutX(50.0);
         categorie.setLayoutY(140.0);
         categorie.setFont(new Font(20.0));
+
+        description.setLayoutX(50.0);
+        description.setLayoutY(300.0);
+        description.setFont(new Font(20.0));
 
         dateDepart.setLayoutX(50.0);
         dateDepart.setLayoutY(190.0);
@@ -124,6 +130,7 @@ public class AffichageTaches extends AnchorPane {
         categorie.setText("Categorie : " + Tache.getCategorieTache());
         dateDepart.setText("Date Depart : " + sdf.format(Tache.getDateDepartTache()));
         dateFin.setText("Date Fin : " + sdf.format(Tache.getDateFinTache()));
+        description.setText(Tache.getDescriptionTache());
 
         idsDocuments = Tache.getListeDocument();
         if (idsDocuments != null) {
@@ -149,6 +156,6 @@ public class AffichageTaches extends AnchorPane {
         }
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments,
-                AjouterButton);
+                AjouterButton, description);
     }
 }

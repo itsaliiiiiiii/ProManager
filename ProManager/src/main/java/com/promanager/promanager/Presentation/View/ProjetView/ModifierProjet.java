@@ -31,7 +31,7 @@ public class ModifierProjet extends AnchorPane {
     private ComboBox<String> comboBoxType;
     private ComboBox<String> comboBoxCategorie;
     private Button buttonAnnuler;
-    private Button buttonAjouter;
+    private Button buttonModifier;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
     private Stage stage;
@@ -87,8 +87,8 @@ public class ModifierProjet extends AnchorPane {
         return buttonAnnuler;
     }
 
-    public Button getButtonAjouter() {
-        return buttonAjouter;
+    public Button getButtonModifier() {
+        return buttonModifier;
     }
 
     public DatePicker getPickerDateDepart() {
@@ -112,7 +112,7 @@ public class ModifierProjet extends AnchorPane {
         DateFin = new Text("Date Fin");
         DateDepart = new Text("Date Depart");
         comboBoxType = new ComboBox<>();
-        buttonAjouter = new Button("Modifier");
+        buttonModifier = new Button("Modifier");
         PickerDateDepart = new DatePicker();
         buttonAnnuler = new Button("Annulé");
         this.stage = stage;
@@ -172,7 +172,6 @@ public class ModifierProjet extends AnchorPane {
         InputDescription.setPrefWidth(400.0);
         InputDescription.setPrefHeight(100.0);
         InputDescription.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
-        InputDescription.setText(" ");
         InputDescription.setFont(Font.font("Arial", 18.0));
 
         DateDepart.setLayoutX(800.0);
@@ -195,12 +194,12 @@ public class ModifierProjet extends AnchorPane {
         PickerDateFin.setLayoutY(280.0);
         PickerDateFin.setPrefWidth(200.0);
 
-        buttonAjouter.setLayoutX(800.0);
-        buttonAjouter.setLayoutY(480.0);
-        buttonAjouter.setPrefWidth(150.0);
-        buttonAjouter.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
-        buttonAjouter.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-        buttonAjouter.setText("Modifier");
+        buttonModifier.setLayoutX(800.0);
+        buttonModifier.setLayoutY(480.0);
+        buttonModifier.setPrefWidth(150.0);
+        buttonModifier.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        buttonModifier.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+        buttonModifier.setText("Modifier");
 
         buttonAnnuler.setLayoutX(800.0);
         buttonAnnuler.setLayoutY(530.0);
@@ -220,7 +219,7 @@ public class ModifierProjet extends AnchorPane {
                 comboBoxType, Categorie,
                 comboBoxCategorie, Description, InputDescription, DateDepart,
                 PickerDateDepart, DateFin,
-                PickerDateFin, buttonAjouter, buttonAnnuler);
+                PickerDateFin, buttonModifier, buttonAnnuler);
     }
 
 }

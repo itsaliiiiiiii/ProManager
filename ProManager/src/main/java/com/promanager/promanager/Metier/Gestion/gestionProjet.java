@@ -51,7 +51,10 @@ public class gestionProjet {
         }
     }
 
-    public void update(ObjectId id ,String nomProjet, String categorie, String type, String description, Date debut, Date fin)
+    public void update(ObjectId id, String nomProjet, String categorie, String type, String description, Date debut,
+            Date fin, ArrayList<ObjectId> Taches,
+            ArrayList<ObjectId> Seances,
+            ArrayList<ObjectId> Documents)
             throws ProjetExeption {
         Date currentDate = new Date();
         if (nomProjet != null && categorie != null && type != null && description != null && debut != null
@@ -59,7 +62,7 @@ public class gestionProjet {
                 config.check(type, "Type") &&
                 (debut.equals(currentDate) || debut.after(currentDate)) &&
                 fin.after(debut)) {
-            projet.update(id,nomProjet, categorie, type, description, debut, fin);
+            projet.update(id, nomProjet, categorie, type, description, debut, fin, Taches, Seances, Documents);
         } else {
             throw new ProjetExeption();
         }

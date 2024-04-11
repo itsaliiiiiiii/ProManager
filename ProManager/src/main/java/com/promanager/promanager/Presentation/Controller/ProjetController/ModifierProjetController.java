@@ -39,7 +39,7 @@ public class ModifierProjetController {
     private ComboBox<String> comboBoxType;
     private ComboBox<String> comboBoxCategorie;
     private Button buttonAnnuler;
-    private Button buttonAjouter;
+    private Button buttonModifier;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
     private gestionProjet gProj;
@@ -60,7 +60,7 @@ public class ModifierProjetController {
         this.comboBoxType = view.getComboBoxType();
         this.comboBoxCategorie = view.getComboBoxCategorie();
         this.buttonAnnuler = view.getButtonAnnuler();
-        this.buttonAjouter = view.getButtonAjouter();
+        this.buttonModifier = view.getButtonModifier();
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
         gProj = new gestionProjet();
@@ -70,7 +70,8 @@ public class ModifierProjetController {
         InputNomProjet.setText(projet.getNomProjet());
         comboBoxCategorie.setValue(projet.getCategorieProjet());
         comboBoxType.setValue(projet.getTypeProjet());
-        PickerDateDepart.setValue((projet.getDateDepartProjet()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        PickerDateDepart
+                .setValue((projet.getDateDepartProjet()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         PickerDateFin.setValue((projet.getDateFinProjet()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         InputDescription.setText(projet.getDescriptionProjet());
 
@@ -78,7 +79,7 @@ public class ModifierProjetController {
             openAffichageProjet();
         });
 
-        this.buttonAjouter.setOnAction(event -> {
+        this.buttonModifier.setOnAction(event -> {
             try {
                 modifierProjet();
                 openAffichageProjet();
@@ -103,7 +104,10 @@ public class ModifierProjetController {
                     Date.from(Instant.from((PickerDateDepart
                             .getValue()).atStartOfDay(ZoneId.systemDefault()))),
                     Date.from(Instant.from((PickerDateFin
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))));
+                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
+                    (gProjet.get(idproj)).getListeTaches(),
+                    (gProjet.get(idproj)).getListeSeances(),
+                    (gProjet.get(idproj)).getListeDocument());
         } else {
             throw new ProjetExeption();
         }

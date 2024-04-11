@@ -279,7 +279,7 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(950.0, 600.0);
+        scrollPane.setPrefSize(1000.0, 600.0);
         scrollPane.setLayoutX(300.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
@@ -349,7 +349,7 @@ public class ProjetsPage extends AnchorPane {
             vbox.setPadding(new Insets(10, 0, 0, 30));
 
             vbox.setLayoutX(-4.0);
-            vbox.setPrefHeight(211.0);
+            vbox.setPrefHeight(100.0);
             vbox.setPrefWidth(223.0);
 
             elemProjet.getChildren().add(vbox);

@@ -76,7 +76,11 @@ public class DAOprojet {
         connexion.insert(InfoProjet, "Projets");
     }
 
-    public void update(ObjectId id ,String nomProjet, String categorie, String type, String description, Date debut, Date fin) {
+    public void update(ObjectId id, String nomProjet, String categorie, String type, String description, Date debut,
+            Date fin,
+            ArrayList<ObjectId> Taches,
+            ArrayList<ObjectId> Seances,
+            ArrayList<ObjectId> Documents) {
         Projet projet = new Projet(nomProjet, categorie, type, description, debut, fin);
         HashMap<String, Object> InfoProjet = new HashMap<>();
         InfoProjet.put("Nom", projet.getNomProjet());
@@ -85,11 +89,11 @@ public class DAOprojet {
         InfoProjet.put("Description", projet.getDescriptionProjet());
         InfoProjet.put("DateDebut", projet.getDateDepartProjet());
         InfoProjet.put("DateFin", projet.getDateFinProjet());
-        InfoProjet.put("Taches", new ArrayList<>());
-        InfoProjet.put("Seances", new ArrayList<>());
-        InfoProjet.put("Documents", new ArrayList<>());
+        InfoProjet.put("Taches", Taches);
+        InfoProjet.put("Seances", Seances);
+        InfoProjet.put("Documents", Documents);
         InfoProjet.put("Status", "Ouvert");
-        connexion.update(id,InfoProjet, "Projets");
+        connexion.update(id, InfoProjet, "Projets");
     }
 
     public void Cloner(ObjectId id) {

@@ -63,7 +63,7 @@ public class ProjetsPageController {
                 CategorieFilter.getSelectionModel().getSelectedItem() == null ? "tout"
                         : CategorieFilter.getSelectionModel().getSelectedItem());
         Parent root = projetsPage;
-        Scene projectsScene = new Scene(root, stage.getWidth(), stage.getHeight());
+        Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");
         stage.setMinWidth(1300);

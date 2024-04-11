@@ -79,8 +79,7 @@ public class AjouterProjetController {
             gestionProjet gProjet = new gestionProjet();
             gProjet.add(InputNomProjet.getText(),
                     comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                    comboBoxType.getSelectionModel().getSelectedItem(),
-                    InputDescription.getText().equals(null) ? "--vide--" : InputDescription.getText(),
+                    comboBoxType.getSelectionModel().getSelectedItem(), InputDescription.getText(),
                     Date.from(Instant.from((PickerDateDepart
                             .getValue()).atStartOfDay(ZoneId.systemDefault()))),
                     Date.from(Instant.from((PickerDateFin

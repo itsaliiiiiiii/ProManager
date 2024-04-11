@@ -212,6 +212,6 @@ public class AffichageProjet extends AnchorPane {
         getChildren().addAll(
                 nomProjet, categorie, type, dateDepart,
                 description, dateFin, modifierButton,
-                clonerButton, cloturerButton, PrecedentButton, documentsButton, seancesButton, tachesButton);
+                clonerButton, cloturerButton, PrecedentButton, documentsButton, seancesButton, tachesButton );
     }
 }
