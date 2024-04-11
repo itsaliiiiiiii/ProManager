@@ -2,13 +2,18 @@ package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -29,6 +34,7 @@ public class AffichageProjetController {
     private Button documentsButton;
     private Button seancesButton;
     private Button tachesButton;
+    private gestionProjet gProj;
     Stage stage;
 
     public AffichageProjetController(AffichageProjet view, Stage stage, ObjectId id) {
@@ -41,11 +47,12 @@ public class AffichageProjetController {
         this.dateFinText = view.getDateFin();
         this.modifierButton = view.getModifierButton();
         this.clonerButton = view.getClonerButton();
-        this.cloturerButton = view.getClonerButton();
+        this.cloturerButton = view.getCloturerButton();
         this.PrecedentButton = view.getPrecedentButton();
         this.documentsButton = view.getDocumentsButton();
         this.seancesButton = view.getSeancesButton();
         this.tachesButton = view.getTachesButton();
+        this.gProj = new gestionProjet();
         this.stage = stage;
 
         PrecedentButton.setOnAction(event -> {
@@ -53,6 +60,13 @@ public class AffichageProjetController {
         });
         tachesButton.setOnAction(event -> {
             openTachesProjet();
+        });
+        clonerButton.setOnAction(event -> {
+            ClonerProjet();
+        });
+
+        cloturerButton.setOnAction(event -> {
+            CloturerProjet();
         });
     }
 
@@ -75,6 +89,82 @@ public class AffichageProjetController {
         stage.setMinHeight(800);
         stage.setResizable(false);
         stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    private void ClonerProjet() {
+        Stage stage = new Stage();
+        Label message = new Label(
+                "Cloner Projet ?");
+        message.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;-fx-text-fill: #6a82ab;");
+
+        Button ClonerButton = new Button("Cloner");
+        Button AnnuleButton = new Button("Annulé");
+        ClonerButton.setOnAction(
+                event -> {
+                    gProj.Cloner(idProjet);
+                    stage.close();
+                });
+        AnnuleButton.setOnAction(
+                event -> {
+                    stage.close();
+                });
+        ClonerButton.setPrefWidth(150.0);
+        ClonerButton.setPrefHeight(40.0);
+        ClonerButton.setFont(new Font(18.0));
+        ClonerButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+
+        AnnuleButton.setPrefWidth(150.0);
+        AnnuleButton.setPrefHeight(40.0);
+        AnnuleButton.setFont(new Font(18.0));
+        AnnuleButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+
+        VBox root = new VBox(20);
+        root.setPadding(new Insets(10));
+        root.getChildren().addAll(message, ClonerButton, AnnuleButton);
+        Scene error = new Scene(root, 400, 200);
+        root.setStyle("-fx-background-color: #f0f0f0; -fx-alignment: center;");
+        stage.setScene(error);
+        stage.setResizable(false);
+        stage.setTitle("Cloner Projet");
+        stage.show();
+    }
+
+    private void CloturerProjet(){
+        Stage stage = new Stage();
+        Label message = new Label(
+                "Cloturer Projet ?");
+        message.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;-fx-text-fill: #6a82ab;");
+
+        Button CloturerButton = new Button("Cloturer");
+        Button AnnuleButton = new Button("Annulé");
+        CloturerButton.setOnAction(
+                event -> {
+                    gProj.update(idProjet, "Status", "Termine");
+                    stage.close();
+                });
+        AnnuleButton.setOnAction(
+                event -> {
+                    stage.close();
+                });
+        CloturerButton.setPrefWidth(150.0);
+        CloturerButton.setPrefHeight(40.0);
+        CloturerButton.setFont(new Font(18.0));
+        CloturerButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+
+        AnnuleButton.setPrefWidth(150.0);
+        AnnuleButton.setPrefHeight(40.0);
+        AnnuleButton.setFont(new Font(18.0));
+        AnnuleButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+
+        VBox root = new VBox(20);
+        root.setPadding(new Insets(10));
+        root.getChildren().addAll(message, CloturerButton, AnnuleButton);
+        Scene error = new Scene(root, 400, 200);
+        root.setStyle("-fx-background-color: #f0f0f0; -fx-alignment: center;");
+        stage.setScene(error);
+        stage.setResizable(false);
+        stage.setTitle("Cloturer Projet");
         stage.show();
     }
 }

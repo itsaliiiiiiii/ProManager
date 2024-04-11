@@ -321,23 +321,27 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setFitToHeight(true);
         int row = 0;
         int col = 0;
-        ArrayList<Projet> filterProjets;
+        ArrayList<Projet> filterProjets_ = listProjets.stream()
+                .filter(project -> project.getStatus().equals("Ouvert"))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<Projet> filterProjets ;
 
         if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            filterProjets = listProjets.stream()
+            filterProjets = filterProjets_.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
                             project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[0].equals("tout")) {
-            filterProjets = listProjets.stream()
+            filterProjets = filterProjets_.stream()
                     .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else if (!FiltrageProj[1].equals("tout")) {
-            filterProjets = listProjets.stream()
+            filterProjets = filterProjets_.stream()
                     .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
                     .collect(Collectors.toCollection(ArrayList::new));
         } else {
-            filterProjets = new ArrayList<>(listProjets);
+            filterProjets = new ArrayList<>(filterProjets_);
         }
 
         for (Projet proj : filterProjets) {

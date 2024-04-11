@@ -75,7 +75,9 @@ public class DAOprojet {
         InfoProjet.put("Status", "Ouvert");
         connexion.insert(InfoProjet, "Projets");
     }
-
+    public void Cloner(ObjectId id){
+        connexion.Duplicate(id, "Projets");
+    }
     public void delete(ObjectId id, String key) {
         connexion.remove(id, key, "Projets");
     }

@@ -11,7 +11,7 @@ import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Persistance.DAOtache;
-import com.promanager.promanager.Presentation.Controller.ProjetController.TachesProjetController;
+import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.TachesProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

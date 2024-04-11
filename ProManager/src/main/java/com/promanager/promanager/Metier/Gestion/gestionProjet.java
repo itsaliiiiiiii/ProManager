@@ -37,22 +37,27 @@ public class gestionProjet {
         return projet.get(id);
     }
 
-    public void add(String nomProjet,String categorie, String type, String description, Date debut, Date fin) throws AjouterProjetExeption {
+    public void add(String nomProjet, String categorie, String type, String description, Date debut, Date fin)
+            throws AjouterProjetExeption {
         Date currentDate = new Date();
         if (nomProjet != null && categorie != null && type != null && description != null && debut != null
                 && fin != null && config.check(categorie, "Categorie") &&
                 config.check(type, "Type") &&
                 (debut.equals(currentDate) || debut.after(currentDate)) &&
                 fin.after(debut)) {
-            projet.add(nomProjet,categorie, type, description, debut, fin);
+            projet.add(nomProjet, categorie, type, description, debut, fin);
         } else {
             throw new AjouterProjetExeption();
         }
     }
 
+    public void Cloner(ObjectId id) {
+        projet.Cloner(id);
+    }
+
     public void update(ObjectId id, String key, Object value) {
         Date currentDate = new Date();
-        if (key.equals("Description")) {
+        if (key.equals("Description") || key.equals("Status")) {
             projet.update(id, key, value);
         } else if ((key.equals("Categorie") && config.check((String) value, "Categorie"))
                 || (key.equals("Type") && config.check((String) value, "Type"))) {

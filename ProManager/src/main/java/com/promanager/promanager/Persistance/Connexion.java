@@ -28,9 +28,21 @@ public class Connexion {
     private MongoCollection<Document> getCollection(String collectionName) {
         return database.getCollection(collectionName);
     }
-    
+
     private void setCollection(String collectionName) {
         this.collection = this.getCollection(collectionName);
+    }
+
+    public void Duplicate(ObjectId id, String collectionName) {
+        Document originDocument = select(id, collectionName);
+        Document ClonerdDocument = new Document(originDocument);
+        ClonerdDocument.remove("_id");
+        this.insert(ClonerdDocument, collectionName);
+    }
+
+    private void insert(Document document, String collectionName) {
+        setCollection(collectionName);
+        collection.insertOne(document);
     }
 
     public void insert(String key, Object value, String collectionName) {
