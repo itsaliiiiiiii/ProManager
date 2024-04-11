@@ -1,9 +1,9 @@
-package com.promanager.promanager.Presentation.Controller.TacheController;
+package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.View.ProjetView.TachesProjet;
-import com.promanager.promanager.Presentation.View.TacheView.AffichageTaches;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

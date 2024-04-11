@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.View.TacheView;
+package com.promanager.promanager.Presentation.View.ProjetView.Taches;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Persistance.DAOtache;
+import com.promanager.promanager.Presentation.Controller.ProjetController.AffichageTacheController;
 import com.promanager.promanager.Presentation.Controller.ProjetController.TachesProjetController;
-import com.promanager.promanager.Presentation.Controller.TacheController.AffichageTacheController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,6 +42,7 @@ public class AffichageTaches extends AnchorPane {
     private ScrollPane scrollPane;
     private VBox documentListe;
     private Tache Tache;
+    private Button AjouterButton;
     private Document_ document_;
     private DAOtache gTache;
     private gestionDocument gDocument;
@@ -60,6 +61,7 @@ public class AffichageTaches extends AnchorPane {
         categorie = new Text("Categorie");
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
+        AjouterButton = new Button("Ajouter");
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
         gTache = new DAOtache();
@@ -93,6 +95,14 @@ public class AffichageTaches extends AnchorPane {
         textDocuments.setLayoutY(340.0);
         textDocuments.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
 
+        AjouterButton.setLayoutX(1100.0);
+        AjouterButton.setLayoutY(340.0);
+        AjouterButton.setPrefWidth(150.0);
+        AjouterButton.setPrefHeight(40.0);
+        AjouterButton.setFont(new Font(18.0));
+        AjouterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        AjouterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
         PrecedentButton.setPrefWidth(150.0);
@@ -116,13 +126,13 @@ public class AffichageTaches extends AnchorPane {
         dateFin.setText("Date Fin : " + sdf.format(Tache.getDateFinTache()));
 
         idsDocuments = Tache.getListeDocument();
-        System.out.println(idsDocuments);
         if (idsDocuments != null) {
             for (ObjectId idDoc : idsDocuments) {
                 document_ = gDocument.get(idDoc);
 
+                String[] pathDoc = (document_.getPathDocument()).split("/");
                 elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + document_.getPathDocument();
+                        + pathDoc[pathDoc.length - 1];
 
                 Label LabelDocument_ = new Label(elemDocument);
                 LabelDocument_.setFont(Font.font(25));
@@ -138,6 +148,7 @@ public class AffichageTaches extends AnchorPane {
             }
         }
         scrollPane.setContent(documentListe);
-        getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments);
+        getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments,
+                AjouterButton);
     }
 }

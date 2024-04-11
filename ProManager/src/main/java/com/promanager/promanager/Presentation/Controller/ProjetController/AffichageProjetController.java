@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
-import com.promanager.promanager.Presentation.View.ProjetView.TachesProjet;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

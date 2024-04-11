@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.TachesProjet;
-import com.promanager.promanager.Presentation.View.TacheView.AffichageTaches;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
 public class TachesProjetController {
     private Button AjouterButton;
