@@ -279,23 +279,17 @@ public class ProjetsPage extends AnchorPane {
         });
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(819.0, 500.0);
-        scrollPane.setLayoutX(338.0);
+        scrollPane.setPrefSize(950.0, 600.0);
+        scrollPane.setLayoutX(300.0);
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        scrollPane.prefHeightProperty().bind(Bindings.createDoubleBinding(
-                () -> 400 + (-800 + heightWindow().get()),
-                heightWindow()));
-        scrollPane.prefWidthProperty().bind(Bindings.createDoubleBinding(
-                () -> 819 + (-1300 + widthWindow().get()),
-                widthWindow()));
         GridPane gridPane = new GridPane();
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.prefHeightProperty().bind(scrollPane.prefHeightProperty());
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         for (int i = 0; i < 4; i++) {
@@ -310,15 +304,12 @@ public class ProjetsPage extends AnchorPane {
         int numRows = (int) Math.ceil((double) listProjets.size() / 4);
         for (int i = 0; i < numRows; i++) {
             RowConstraints row = new RowConstraints();
-            row.setMinHeight(10.0);
+            row.setMinHeight(200.0);
             row.setPrefHeight(30.0);
             row.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
             gridPane.getRowConstraints().add(row);
         }
 
-        scrollPane.setContent(gridPane);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
         int row = 0;
         int col = 0;
         ArrayList<Projet> filterProjets_ = listProjets.stream()
@@ -397,16 +388,12 @@ public class ProjetsPage extends AnchorPane {
         }
 
         scrollPane.setContent(gridPane);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
 
         config.getCategorie();
         CategorieFilter.getItems().add("tout");
         CategorieFilter.getItems().addAll(config.getCategorie());
         TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
-
-        scrollPane.setContent(gridPane);
 
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
