@@ -52,20 +52,24 @@ public class Connexion {
         document.clear();
     }
 
-    public void insert(String key, List<Object> value, String collectionName) {
+    public ObjectId insert(String key, List<Object> value, String collectionName) {
         this.setCollection(collectionName);
         document.append(key, value);
         collection.insertOne(document);
+        ObjectId id = document.getObjectId("_id");
         document.clear();
+        return id;
     }
 
-    public void insert(HashMap<String, Object> Object, String collectionName) {
+    public ObjectId insert(HashMap<String, Object> Object, String collectionName) {
         this.setCollection(collectionName);
         for (String key : Object.keySet()) {
             document.append(key, Object.get(key));
         }
         collection.insertOne(document);
+        ObjectId id = document.getObjectId("_id");
         document.clear();
+        return id;
     }
 
     public void update(ObjectId keyOfObject, String key, Object value, String collectionName) {
@@ -77,7 +81,7 @@ public class Connexion {
 
     
 
-    public void update(ObjectId keyOfObject, String key, List<Object> value, String collectionName) {
+    public void update(ObjectId keyOfObject, String key, List<ObjectId> value, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);
         Document update = new Document("$set", new Document(key, value));

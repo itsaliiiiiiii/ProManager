@@ -112,7 +112,7 @@ public class DAOprojet {
         connexion.update(id, key, value, "Projets");
     }
 
-    public void update(ObjectId id, String key, List<Object> value) {
+    public void update(ObjectId id, String key, List<ObjectId> value) {
         connexion.update(id, key, value, "Projets");
     }
 

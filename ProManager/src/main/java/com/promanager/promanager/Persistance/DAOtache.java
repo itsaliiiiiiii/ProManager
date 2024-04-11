@@ -49,14 +49,15 @@ public class DAOtache {
         return tache;
     }
 
-    public void add(String categorie, String description, Date dateDepart, Date dateFinTache) {
+    public ObjectId add(String categorie, String description, Date dateDepart, Date dateFinTache,ArrayList<ObjectId> listDoc) {
         Tache tache = new Tache(categorie, description, dateDepart, dateFinTache);
         HashMap<String, Object> InfoTache = new HashMap<>();
         InfoTache.put("Description", tache.getDescriptionTache());
         InfoTache.put("DateDepart", tache.getDateDepartTache());
         InfoTache.put("DateFin", tache.getDateFinTache());
         InfoTache.put("Categorie", tache.getCategorieTache());
-        connexion.insert(InfoTache, "Taches");
+        InfoTache.put("Documents", listDoc);
+        return connexion.insert(InfoTache, "Taches");
     }
 
     public void delete(ObjectId id, String key) {

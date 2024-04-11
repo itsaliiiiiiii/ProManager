@@ -62,7 +62,7 @@ public class TachesProjetController {
     }
 
     public void AjouterTache(ObjectId idProjet){
-        AjouterTacheProjet AjouterPage = new AjouterTacheProjet(idProjet);
+        AjouterTacheProjet AjouterPage = new AjouterTacheProjet(idProjet,stage);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");

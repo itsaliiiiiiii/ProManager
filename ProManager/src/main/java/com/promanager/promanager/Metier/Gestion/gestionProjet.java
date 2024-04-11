@@ -84,7 +84,7 @@ public class gestionProjet {
         }
     }
 
-    public void update(ObjectId id, String key, List<Object> value) {
+    public void update(ObjectId id, String key, List<ObjectId> value) {
         projet.update(id, key, value);
     }
 

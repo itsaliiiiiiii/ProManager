@@ -37,7 +37,32 @@ public class AjouterTacheProjet extends AnchorPane {
     AjouterTacheProjetController controller;
     private DAOconfiguration config;
 
-    public AjouterTacheProjet(ObjectId idProj) {
+    public Button getButtonAnnuler() {
+        return buttonAnnuler;
+    }
+
+    public Button getButtonAjouter() {
+        return buttonAjouter;
+    }
+
+    public TextArea getInputDescription() {
+        return InputDescription;
+    }
+
+    public DatePicker getPickerDateDepart() {
+        return PickerDateDepart;
+    }
+
+    public DatePicker getPickerDateFin() {
+        return PickerDateFin;
+    }
+
+    public ComboBox<String> getComboBoxCategorie() {
+        return comboBoxCategorie;
+    }
+
+    public AjouterTacheProjet(ObjectId idProj, Stage stage) {
+        this.stage = stage;
         AjouterTache = new Text("Ajouter Tache");
         NomProjet = new Text("Nom Projet");
         Categorie = new Text("Categorie");
@@ -53,7 +78,7 @@ public class AjouterTacheProjet extends AnchorPane {
         gProj = new gestionProjet();
         this.Proj = gProj.get(idProj).getNomProjet();
         config = new DAOconfiguration();
-        controller = new AjouterTacheProjetController(this);
+        controller = new AjouterTacheProjetController(this, stage, idProj);
         design();
     }
 

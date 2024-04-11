@@ -87,7 +87,6 @@ public class AjouterProjetController {
         } else {
             throw new ProjetExeption();
         }
-
     }
 
     private void openProjetsPage() {
