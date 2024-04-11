@@ -13,17 +13,16 @@ import com.promanager.promanager.Metier.POJO.Liste;
 public class DAOliste {
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public ArrayList<Liste> getAll() {
         ArrayList<Liste> listes = new ArrayList<>();
         FindIterable<Document> documents = connexion.selectAll("Listes");
-        Liste liste;
+        Liste liste = new Liste();
         for (Document document : documents) {
             liste = new Liste();
             liste.setIdListe(document.getObjectId("_id"));
             liste.setDescriptionListe(document.getString("Description"));
             liste.setNomListe(document.getString("Nom"));
-            liste.setListeTache((ArrayList) document.getList("Taches", ObjectId.class));
+            liste.setListeTache((ArrayList<ObjectId>) document.getList("Taches", ObjectId.class));
             listes.add(liste);
         }
         return listes;
@@ -33,14 +32,13 @@ public class DAOliste {
         return this.getAll().get(index);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Liste get(ObjectId id) {
         Document document = connexion.select(id, "Listes");
         Liste liste = new Liste();
         liste.setIdListe(document.getObjectId("_id"));
         liste.setDescriptionListe(document.getString("Description"));
         liste.setNomListe(document.getString("Nom"));
-        liste.setListeTache((ArrayList) document.getList("Taches", ObjectId.class));
+        liste.setListeTache((ArrayList<ObjectId>) document.getList("Taches", ObjectId.class));
         return liste;
     }
 

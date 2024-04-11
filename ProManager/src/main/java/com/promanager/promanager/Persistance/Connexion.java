@@ -52,7 +52,7 @@ public class Connexion {
         document.clear();
     }
 
-    public ObjectId insert(String key, List<Object> value, String collectionName) {
+    public ObjectId insert(String key, List<ObjectId> value, String collectionName) {
         this.setCollection(collectionName);
         document.append(key, value);
         collection.insertOne(document);

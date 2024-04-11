@@ -14,7 +14,6 @@ import com.promanager.promanager.Metier.POJO.Tache;
 public class DAOtache {
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public ArrayList<Tache> getAll() {
         ArrayList<Tache> Taches = new ArrayList<>();
         FindIterable<Document> documents = connexion.selectAll("Taches");
@@ -26,7 +25,7 @@ public class DAOtache {
             tache.setDateDepartTache(document.getDate("DateDepart"));
             tache.setDateFinTache(document.getDate("DateFin"));
             tache.setDescriptionTache(document.getString("Description"));
-            tache.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
+            tache.setListeDocument((ArrayList<ObjectId>) document.getList("Documents", ObjectId.class));
             Taches.add(tache);
         }
         return Taches;
@@ -36,7 +35,6 @@ public class DAOtache {
         return this.getAll().get(index);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Tache get(ObjectId id) {
         Document document = connexion.select(id, "Taches");
         Tache tache = new Tache();
@@ -45,7 +43,7 @@ public class DAOtache {
         tache.setDateDepartTache(document.getDate("DateDepart"));
         tache.setDateFinTache(document.getDate("DateFin"));
         tache.setDescriptionTache(document.getString("Description"));
-        tache.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
+        tache.setListeDocument((ArrayList<ObjectId>) document.getList("Documents", ObjectId.class));
         return tache;
     }
 

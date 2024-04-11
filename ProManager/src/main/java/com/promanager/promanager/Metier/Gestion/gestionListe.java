@@ -13,9 +13,11 @@ public class gestionListe {
     private DAOliste liste;
 
     public gestionListe() {
+        liste = new DAOliste();
     }
-
+    
     public gestionListe(DAOliste liste) {
+        liste = new DAOliste();
         this.liste = liste;
     }
 
