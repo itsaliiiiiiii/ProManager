@@ -1,7 +1,5 @@
 package com.promanager.promanager.Presentation.View.ProjetView.Taches;
 
-import java.text.SimpleDateFormat;
-
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionListe;
@@ -18,9 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -28,6 +24,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class AjouterTacheProjet extends AnchorPane {
     private Text AjouterTache;
     private Text NomProjet;
@@ -213,6 +210,9 @@ public class AjouterTacheProjet extends AnchorPane {
                     tache_.setStyle(
                             "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
+                    tache_.setOnMouseClicked(event -> {
+                        controller.addTacheToProjet(idTache);
+                    });
                     tachesVBox.getChildren().add(tache_);
                 }
             }

@@ -90,4 +90,12 @@ public class AjouterTacheProjetController {
         stage.setMinHeight(800);
         stage.show();
     }
+
+    public void addTacheToProjet(ObjectId idTache) {
+        listeTaches = gProjet.get(idProj).getListeTaches();
+        listeTaches.add(idTache);
+        gProjet.update(idProj, "Taches", listeTaches);
+        
+        this.Back();
+    }
 }
