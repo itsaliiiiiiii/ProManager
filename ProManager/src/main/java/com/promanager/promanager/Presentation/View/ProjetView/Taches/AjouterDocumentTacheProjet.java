@@ -66,7 +66,7 @@ public class AjouterDocumentTacheProjet extends AnchorPane {
         text.setLayoutY(250.0);
 
         Document.setFont(Font.font("Arial", FontWeight.NORMAL, 16.0));
-        Document.setLayoutX(580.0);
+        Document.setLayoutX(525.0);
         Document.setLayoutY(360.0);
 
         Description.setLayoutX(525.0);

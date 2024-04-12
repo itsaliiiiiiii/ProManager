@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 @SuppressWarnings("unused")
 public class AffichageTaches extends AnchorPane {
     private ObjectId idTache;
+    private ObjectId idProjet;
     private Stage stage;
     private Text textT;
     private Text description;
@@ -57,6 +58,7 @@ public class AffichageTaches extends AnchorPane {
 
     public AffichageTaches(ObjectId idTache, ObjectId idProjet, Stage stage) {
         this.idTache = idTache;
+        this.idProjet = idProjet;
         this.stage = stage;
         textT = new Text("Tache :");
         PrecedentButton = new Button("Precedent");
@@ -67,10 +69,10 @@ public class AffichageTaches extends AnchorPane {
         AjouterButton = new Button("Ajouter");
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
-        this.controller = new AffichageTacheController(this, stage, idTache, idProjet);
-
         gTache = new DAOtache();
         description = new Text();
+        this.controller = new AffichageTacheController(this, stage, idTache, idProjet);
+
         design();
     }
 
@@ -152,9 +154,18 @@ public class AffichageTaches extends AnchorPane {
                 Label LabelDocument_ = new Label(elemDocument);
                 LabelDocument_.setFont(Font.font(25));
                 LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(1200);
+                LabelDocument_.setPrefWidth(900);
                 LabelDocument_.setStyle(
                         "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+
+                Button SupprimerDoc = new Button("Supprimer");
+
+                HBox hbox = new HBox();
+                SupprimerDoc.setPrefHeight(60);
+                SupprimerDoc.setPrefWidth(200);
+                SupprimerDoc.setStyle(
+                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
+                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
                 LabelDocument_.setOnMouseClicked(event -> {
                     File file = new File(document_.getPathDocument());
@@ -164,10 +175,16 @@ public class AffichageTaches extends AnchorPane {
                         e.printStackTrace();
                     }
                 });
-
-                documentListe.getChildren().add(LabelDocument_);
+                SupprimerDoc.setOnMouseClicked(event -> {
+                    controller.supprimerDocProjet(idDoc, idTache, idProjet);
+                });
+                
+                hbox.setSpacing(30);
+                hbox.getChildren().addAll(LabelDocument_, SupprimerDoc);
+                documentListe.getChildren().add(hbox);
             }
         }
+
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments,
                 AjouterButton, description);

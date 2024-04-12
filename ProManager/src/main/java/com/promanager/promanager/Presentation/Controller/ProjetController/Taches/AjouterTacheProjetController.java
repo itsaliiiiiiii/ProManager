@@ -8,7 +8,6 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterTacheProjet;

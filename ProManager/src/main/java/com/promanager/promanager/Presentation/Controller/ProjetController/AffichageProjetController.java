@@ -6,6 +6,7 @@ import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
 import javafx.geometry.Insets;
@@ -59,9 +60,15 @@ public class AffichageProjetController {
         PrecedentButton.setOnAction(event -> {
             openProjet();
         });
+
         tachesButton.setOnAction(event -> {
             openTachesProjet();
         });
+
+        seancesButton.setOnAction(event -> {
+            openSeancesProjet();
+        });
+
         clonerButton.setOnAction(event -> {
             ClonerProjet();
         });
@@ -79,6 +86,16 @@ public class AffichageProjetController {
         ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    private void openSeancesProjet() {
+        SeancesProjet projetsPage = new SeancesProjet(stage,idProjet);
+        Scene projectsScene = new Scene(projetsPage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
         stage.setResizable(false);

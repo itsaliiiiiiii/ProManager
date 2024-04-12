@@ -1,7 +1,10 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Taches;
 
+import java.util.ArrayList;
+
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterDocumentTacheProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
@@ -13,10 +16,15 @@ import javafx.stage.Stage;
 public class AffichageTacheController {
     private Button PrecedentButton;
     private Button AjouterButton;
+    private Stage stage;
+    private gestionTache gTache;
 
     public AffichageTacheController(AffichageTaches view, Stage stage, ObjectId idTache, ObjectId idProjet) {
         this.PrecedentButton = view.getPrecedentButton();
         this.AjouterButton = view.getAjouterButton();
+        gTache = new gestionTache();
+
+        this.stage = stage;
 
         PrecedentButton.setOnAction(event -> {
             stage.setWidth(1300);
@@ -44,5 +52,20 @@ public class AffichageTacheController {
             stage.show();
         });
 
+    }
+
+    public void supprimerDocProjet(ObjectId idoc , ObjectId idTache,ObjectId idProj) {
+        ArrayList<ObjectId> listTaches = gTache.get_Tache(idTache).getListeDocument();
+        listTaches.remove(idoc);
+        gTache.update(idTache, "Taches", listTaches);
+
+        AffichageTaches tache = new AffichageTaches(idTache,idProj, stage);
+        Scene projectsScene = new Scene(tache, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
     }
 }
