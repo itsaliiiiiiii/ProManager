@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bson.types.ObjectId;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
@@ -57,7 +60,6 @@ public class AffichageTaches extends AnchorPane {
         this.stage = stage;
         textT = new Text("Tache :");
         PrecedentButton = new Button("Precedent");
-        this.controller = new AffichageTacheController(this, stage, idTache, idProjet);
         gDocument = new gestionDocument();
         categorie = new Text("Categorie");
         dateDepart = new Text("Date Depart");
@@ -65,6 +67,8 @@ public class AffichageTaches extends AnchorPane {
         AjouterButton = new Button("Ajouter");
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
+        this.controller = new AffichageTacheController(this, stage, idTache, idProjet);
+
         gTache = new DAOtache();
         description = new Text();
         design();
@@ -72,6 +76,10 @@ public class AffichageTaches extends AnchorPane {
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+
+    public Button getAjouterButton() {
+        return AjouterButton;
     }
 
     private void design() {
@@ -149,8 +157,14 @@ public class AffichageTaches extends AnchorPane {
                         "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
                 LabelDocument_.setOnMouseClicked(event -> {
-                    // controller.openDocument_(idDoc, idProjet);
+                    File file = new File(document_.getPathDocument());
+                    try {
+                        Desktop.getDesktop().open(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
+
                 documentListe.getChildren().add(LabelDocument_);
             }
         }

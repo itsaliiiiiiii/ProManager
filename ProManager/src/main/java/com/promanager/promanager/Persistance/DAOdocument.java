@@ -40,12 +40,12 @@ public class DAOdocument {
         return Document;
     }
 
-    public void add(String description, String path) {
+    public ObjectId add(String description, String path) {
         Document_ document = new Document_(path, description);
         HashMap<String, Object> Infodocument = new HashMap<>();
         Infodocument.put("Description", document.getDescriptionDocument());
         Infodocument.put("Path", document.getPathDocument());
-        connexion.insert(Infodocument, "Documents");
+        return connexion.insert(Infodocument, "Documents");
     }
 
     public void delete(ObjectId id, String key) {

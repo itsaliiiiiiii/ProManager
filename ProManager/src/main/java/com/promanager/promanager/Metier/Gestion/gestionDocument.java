@@ -34,8 +34,8 @@ public class gestionDocument {
         return document.get(id);
     }
 
-    public void add(String description, String path) {
-        document.add(description, path);
+    public ObjectId add(String description, String path) {
+        return document.add(description, path);
     }
 
     public void delete(ObjectId id, String key) {

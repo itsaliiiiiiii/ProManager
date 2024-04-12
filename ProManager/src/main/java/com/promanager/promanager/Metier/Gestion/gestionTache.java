@@ -23,7 +23,7 @@ public class gestionTache {
     
     public gestionTache(DAOtache tache) {
         config = new DAOconfiguration();
-        tache = new DAOtache();
+        this.tache = new DAOtache();
         this.tache = tache;
     }
 
