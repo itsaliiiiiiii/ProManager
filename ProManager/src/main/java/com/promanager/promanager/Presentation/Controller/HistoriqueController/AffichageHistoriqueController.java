@@ -4,8 +4,6 @@ import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageHisto
 import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageProjetHistorique;
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;

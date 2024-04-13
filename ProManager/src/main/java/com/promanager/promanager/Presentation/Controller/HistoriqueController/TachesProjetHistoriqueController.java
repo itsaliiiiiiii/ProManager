@@ -7,16 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Persistance.DAOprojet;
-import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterTacheProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
+@SuppressWarnings("unused")
 public class TachesProjetHistoriqueController {
     private Button PrecedentButton;
     private DAOprojet gProj;

@@ -9,11 +9,8 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
-import com.promanager.promanager.Presentation.Controller.ProjetController.ProjetsPageController;
-
 import java.text.SimpleDateFormat;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

@@ -12,7 +12,6 @@ import com.promanager.promanager.Presentation.Controller.ProjetController.Projet
 
 import java.text.SimpleDateFormat;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
