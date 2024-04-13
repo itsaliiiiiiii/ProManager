@@ -171,7 +171,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Historiques.setLayoutY(170.0);
         this.Historiques.setPrefHeight(70.0);
         this.Historiques.setPrefWidth(210.0);
-        this.Historiques.setStyle("-fx-background-color:#505997;");
+        this.Historiques.setStyle("-fx-background-color:#6a82ab;");
         this.Historiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Historiques.setFont(Font.font("Arial Bold", 31.0));
 

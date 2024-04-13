@@ -11,7 +11,7 @@ public class Seance {
     private Date dateDepartSeance;
     private Date dateFinSeance;
     private String note;
-    ArrayList<Document_> ListeDocument;
+    ArrayList<ObjectId> ListeDocument;
 
     public Seance() {
         ListeDocument = new ArrayList<>();
@@ -76,6 +76,14 @@ public class Seance {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public ArrayList<ObjectId> getListeDocument() {
+        return ListeDocument;
+    }
+
+    public void setListeDocument(ArrayList<ObjectId> listeDocument) {
+        ListeDocument = listeDocument;
     }
 
 }

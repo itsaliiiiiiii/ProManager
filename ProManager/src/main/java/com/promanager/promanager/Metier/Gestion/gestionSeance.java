@@ -14,6 +14,7 @@ public class gestionSeance {
     private DAOseance seance;
 
     public gestionSeance() {
+        seance = new DAOseance();
     }
 
     public gestionSeance(DAOseance seance) {
@@ -29,8 +30,8 @@ public class gestionSeance {
     public Seance get(ObjectId id){
         return seance.get(id);
     }
-    public void add(String description, Date dateDepart, Date dateFin, String note){
-        seance.add(description, dateDepart, dateFin,"");
+    public ObjectId add(String description, Date dateDepart, Date dateFin, String note){
+        return seance.add(description, dateDepart, dateFin,"");
     }
     public void delete(ObjectId id,String key){
         seance.delete(id,key);

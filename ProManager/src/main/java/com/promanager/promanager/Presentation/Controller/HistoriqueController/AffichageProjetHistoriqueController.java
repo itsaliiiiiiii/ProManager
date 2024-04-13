@@ -82,7 +82,7 @@ public class AffichageProjetHistoriqueController {
     }
 
     private void openSeancesProjet() {
-        SeancesProjet projetsPage = new SeancesProjet(stage,idProjet);
+        SeancesProjet projetsPage = new SeancesProjet(idProjet, stage);
         Scene projectsScene = new Scene(projetsPage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);

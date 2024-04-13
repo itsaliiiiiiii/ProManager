@@ -6,6 +6,7 @@ import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
@@ -56,9 +57,13 @@ public class AffichageProjetController {
         this.tachesButton = view.getTachesButton();
         this.gProj = new gestionProjet();
         this.stage = stage;
-
+        
         PrecedentButton.setOnAction(event -> {
             openProjet();
+        });
+
+        documentsButton.setOnAction(event -> {
+            openDoc();
         });
 
         tachesButton.setOnAction(event -> {
@@ -94,7 +99,7 @@ public class AffichageProjetController {
     }
 
     private void openSeancesProjet() {
-        SeancesProjet projetsPage = new SeancesProjet(stage,idProjet);
+        SeancesProjet projetsPage = new SeancesProjet(idProjet, stage);
         Scene projectsScene = new Scene(projetsPage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
@@ -105,6 +110,17 @@ public class AffichageProjetController {
 
     private void openTachesProjet() {
         TachesProjet tachesProjet = new TachesProjet(idProjet, stage);
+        Parent projetsRoot = tachesProjet;
+        Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    private void openDoc() {
+        AffichageDocuments tachesProjet = new AffichageDocuments(idProjet, stage);
         Parent projetsRoot = tachesProjet;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);

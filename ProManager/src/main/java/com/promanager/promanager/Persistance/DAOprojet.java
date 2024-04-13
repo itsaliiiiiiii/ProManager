@@ -15,7 +15,6 @@ public class DAOprojet {
 
     Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public ArrayList<Projet> getAll() {
         ArrayList<Projet> Projects = new ArrayList<>();
         FindIterable<Document> documents = connexion.selectAll("Projets");
@@ -30,9 +29,9 @@ public class DAOprojet {
             projet.setIdProjet(document.getObjectId("_id"));
             projet.setTypeProjet(document.getString("Type"));
             projet.setStatus(document.getString("Status"));
-            projet.setListeTaches((ArrayList) document.getList("Taches", ObjectId.class));
-            projet.setListeSeances((ArrayList) document.getList("Seances", ObjectId.class));
-            projet.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
+            projet.setListeTaches((ArrayList<ObjectId>) document.getList("Taches", ObjectId.class));
+            projet.setListeSeances((ArrayList<ObjectId>) document.getList("Seances", ObjectId.class));
+            projet.setListeDocument((ArrayList<ObjectId>) document.getList("Documents", ObjectId.class));
             Projects.add(projet);
         }
         return Projects;
@@ -42,7 +41,6 @@ public class DAOprojet {
         return this.getAll().get(index);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Projet get(ObjectId id) {
         Document document = connexion.select(id, "Projets");
         Projet projet = new Projet();
@@ -54,9 +52,9 @@ public class DAOprojet {
         projet.setIdProjet(document.getObjectId("_id"));
         projet.setTypeProjet(document.getString("Type"));
         projet.setStatus(document.getString("Status"));
-        projet.setListeTaches((ArrayList) document.getList("Taches", ObjectId.class));
-        projet.setListeSeances((ArrayList) document.getList("Seances", ObjectId.class));
-        projet.setListeDocument((ArrayList) document.getList("Documents", ObjectId.class));
+        projet.setListeTaches((ArrayList<ObjectId>) document.getList("Taches", ObjectId.class));
+        projet.setListeSeances((ArrayList<ObjectId>) document.getList("Seances", ObjectId.class));
+        projet.setListeDocument((ArrayList<ObjectId>) document.getList("Documents", ObjectId.class));
         return projet;
     }
 

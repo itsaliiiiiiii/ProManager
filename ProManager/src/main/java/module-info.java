@@ -9,7 +9,6 @@ module com.promanager.promanager {
     requires java.naming;
     requires java.desktop;
     requires javafx.base;
-    requires google.api.services.gmail.v1.rev110;
 
     opens com.promanager.promanager.Presentation.Controller to javafx.fxml;
     opens com.promanager.promanager to javafx.graphics;

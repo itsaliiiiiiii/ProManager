@@ -42,17 +42,19 @@ public class DAOseance {
         seance.setDateDepartSeance(document.getDate("DateDepart"));
         seance.setDateFinSeance(document.getDate("DateFin"));
         seance.setDescriptionSeance(document.getString("Description"));
+        seance.setListeDocument((ArrayList<ObjectId>) document.getList("Documents", ObjectId.class));
         return seance;
     }
 
-    public void add(String description, Date dateDepart, Date dateFin, String note) {
+    public ObjectId add(String description, Date dateDepart, Date dateFin, String note) {
         Seance seance = new Seance(description, dateDepart, dateFin, "");
         HashMap<String, Object> InfoSeance = new HashMap<>();
         InfoSeance.put("Description", seance.getDescriptionSeance());
         InfoSeance.put("DateDepart", seance.getDateDepartSeance());
         InfoSeance.put("DateFin", seance.getDateFinSeance());
         InfoSeance.put("Note", "");
-        connexion.insert(InfoSeance, "Seances");
+        InfoSeance.put("Documents", new ArrayList<>());
+        return connexion.insert(InfoSeance, "Seances");
     }
 
     public void delete(ObjectId id, String key) {

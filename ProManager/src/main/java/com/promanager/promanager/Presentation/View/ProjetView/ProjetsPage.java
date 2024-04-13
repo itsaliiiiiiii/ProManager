@@ -161,7 +161,7 @@ public class ProjetsPage extends AnchorPane {
         this.Projets.setLayoutY(30.0);
         this.Projets.setPrefHeight(70.0);
         this.Projets.setPrefWidth(210.0);
-        this.Projets.setStyle("-fx-background-color: #505997; ");
+        this.Projets.setStyle("-fx-background-color: #6a82ab; ");
         this.Projets.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Projets.setFont(Font.font("Arial Bold", 31.0));
 

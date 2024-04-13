@@ -20,8 +20,9 @@ public class gestionProjet {
         projet = new DAOprojet();
         config = new DAOconfiguration();
     }
-
+    
     public gestionProjet(DAOprojet projet) {
+        projet = new DAOprojet();
         this.projet = projet;
     }
 
