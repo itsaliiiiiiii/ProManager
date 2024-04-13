@@ -1,6 +1,7 @@
 package com.promanager.promanager.Presentation.Controller;
 
 import com.promanager.promanager.Persistance.DAOconfiguration;
+import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.LoginPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
@@ -60,5 +61,7 @@ public class LoginPageController {
         stage.setScene(projectsScene);
         stage.show();
     }
+
+
 
 }

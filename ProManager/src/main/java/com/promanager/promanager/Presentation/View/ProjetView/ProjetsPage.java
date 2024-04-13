@@ -162,7 +162,7 @@ public class ProjetsPage extends AnchorPane {
         this.Projets.setLayoutY(30.0);
         this.Projets.setPrefHeight(70.0);
         this.Projets.setPrefWidth(210.0);
-        this.Projets.setStyle("-fx-background-color: transparent; ");
+        this.Projets.setStyle("-fx-background-color: #505997; ");
         this.Projets.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Projets.setFont(Font.font("Arial Bold", 31.0));
 
@@ -214,14 +214,14 @@ public class ProjetsPage extends AnchorPane {
             this.Listes.setStyle(
                     "-fx-background-color: transparent; ");
         });
-        this.Projets.setOnMouseEntered(event -> {
-            this.Projets.setStyle(
-                    "-fx-background-color: #6a82ab; ");
-        });
-        this.Projets.setOnMouseExited(event -> {
-            this.Projets.setStyle(
-                    "-fx-background-color: transparent; ");
-        });
+//        this.Projets.setOnMouseEntered(event -> {
+//            this.Projets.setStyle(
+//                    "-fx-background-color: #6a82ab; ");
+//        });
+//        this.Projets.setOnMouseExited(event -> {
+//            this.Projets.setStyle(
+//                    "-fx-background-color: transparent; ");
+//        });
 
         this.projetsText.setLayoutX(240.0);
         this.projetsText.setLayoutY(96.0);
@@ -256,7 +256,7 @@ public class ProjetsPage extends AnchorPane {
         this.rechercheInput.setLayoutX(886);
         this.rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
 
-        this.rechercheButton.setLayoutX(1030.0);
+        this.rechercheButton.setLayoutX(1050);
         this.rechercheButton.setLayoutY(72.0);
         this.rechercheButton.setStyle("-fx-background-color: #6a82ab;");
         this.rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);

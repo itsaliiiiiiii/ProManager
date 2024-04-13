@@ -1,5 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
+import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageHistorique;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
@@ -17,6 +18,7 @@ public class ProjetsPageController {
 
     public AnchorPane background;
     private Button buttonAjouter;
+    private Button buttonHistorique;
     private ComboBox<String> CategorieFilter;
     private ComboBox<String> TypeFilter;
     private Button FiltrerButton;
@@ -28,6 +30,7 @@ public class ProjetsPageController {
         this.CategorieFilter = view.getCategorieFilter();
         this.TypeFilter = view.getTypeFilter();
         this.FiltrerButton = view.getFiltrerButton();
+        this.buttonHistorique=view.getHistoriques();
         this.stage = stage;
 
         this.buttonAjouter.setOnAction(event -> {
@@ -36,6 +39,9 @@ public class ProjetsPageController {
 
         this.FiltrerButton.setOnAction(event -> {
             this.filtrerProjets();
+        });
+        this.buttonHistorique.setOnAction(event->{
+            this.openHistoriquePage();
         });
 
     };
@@ -83,6 +89,16 @@ public class ProjetsPageController {
         stage.setResizable(false);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
+        stage.show();
+    }
+    private void openHistoriquePage() {
+        AffichageHistorique historiquePage = new AffichageHistorique(stage, "tout", "tout");
+        Parent historiqueRoot = historiquePage;
+        Scene projectsScene = new Scene(historiqueRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
         stage.show();
     }
 }
