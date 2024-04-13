@@ -56,8 +56,10 @@ public class AffichageTacheController {
 
     public void supprimerDocProjet(ObjectId idoc , ObjectId idTache,ObjectId idProj) {
         ArrayList<ObjectId> listTaches = gTache.get_Tache(idTache).getListeDocument();
+        System.out.println(listTaches);
         listTaches.remove(idoc);
-        gTache.update(idTache, "Taches", listTaches);
+        System.out.println(listTaches);
+        gTache.update(idTache, "Documents", listTaches);
 
         AffichageTaches tache = new AffichageTaches(idTache,idProj, stage);
         Scene projectsScene = new Scene(tache, 1300, 800);

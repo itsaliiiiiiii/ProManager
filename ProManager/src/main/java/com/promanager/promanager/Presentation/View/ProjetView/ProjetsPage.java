@@ -1,6 +1,7 @@
 package com.promanager.promanager.Presentation.View.ProjetView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -42,6 +43,7 @@ public class ProjetsPage extends AnchorPane {
     private Button Statistiques;
     private Text projetsText;
     private ComboBox<String> CategorieFilter;
+    private ComboBox<String> Trier;
     private ComboBox<String> TypeFilter;
     private TextField rechercheInput;
     private Button rechercheButton;
@@ -52,7 +54,10 @@ public class ProjetsPage extends AnchorPane {
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
+    private ArrayList<Projet> filterProjets_;
     private String[] FiltrageProj;
+    private ArrayList<Projet> filterProjets;
+    private GridPane gridPane;
 
     private DAOconfiguration config;
 
@@ -77,11 +82,15 @@ public class ProjetsPage extends AnchorPane {
         FiltrageProj = new String[2];
         this.FiltrageProj[0] = Ftype;
         this.FiltrageProj[1] = Fcategorie;
+        filterProjets_ = new ArrayList<>();
+        filterProjets = new ArrayList<>();
+        Trier = new ComboBox<>();
 
         this.config = new DAOconfiguration();
         this.gProjet = new gestionProjet();
 
         init();
+        actualiserPage();
     }
 
     public AnchorPane getBack() {
@@ -213,14 +222,14 @@ public class ProjetsPage extends AnchorPane {
             this.Listes.setStyle(
                     "-fx-background-color: transparent; ");
         });
-//        this.Projets.setOnMouseEntered(event -> {
-//            this.Projets.setStyle(
-//                    "-fx-background-color: #6a82ab; ");
-//        });
-//        this.Projets.setOnMouseExited(event -> {
-//            this.Projets.setStyle(
-//                    "-fx-background-color: transparent; ");
-//        });
+        // this.Projets.setOnMouseEntered(event -> {
+        // this.Projets.setStyle(
+        // "-fx-background-color: #6a82ab; ");
+        // });
+        // this.Projets.setOnMouseExited(event -> {
+        // this.Projets.setStyle(
+        // "-fx-background-color: transparent; ");
+        // });
 
         this.projetsText.setLayoutX(240.0);
         this.projetsText.setLayoutY(96.0);
@@ -236,6 +245,13 @@ public class ProjetsPage extends AnchorPane {
         this.CategorieFilter.setPrefWidth(130.0);
         this.CategorieFilter.setPromptText("Categorie");
         this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
+
+        this.Trier.setLayoutX(720.0);
+        this.Trier.setLayoutY(72.0);
+        this.Trier.setPrefHeight(26.0);
+        this.Trier.setPrefWidth(130.0);
+        this.Trier.setPromptText("Trier");
+        this.Trier.setStyle("-fx-background-color: #6a82abcc;");
 
         this.TypeFilter.setLayoutX(545.0);
         this.TypeFilter.setLayoutY(72.0);
@@ -283,7 +299,7 @@ public class ProjetsPage extends AnchorPane {
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        GridPane gridPane = new GridPane();
+        gridPane = new GridPane();
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -309,13 +325,9 @@ public class ProjetsPage extends AnchorPane {
             gridPane.getRowConstraints().add(row);
         }
 
-        int row = 0;
-        int col = 0;
-        ArrayList<Projet> filterProjets_ = listProjets.stream()
+        filterProjets_ = listProjets.stream()
                 .filter(project -> project.getStatus().equals("Ouvert"))
                 .collect(Collectors.toCollection(ArrayList::new));
-
-        ArrayList<Projet> filterProjets ;
 
         if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
             filterProjets = filterProjets_.stream()
@@ -333,7 +345,43 @@ public class ProjetsPage extends AnchorPane {
         } else {
             filterProjets = new ArrayList<>(filterProjets_);
         }
+        Trier.setOnAction(event -> {
+            String Sort = Trier.getValue();
+            if (Sort != null) {
+                switch (Sort) {
+                    case "Nom":
+                        filterProjets.sort(Comparator.comparing(Projet::getNomProjet));
+                        break;
+                    case "Date Depart":
+                        filterProjets.sort(Comparator.comparing(Projet::getDateDepartProjet));
+                        break;
+                    case "Date Fin":
+                        filterProjets.sort(Comparator.comparing(Projet::getDateFinProjet));
+                        break;
+                    default:
+                        break;
+                }
+                actualiserPage();
+            }
+        });
 
+        scrollPane.setContent(gridPane);
+
+        config.getCategorie();
+        CategorieFilter.getItems().add("tout");
+        CategorieFilter.getItems().addAll(config.getCategorie());
+        TypeFilter.getItems().add("tout");
+        TypeFilter.getItems().addAll(config.getType());
+        Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
+                TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
+                FiltrerButton, scrollPane);
+    }
+
+    private void actualiserPage() {
+        int row = 0;
+        int col = 0;
+        gridPane.getChildren().clear();
         for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
@@ -385,17 +433,5 @@ public class ProjetsPage extends AnchorPane {
                 }
             });
         }
-
-        scrollPane.setContent(gridPane);
-
-        config.getCategorie();
-        CategorieFilter.getItems().add("tout");
-        CategorieFilter.getItems().addAll(config.getCategorie());
-        TypeFilter.getItems().add("tout");
-        TypeFilter.getItems().addAll(config.getType());
-
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
-                TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
-                FiltrerButton, scrollPane);
     }
 }
