@@ -1,8 +1,8 @@
-package com.promanager.promanager.Presentation.Controller.HistoriqueController;
+package com.promanager.promanager.Presentation.Controller.HistoriqueController.Taches;
 
-import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageProjetHistorique;
-import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageTacheHistorique;
-import com.promanager.promanager.Presentation.View.HistoriqueView.TachesProjetHistorique;
+import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;
+import com.promanager.promanager.Presentation.View.HistoriqueView.Taches.AffichageTacheHistorique;
+import com.promanager.promanager.Presentation.View.HistoriqueView.Taches.TachesProjetHistorique;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

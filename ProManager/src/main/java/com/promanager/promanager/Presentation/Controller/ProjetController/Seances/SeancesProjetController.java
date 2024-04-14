@@ -1,5 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
 
+import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -10,7 +11,6 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Persistance.DAOprojet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterSeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 

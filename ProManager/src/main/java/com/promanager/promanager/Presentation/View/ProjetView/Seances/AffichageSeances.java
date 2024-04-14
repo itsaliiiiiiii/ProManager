@@ -2,37 +2,27 @@ package com.promanager.promanager.Presentation.View.ProjetView.Seances;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AffichageSeancesController;
 import org.bson.types.ObjectId;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Document_;
-import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Persistance.DAOseance;
-import com.promanager.promanager.Persistance.DAOtache;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AffichageSeancesController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AffichageTacheController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.TachesProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 @SuppressWarnings("unused")

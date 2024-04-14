@@ -2,10 +2,10 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import java.util.ArrayList;
 
+import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterDocumentSeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 import javafx.scene.Scene;

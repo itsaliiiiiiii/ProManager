@@ -2,11 +2,11 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import java.io.File;
 
+import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterDocumentSeancesProjet;
 
 import javafx.scene.Scene;
@@ -100,7 +100,7 @@ public class AjouterDocumentSeancesProjetController {
     }
 
     private void back() {
-        AffichageSeances seac = new AffichageSeances(idSeance, idProjet, stage);
+        AffichageSeancesHistorique seac = new AffichageSeancesHistorique(idSeance, idProjet, stage);
         Scene projectsScene = new Scene(seac, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);

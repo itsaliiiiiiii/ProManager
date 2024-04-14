@@ -2,7 +2,6 @@ package com.promanager.promanager.Presentation.View.HistoriqueView.Documents;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.promanager.promanager.Presentation.Controller.HistoriqueController.Documents.AffichageDocumentsHistoriqueController;
 import org.bson.types.ObjectId;
@@ -11,32 +10,19 @@ import java.io.File;
 import java.io.IOException;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Persistance.DAOdocument;
 import com.promanager.promanager.Persistance.DAOprojet;
-import com.promanager.promanager.Persistance.DAOseance;
-import com.promanager.promanager.Persistance.DAOtache;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Documents.AffichageDocumentsController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AffichageSeancesController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AffichageTacheController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.TachesProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
@@ -49,7 +35,7 @@ public class AffichageDocumentsHistorique extends AnchorPane {
     private AffichageDocumentsHistoriqueController controller;
     private ScrollPane scrollPane;
     private VBox documentListe;
-    private Button AjouterButton;
+
     private Document_ document;
     private Projet projet;
     private DAOprojet gProjet;
@@ -67,7 +53,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         textT = new Text("Documents :");
         PrecedentButton = new Button("Precedent");
         gDocument = new gestionDocument();
-        AjouterButton = new Button("Ajouter");
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
         idsDocuments = new ArrayList<>();
@@ -84,9 +69,7 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         return PrecedentButton;
     }
 
-    public Button getAjouterButton() {
-        return AjouterButton;
-    }
+
 
     private void design() {
         textT.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
@@ -111,13 +94,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         textDocuments.setLayoutY(340.0);
         textDocuments.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
 
-        AjouterButton.setLayoutX(1100.0);
-        AjouterButton.setLayoutY(340.0);
-        AjouterButton.setPrefWidth(150.0);
-        AjouterButton.setPrefHeight(40.0);
-        AjouterButton.setFont(new Font(18.0));
-        AjouterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
-        AjouterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
@@ -157,14 +133,9 @@ public class AffichageDocumentsHistorique extends AnchorPane {
                 LabelDocument_.setStyle(
                         "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
-                Button SupprimerDoc = new Button("Supprimer");
 
                 HBox hbox = new HBox();
-                SupprimerDoc.setPrefHeight(60);
-                SupprimerDoc.setPrefWidth(200);
-                SupprimerDoc.setStyle(
-                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
 
                 LabelDocument_.setOnMouseClicked(event -> {
                     File file = new File(document.getPathDocument());
@@ -175,18 +146,16 @@ public class AffichageDocumentsHistorique extends AnchorPane {
                     }
                 });
 
-                SupprimerDoc.setOnMouseClicked(event -> {
-                    controller.supprimerDocProjet(idDoc, idProjet);
-                });
+
 
                 hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_, SupprimerDoc);
+                hbox.getChildren().addAll(LabelDocument_);
                 documentListe.getChildren().add(hbox);
             }
         }
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
-                AjouterButton, description);
+                 description);
     }
 }

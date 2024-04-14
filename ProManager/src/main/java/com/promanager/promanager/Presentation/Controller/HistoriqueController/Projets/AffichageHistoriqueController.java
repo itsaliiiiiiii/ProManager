@@ -1,7 +1,7 @@
-package com.promanager.promanager.Presentation.Controller.HistoriqueController;
+package com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets;
 
-import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageHistorique;
-import com.promanager.promanager.Presentation.View.HistoriqueView.AffichageProjetHistorique;
+import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
+import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;

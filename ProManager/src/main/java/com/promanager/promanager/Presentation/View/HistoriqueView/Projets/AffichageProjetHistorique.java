@@ -1,15 +1,12 @@
-package com.promanager.promanager.Presentation.View.HistoriqueView;
+package com.promanager.promanager.Presentation.View.HistoriqueView.Projets;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
-import com.promanager.promanager.Presentation.Controller.HistoriqueController.AffichageProjetHistoriqueController;
+import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageProjetHistoriqueController;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Presentation.Controller.ProjetController.AffichageProjetController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.AjouterProjetController;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

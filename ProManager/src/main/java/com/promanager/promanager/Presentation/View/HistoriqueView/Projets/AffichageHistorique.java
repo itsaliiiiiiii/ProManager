@@ -1,9 +1,9 @@
-package com.promanager.promanager.Presentation.View.HistoriqueView;
+package com.promanager.promanager.Presentation.View.HistoriqueView.Projets;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.promanager.promanager.Presentation.Controller.HistoriqueController.AffichageHistoriqueController;
+import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageHistoriqueController;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
