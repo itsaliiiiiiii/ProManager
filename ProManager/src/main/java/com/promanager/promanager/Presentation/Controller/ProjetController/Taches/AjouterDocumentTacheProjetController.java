@@ -79,7 +79,7 @@ public class AjouterDocumentTacheProjetController {
     }
 
     private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get("Storage");
+        Path destinationDirectory = Paths.get(getDocumentsDirectory());
 
         if (!Files.exists(destinationDirectory)) {
             try {
@@ -95,6 +95,19 @@ public class AjouterDocumentTacheProjetController {
         ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString());
         listDoc.add(idDoc);
         gTache.update(idtache, "Documents", listDoc);
+    }
+
+    private String getDocumentsDirectory() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String dic;
+        if (osName.contains("mac")) {
+            dic = System.getProperty("user.home") + "/Storage";
+        } else if (osName.contains("win")) {
+            dic = System.getProperty("user.home") + "\\Storage";
+        } else {
+            dic = System.getProperty("user.dir");
+        }
+        return dic;
     }
 
     private void back() {

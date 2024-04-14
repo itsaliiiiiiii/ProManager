@@ -78,7 +78,7 @@ public class AjouterDocumentProjetController {
     }
 
     private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get("Storage");
+        Path destinationDirectory = Paths.get(getDocumentsDirectory());
 
         if (!Files.exists(destinationDirectory)) {
             try {
@@ -97,6 +97,18 @@ public class AjouterDocumentProjetController {
         gProjet.update(idProjet, "Documents", listDoc);
     }
 
+    private String getDocumentsDirectory() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String dic;
+        if (osName.contains("mac")) {
+            dic = System.getProperty("user.home") + "/Storage";
+        } else if (osName.contains("win")) {
+            dic = System.getProperty("user.home") + "\\Storage";
+        } else {
+            dic = System.getProperty("user.dir");
+        }
+        return dic;
+    }
     private void back() {
         AffichageDocuments seac = new AffichageDocuments(idProjet, stage);
         Scene projectsScene = new Scene(seac, 1300, 800);

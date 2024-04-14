@@ -80,7 +80,7 @@ public class AjouterDocumentSeancesProjetController {
     }
 
     private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get("Storage");
+        Path destinationDirectory = Paths.get(getDocumentsDirectory());
 
         if (!Files.exists(destinationDirectory)) {
             try {
@@ -97,6 +97,19 @@ public class AjouterDocumentSeancesProjetController {
         ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString());
         listDoc.add(idDoc);
         gSeance.update(idSeance, "Documents", listDoc);
+    }
+
+    private String getDocumentsDirectory() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String dic;
+        if (osName.contains("mac")) {
+            dic = System.getProperty("user.home") + "/Storage";
+        } else if (osName.contains("win")) {
+            dic = System.getProperty("user.home") + "\\Storage";
+        } else {
+            dic = System.getProperty("user.dir");
+        }
+        return dic;
     }
 
     private void back() {
