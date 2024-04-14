@@ -3,23 +3,18 @@ package com.promanager.promanager.Presentation.Controller.HistoriqueController.S
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.SeancesProjetHistorique;
-import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Persistance.DAOprojet;
-
 public class SeancesProjetHistoriqueController {
     private Button PrecedentButton;
-    private DAOprojet gProj;
     private Stage stage;
 
     public SeancesProjetHistoriqueController(SeancesProjetHistorique view, Stage stage, ObjectId id) {
         this.PrecedentButton = view.getPrecedentButton();
-        gProj = new DAOprojet();
         this.stage = stage;
         PrecedentButton.setOnAction(event -> {
             AffichageProjetHistorique AjouterPage = new AffichageProjetHistorique(id, stage);

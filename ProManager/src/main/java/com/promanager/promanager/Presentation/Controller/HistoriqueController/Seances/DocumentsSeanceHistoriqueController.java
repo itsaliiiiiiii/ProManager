@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
+package com.promanager.promanager.Presentation.Controller.HistoriqueController.Seances;
 
 import java.io.File;
 
@@ -8,7 +8,6 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterDocumentSeancesProjet;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,17 +15,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class DocumentsSeanceHistoriqueController {
     private Button PrecedentButton;
     private Button SelectionDocument;
-    @SuppressWarnings("unused")
     private Text text;
     private Text nameDocument;
     private ObjectId idSeance;
@@ -38,8 +31,8 @@ public class DocumentsSeanceHistoriqueController {
     private TextArea Description;
 
     public DocumentsSeanceHistoriqueController(DocumentsSeanceHistorique view, ObjectId idSeance,
-                                               ObjectId idProjet,
-                                               Stage stage) {
+            ObjectId idProjet,
+            Stage stage) {
         this.idProjet = idProjet;
         this.idSeance = idSeance;
         this.stage = stage;
@@ -65,27 +58,6 @@ public class DocumentsSeanceHistoriqueController {
             back();
         });
 
-
-    }
-
-    private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get("Storage");
-
-        if (!Files.exists(destinationDirectory)) {
-            try {
-                Files.createDirectories(destinationDirectory);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
-        Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-        ArrayList<ObjectId> listDoc = new ArrayList<>();
-        System.out.println(idSeance);
-        listDoc = gSeance.get(idSeance).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString());
-        listDoc.add(idDoc);
-        gSeance.update(idSeance, "Documents", listDoc);
     }
 
     private void back() {

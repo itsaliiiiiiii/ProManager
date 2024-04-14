@@ -1,10 +1,9 @@
 package com.promanager.promanager.Presentation.View.HistoriqueView.Seances;
 
-import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.DocumentsSeanceHistoriqueController;
+
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AjouterDocumentSeancesProjetController;
-
+import com.promanager.promanager.Presentation.Controller.HistoriqueController.Seances.DocumentsSeanceHistoriqueController;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;

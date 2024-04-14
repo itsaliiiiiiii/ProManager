@@ -7,9 +7,7 @@ import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.Affich
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
-import com.promanager.promanager.Presentation.View.ProjetView.Documents.AjouterDocumentProjet;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
