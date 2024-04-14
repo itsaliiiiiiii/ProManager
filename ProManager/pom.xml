@@ -70,6 +70,20 @@
             <artifactId>google-api-services-gmail</artifactId>
             <version>v1-rev110-1.25.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.apple</groupId>
+            <artifactId>AppleJavaExtensions</artifactId>
+            <version>1.4</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/AppleJavaExtensions-1.4.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>18</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
