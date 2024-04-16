@@ -93,6 +93,9 @@ public class SeancesProjet extends AnchorPane {
         return AjouterButton;
     }
 
+
+
+    
     private void design() {
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
         nomProjet.setLayoutX(50.0);
