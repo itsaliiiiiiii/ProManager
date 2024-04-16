@@ -37,6 +37,10 @@ public class DAOtache {
 
     public Tache get(ObjectId id) {
         Document document = connexion.select(id, "Taches");
+        if (document == null) {
+            System.out.println("Hello");
+            return null; // Ou lancez une exception appropriée
+        }
         Tache tache = new Tache();
         tache.setIdTache(document.getObjectId("_id"));
         tache.setCategorieTache(document.getString("Categorie"));
@@ -47,7 +51,8 @@ public class DAOtache {
         return tache;
     }
 
-    public ObjectId add(String categorie, String description, Date dateDepart, Date dateFinTache,ArrayList<ObjectId> listDoc) {
+    public ObjectId add(String categorie, String description, Date dateDepart, Date dateFinTache,
+            ArrayList<ObjectId> listDoc) {
         Tache tache = new Tache(categorie, description, dateDepart, dateFinTache);
         HashMap<String, Object> InfoTache = new HashMap<>();
         InfoTache.put("Description", tache.getDescriptionTache());
@@ -76,5 +81,16 @@ public class DAOtache {
 
     public void update(ObjectId id, HashMap<String, Object> Objects) {
         connexion.update(id, Objects, "Taches");
+    }
+
+    public void update(ObjectId id, String Categorie, String Description, Date debut, Date fin,
+            ArrayList<ObjectId> Documets) {
+        HashMap<String, Object> InfoTache = new HashMap<>();
+        InfoTache.put("Categorie", Categorie);
+        InfoTache.put("Description", Description);
+        InfoTache.put("DateDepart", debut);
+        InfoTache.put("DateFin", fin);
+        InfoTache.put("Documents", Documets);
+        connexion.update(id, InfoTache, "Taches");
     }
 }

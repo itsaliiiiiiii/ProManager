@@ -20,7 +20,7 @@ public class gestionTache {
         config = new DAOconfiguration();
         tache = new DAOtache();
     }
-    
+
     public gestionTache(DAOtache tache) {
         config = new DAOconfiguration();
         this.tache = new DAOtache();
@@ -39,12 +39,13 @@ public class gestionTache {
         return tache.get(id);
     }
 
-    public ObjectId add(String categorie, String description, Date dateDepart, Date dateFinTache) throws ProjetExeption {
+    public ObjectId add(String categorie, String description, Date dateDepart, Date dateFinTache)
+            throws ProjetExeption {
         Date currentDate = new Date();
         if (categorie != null && dateDepart != null && dateFinTache != null && config.check(categorie, "Categorie")
                 && (dateDepart.equals(currentDate) || dateDepart.after(currentDate))
                 && dateFinTache.after(dateDepart)) {
-            return tache.add(categorie, description, dateDepart, dateFinTache,new ArrayList<ObjectId>());
+            return tache.add(categorie, description, dateDepart, dateFinTache, new ArrayList<ObjectId>());
 
         } else {
             throw new ProjetExeption();
@@ -69,5 +70,19 @@ public class gestionTache {
 
     public void update(ObjectId id, HashMap<String, Object> Objects) {
         tache.update(id, Objects);
+    }
+
+    public void update(ObjectId id, String Categorie, String Description, Date debut, Date fin,
+            ArrayList<ObjectId> Documents)
+            throws ProjetExeption {
+        Date currentDate = new Date();
+        if (Categorie != null && Description != null && debut != null
+                && fin != null && config.check(Categorie, "Categorie") &&
+                (debut.equals(currentDate) || debut.after(currentDate)) &&
+                fin.after(debut)) {
+            tache.update(id, Categorie, Description, debut, fin, Documents);
+        } else {
+            throw new ProjetExeption();
+        }
     }
 }

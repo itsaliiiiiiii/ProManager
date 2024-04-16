@@ -1,5 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Taches;
 
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.ModifierTache;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -46,7 +47,7 @@ public class TachesProjetController {
         stage.show();
     }
 
-    public void supprimerTacheProjet(ObjectId idProjet,ObjectId idTache) {
+    public void supprimerTacheProjet(ObjectId idProjet, ObjectId idTache) {
         ArrayList<ObjectId> listTaches = gProj.get(idProjet).getListeTaches();
         listTaches.remove(idTache);
         gProj.update(idProjet, "Taches", listTaches);
@@ -61,8 +62,19 @@ public class TachesProjetController {
         stage.show();
     }
 
-    public void AjouterTache(ObjectId idProjet){
-        AjouterTacheProjet AjouterPage = new AjouterTacheProjet(idProjet,stage);
+    public void modifierTache(ObjectId idProjet, ObjectId idTache) {
+        ModifierTache AjouterPage = new ModifierTache(idProjet, idTache, stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+
+    public void AjouterTache(ObjectId idProjet) {
+        AjouterTacheProjet AjouterPage = new AjouterTacheProjet(idProjet, stage);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");

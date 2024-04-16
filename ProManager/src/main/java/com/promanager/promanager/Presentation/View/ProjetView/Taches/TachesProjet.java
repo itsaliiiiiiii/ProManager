@@ -170,18 +170,25 @@ public class TachesProjet extends AnchorPane {
             Label LabelTache = new Label(elemTache);
             HBox hbox = new HBox();
             Button supprimerTache = new Button("Supprimer");
+            Button modifierTache = new Button("Modifier");
 
-            LabelTache.setFont(Font.font(25));
-            LabelTache.setPrefHeight(60);
+            LabelTache.setFont(Font.font(18));
+            LabelTache.setPrefHeight(40);
             LabelTache.setPrefWidth(900);
             LabelTache.setStyle(
-                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
-            supprimerTache.setPrefHeight(60);
-            supprimerTache.setPrefWidth(200);
+            supprimerTache.setPrefHeight(40);
+            supprimerTache.setPrefWidth(140);
             supprimerTache.setStyle(
-                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+
+            modifierTache.setPrefHeight(40);
+            modifierTache.setPrefWidth(140);
+            modifierTache.setStyle(
+                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+            modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
             hbox.setSpacing(20);
 
@@ -192,8 +199,11 @@ public class TachesProjet extends AnchorPane {
             supprimerTache.setOnMouseClicked(event -> {
                 controller.supprimerTacheProjet(idProjet, idTache);
             });
+            modifierTache.setOnMouseClicked(event -> {
+                controller.modifierTache(idProjet, idTache);
+            });
 
-            hbox.getChildren().addAll(LabelTache, supprimerTache);
+            hbox.getChildren().addAll(LabelTache, supprimerTache, modifierTache);
             tacheListe.getChildren().add(hbox);
         }
         AjouterButton.setOnMouseClicked(event -> {
