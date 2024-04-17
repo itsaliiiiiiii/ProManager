@@ -48,20 +48,19 @@ public class ProjetsPage extends AnchorPane {
     private TextField rechercheInput;
     private Button rechercheButton;
     private Button buttonAjouter;
-    private Button FiltrerButton;
     private Stage stage;
     private ProjetsPageController controller;
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
-    private ArrayList<Projet> filterProjets_;
+    private ArrayList<Projet> filterProjets1;
     private String[] FiltrageProj;
     private ArrayList<Projet> filterProjets;
     private GridPane gridPane;
 
     private DAOconfiguration config;
 
-    public ProjetsPage(Stage stage, String Ftype, String Fcategorie) {
+    public ProjetsPage(Stage stage) {
         this.stage = stage;
         this.background = new AnchorPane();
         this.sideBar = new Pane();
@@ -74,15 +73,11 @@ public class ProjetsPage extends AnchorPane {
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
         this.rechercheButton = new Button("Rechercher");
-        this.FiltrerButton = new Button("Filtrer");
         this.buttonAjouter = new Button("Ajouter Projet");
         this.controller = new ProjetsPageController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
-        FiltrageProj = new String[2];
-        this.FiltrageProj[0] = Ftype;
-        this.FiltrageProj[1] = Fcategorie;
-        filterProjets_ = new ArrayList<>();
+        filterProjets1 = new ArrayList<>();
         filterProjets = new ArrayList<>();
         Trier = new ComboBox<>();
 
@@ -107,10 +102,6 @@ public class ProjetsPage extends AnchorPane {
 
     public Button getButtonAjouter() {
         return buttonAjouter;
-    }
-
-    public Button getFiltrerButton() {
-        return FiltrerButton;
     }
 
     public Button getListes() {
@@ -246,7 +237,7 @@ public class ProjetsPage extends AnchorPane {
         this.CategorieFilter.setPromptText("Categorie");
         this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.Trier.setLayoutX(720.0);
+        this.Trier.setLayoutX(680.0);
         this.Trier.setLayoutY(72.0);
         this.Trier.setPrefHeight(26.0);
         this.Trier.setPrefWidth(130.0);
@@ -259,11 +250,6 @@ public class ProjetsPage extends AnchorPane {
         this.TypeFilter.setPrefWidth(108.0);
         this.TypeFilter.setPromptText("Type");
         this.TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
-
-        this.FiltrerButton.setLayoutX(660.0);
-        this.FiltrerButton.setLayoutY(72.0);
-        this.FiltrerButton.setStyle("-fx-background-color: #6a82ab;");
-        this.FiltrerButton.setTextFill(javafx.scene.paint.Color.WHITE);
 
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
@@ -325,26 +311,23 @@ public class ProjetsPage extends AnchorPane {
             gridPane.getRowConstraints().add(row);
         }
 
-        filterProjets_ = listProjets.stream()
+        filterProjets1 = listProjets.stream()
                 .filter(project -> project.getStatus().equals("Ouvert"))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
-                            project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[0].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else {
-            filterProjets = new ArrayList<>(filterProjets_);
+        if (CategorieFilter.getValue() == null || TypeFilter.getValue() == null) {
+            filterProjets = new ArrayList<>(filterProjets1);
         }
+        CategorieFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
+        TypeFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
         Trier.setOnAction(event -> {
             String Sort = Trier.getValue();
             if (Sort != null) {
@@ -375,7 +358,7 @@ public class ProjetsPage extends AnchorPane {
         Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
-                FiltrerButton, scrollPane);
+                scrollPane);
     }
 
     private void actualiserPage() {
@@ -434,4 +417,29 @@ public class ProjetsPage extends AnchorPane {
             });
         }
     }
+
+    private void filtrerProj() {
+        String categorieFilterValue = CategorieFilter.getValue();
+        String typeFilterValue = TypeFilter.getValue();
+
+        if ("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue)) {
+            filterProjets = new ArrayList<>(filterProjets1);
+        } else if (!"tout".equals(categorieFilterValue)
+                && ("tout".equals(typeFilterValue) || typeFilterValue == null)) {
+            filterProjets = filterProjets1.stream()
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (!"tout".equals(typeFilterValue)
+                && ("tout".equals(categorieFilterValue) || categorieFilterValue == null)) {
+            filterProjets = filterProjets1.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (categorieFilterValue != null && typeFilterValue != null) {
+            filterProjets = filterProjets1.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+    }
+
 }

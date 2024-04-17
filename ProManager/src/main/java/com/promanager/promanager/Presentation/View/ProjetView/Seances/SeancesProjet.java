@@ -96,6 +96,7 @@ public class SeancesProjet extends AnchorPane {
 
 
     
+    @SuppressWarnings("deprecation")
     private void design() {
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
         nomProjet.setLayoutX(50.0);
@@ -150,8 +151,9 @@ public class SeancesProjet extends AnchorPane {
 
         for (ObjectId idSeance : idSeances) {
             Seance = gSeance.get(idSeance);
-            elemTache = "Date Depart : "
-                    + sdf.format(Seance.getDateDepartSeance()) + " - Date Fin : " + sdf.format(Seance.getDateFinSeance());
+            elemTache = "Date Seance "
+                    + sdf.format(Seance.getDateDepartSeance()) + " - Heur Debut : " + Seance.getDateDepartSeance().getHours() + ":00 - Heur Fin : " + Seance.getDateFinSeance()
+                            .getHours() + ":00";
 
             Label LabelTache = new Label(elemTache);
             HBox hbox = new HBox();

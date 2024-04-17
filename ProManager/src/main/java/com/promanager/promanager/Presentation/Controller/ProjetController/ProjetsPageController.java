@@ -21,7 +21,6 @@ public class ProjetsPageController {
     private Button buttonHistorique;
     private ComboBox<String> CategorieFilter;
     private ComboBox<String> TypeFilter;
-    private Button FiltrerButton;
     private Stage stage;
 
     public ProjetsPageController(ProjetsPage view, Stage stage) {
@@ -29,18 +28,14 @@ public class ProjetsPageController {
         this.buttonAjouter = view.getButtonAjouter();
         this.CategorieFilter = view.getCategorieFilter();
         this.TypeFilter = view.getTypeFilter();
-        this.FiltrerButton = view.getFiltrerButton();
-        this.buttonHistorique=view.getHistoriques();
+        this.buttonHistorique = view.getHistoriques();
         this.stage = stage;
 
         this.buttonAjouter.setOnAction(event -> {
             this.openAjouterProjet();
         });
 
-        this.FiltrerButton.setOnAction(event -> {
-            this.filtrerProjets();
-        });
-        this.buttonHistorique.setOnAction(event->{
+        this.buttonHistorique.setOnAction(event -> {
             this.openHistoriquePage();
         });
 
@@ -63,11 +58,7 @@ public class ProjetsPageController {
     private void filtrerProjets() {
 
         ProjetsPage projetsPage = new ProjetsPage(
-                stage,
-                TypeFilter.getSelectionModel().getSelectedItem() == null ? "tout"
-                        : TypeFilter.getSelectionModel().getSelectedItem(),
-                CategorieFilter.getSelectionModel().getSelectedItem() == null ? "tout"
-                        : CategorieFilter.getSelectionModel().getSelectedItem());
+                stage);
         Parent root = projetsPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
@@ -77,8 +68,8 @@ public class ProjetsPageController {
         stage.setResizable(false);
         stage.show();
     }
-    
-    public void afficherProjet(ObjectId id){
+
+    public void afficherProjet(ObjectId id) {
         stage.setWidth(1300);
         stage.setHeight(800);
         AffichageProjet AjouterPage = new AffichageProjet(id, stage);
@@ -91,6 +82,7 @@ public class ProjetsPageController {
         stage.setMinHeight(800);
         stage.show();
     }
+
     private void openHistoriquePage() {
         AffichageHistorique historiquePage = new AffichageHistorique(stage, "tout", "tout");
         Parent historiqueRoot = historiquePage;

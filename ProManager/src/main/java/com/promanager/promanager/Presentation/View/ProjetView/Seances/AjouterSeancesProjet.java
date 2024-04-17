@@ -1,6 +1,5 @@
 package com.promanager.promanager.Presentation.View.ProjetView.Seances;
 
-import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
@@ -13,11 +12,13 @@ import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AjouterSeancesProjetController;
 import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AjouterTacheProjetController;
 
+import org.bson.types.ObjectId;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -34,14 +35,15 @@ public class AjouterSeancesProjet extends AnchorPane {
     private Text NomProjet;
     private Text Description;
     private Text DateDepart;
+    private ComboBox<Integer> heurdebut;
+    private ComboBox<Integer> heurfin;
     private Text NoteText;
-    private Text DateFin;
+    private Text debutSeance;
     private TextArea InputDescription;
     private TextField Note;
     private Button buttonAnnuler;
     private Button buttonAjouter;
-    private DatePicker PickerDateDepart;
-    private DatePicker PickerDateFin;
+    private DatePicker PickerDate;
     private Stage stage;
     private String Proj;
     private gestionProjet gProj;
@@ -62,15 +64,19 @@ public class AjouterSeancesProjet extends AnchorPane {
     }
 
     public DatePicker getPickerDateDepart() {
-        return PickerDateDepart;
-    }
-
-    public DatePicker getPickerDateFin() {
-        return PickerDateFin;
+        return PickerDate;
     }
 
     public TextField getNote() {
         return Note;
+    }
+
+    public ComboBox<Integer> getHeurdebut() {
+        return heurdebut;
+    }
+
+    public ComboBox<Integer> getHeurfin() {
+        return heurfin;
     }
 
     public AjouterSeancesProjet(ObjectId idProj, Stage stage) {
@@ -81,12 +87,13 @@ public class AjouterSeancesProjet extends AnchorPane {
         NoteText = new Text();
         InputDescription = new TextArea();
         Description = new Text("Description");
-        PickerDateFin = new DatePicker();
-        DateFin = new Text("Date Fin");
+        PickerDate = new DatePicker();
+        debutSeance = new Text();
         DateDepart = new Text("Date Depart");
         buttonAjouter = new Button("Ajouter");
-        PickerDateDepart = new DatePicker();
         buttonAnnuler = new Button("Annulé");
+        heurdebut = new ComboBox<>();
+        heurfin = new ComboBox<>();
         gProj = new gestionProjet();
         gSeance = new gestionSeance();
         this.Proj = gProj.get(idProj).getNomProjet();
@@ -137,21 +144,27 @@ public class AjouterSeancesProjet extends AnchorPane {
         DateDepart.setLayoutY(190.0);
         DateDepart.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
         DateDepart.setFill(Color.web("#6a82ab"));
-        DateDepart.setText("Date de Début");
+        DateDepart.setText("Date de Seance");
 
-        PickerDateDepart.setLayoutX(800.0);
-        PickerDateDepart.setLayoutY(200.0);
-        PickerDateDepart.setPrefWidth(200.0);
+        PickerDate.setLayoutX(800.0);
+        PickerDate.setLayoutY(200.0);
+        PickerDate.setPrefWidth(200.0);
 
-        DateFin.setLayoutX(800.0);
-        DateFin.setLayoutY(250.0);
-        DateFin.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
-        DateFin.setFill(Color.web("#6a82ab"));
-        DateFin.setText("Date de Fin");
+        debutSeance.setLayoutX(800.0);
+        debutSeance.setLayoutY(250.0);
+        debutSeance.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
+        debutSeance.setFill(Color.web("#6a82ab"));
+        debutSeance.setText("Heure :");
 
-        PickerDateFin.setLayoutX(800.0);
-        PickerDateFin.setLayoutY(260.0);
-        PickerDateFin.setPrefWidth(200.0);
+        heurdebut.setLayoutX(800.0);
+        heurdebut.setLayoutY(260.0);
+        heurdebut.setPrefWidth(80.0);
+        heurdebut.setStyle("-fx-background-color:#fff");
+        
+        heurfin.setLayoutX(890.0);
+        heurfin.setLayoutY(260.0);
+        heurfin.setPrefWidth(80.0);
+        heurfin.setStyle("-fx-background-color:#fff");
 
         buttonAjouter.setLayoutX(800.0);
         buttonAjouter.setLayoutY(320.0);
@@ -185,11 +198,14 @@ public class AjouterSeancesProjet extends AnchorPane {
         tachesVBox.setSpacing(5);
         tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
 
+        for (int h = 8; h <= 18; h++) {
+            heurdebut.getItems().add(h);
+            heurfin.getItems().add(h );
+        }
 
         scrollPane.setContent(mainVBox);
 
         getChildren().addAll(AjouterTache, NomProjet, Description, InputDescription, DateDepart,
-                PickerDateDepart, DateFin,
-                PickerDateFin, buttonAjouter, buttonAnnuler, scrollPane,Note,NoteText);
+                PickerDate, debutSeance,heurdebut, heurfin, buttonAjouter, buttonAnnuler, scrollPane, Note, NoteText);
     }
 }

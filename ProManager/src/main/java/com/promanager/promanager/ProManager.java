@@ -17,7 +17,7 @@ public class ProManager extends Application {
             Scene scene = new Scene(loginPageView, 1300, 800);
             stage.setScene(scene);
         } else {
-            ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
+            ProjetsPage projetsPage = new ProjetsPage(stage);
             Scene projectsScene = new Scene(projetsPage, 1300, 800);
             stage.setScene(projectsScene);
         }

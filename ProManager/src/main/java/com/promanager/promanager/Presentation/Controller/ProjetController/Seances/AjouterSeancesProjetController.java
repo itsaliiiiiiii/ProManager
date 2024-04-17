@@ -1,6 +1,8 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +17,7 @@ import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesPro
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -24,12 +27,13 @@ public class AjouterSeancesProjetController {
     private Button Annule;
     private Button Ajouter;
     private Stage stage;
-    private DatePicker PickerDateDepart;
-    private DatePicker PickerDateFin;
+    private DatePicker PickerDate;
     private TextArea InputDescription;
     private TextField Note;
     private gestionSeance gSeance;
     private gestionProjet gProjet;
+    private ComboBox<Integer> heurdebut;
+    private ComboBox<Integer> heurfin;
     private ArrayList<ObjectId> listeTaches;
 
     private ObjectId idProj;
@@ -37,12 +41,13 @@ public class AjouterSeancesProjetController {
     public AjouterSeancesProjetController(AjouterSeancesProjet view, Stage stage, ObjectId idProj) {
         Annule = view.getButtonAnnuler();
         Ajouter = view.getButtonAjouter();
-        PickerDateDepart = view.getPickerDateDepart();
-        PickerDateFin = view.getPickerDateFin();
+        PickerDate = view.getPickerDateDepart();
         InputDescription = view.getInputDescription();
         gSeance = new gestionSeance();
         gProjet = new gestionProjet();
         Note = view.getNote();
+        heurdebut = view.getHeurdebut();
+        heurfin = view.getHeurfin();
         listeTaches = new ArrayList<>();
 
         this.idProj = idProj;
@@ -62,13 +67,13 @@ public class AjouterSeancesProjetController {
     }
 
     private void AjouterTacheProjet() throws ProjetExeption {
-        if (PickerDateDepart.getValue() != null &&
-                PickerDateFin.getValue() != null && Note.getText() != null) {
-            ObjectId id = gSeance.add( InputDescription.getText(),
-                    Date.from(Instant.from((PickerDateDepart
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                    Date.from(Instant.from((PickerDateFin
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
+        if (PickerDate.getValue() != null &&
+                !InputDescription.getText().isEmpty() &&
+                heurdebut.getSelectionModel().getSelectedItem() != null &&
+                heurfin.getSelectionModel().getSelectedItem() != null) {
+            ObjectId id = gSeance.add(InputDescription.getText(),
+                    DepartDateSeance(),
+                    FinDateSeance(),
                     Note.getText());
             listeTaches = gProjet.get(idProj).getListeSeances();
             listeTaches.add(id);
@@ -95,5 +100,31 @@ public class AjouterSeancesProjetController {
         gProjet.update(idProj, "Seances", listeTaches);
 
         this.Back();
+    }
+
+    private Date DepartDateSeance() throws ProjetExeption {
+        LocalDate selectedDate = PickerDate.getValue();
+        Integer hour = heurdebut.getValue();
+
+        if (selectedDate != null && hour != null) {
+            LocalTime time = LocalTime.of(hour, 0);
+            LocalDateTime dateTime = LocalDateTime.of(selectedDate, time);
+            return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        } else {
+            throw new ProjetExeption();
+        }
+    }
+
+    private Date FinDateSeance() throws ProjetExeption {
+        LocalDate selectedDate = PickerDate.getValue();
+        Integer hour = heurfin.getValue();
+
+        if (selectedDate != null && hour != null) {
+            LocalTime time = LocalTime.of(hour, 0);
+            LocalDateTime dateTime = LocalDateTime.of(selectedDate, time);
+            return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        } else {
+            throw new ProjetExeption();
+        }
     }
 }

@@ -28,28 +28,20 @@ public class AffichageHistoriqueController {
         this.TypeFilter = view.getTypeFilter();
         this.FiltrerButton = view.getFiltrerButton();
         this.stage = stage;
-        this.buttonProjets=view.getProjets();
-
-
+        this.buttonProjets = view.getProjets();
 
         this.FiltrerButton.setOnAction(event -> {
             this.filtrerProjets();
         });
-        this.buttonProjets.setOnAction(event->{
+        this.buttonProjets.setOnAction(event -> {
             this.openProjetsPage();
         });
 
     };
 
-
     private void filtrerProjets() {
 
-        ProjetsPage projetsPage = new ProjetsPage(
-                stage,
-                TypeFilter.getSelectionModel().getSelectedItem() == null ? "tout"
-                        : TypeFilter.getSelectionModel().getSelectedItem(),
-                CategorieFilter.getSelectionModel().getSelectedItem() == null ? "tout"
-                        : CategorieFilter.getSelectionModel().getSelectedItem());
+        ProjetsPage projetsPage = new ProjetsPage(stage);
         Parent root = projetsPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
@@ -60,7 +52,7 @@ public class AffichageHistoriqueController {
         stage.show();
     }
 
-    public void afficherProjet(ObjectId id){
+    public void afficherProjet(ObjectId id) {
         stage.setWidth(1300);
         stage.setHeight(800);
         AffichageProjetHistorique historiquePage = new AffichageProjetHistorique(id, stage);
@@ -73,8 +65,9 @@ public class AffichageHistoriqueController {
         stage.setMinHeight(800);
         stage.show();
     }
+
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage, "tout", "tout");
+        ProjetsPage projetsPage = new ProjetsPage(stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
