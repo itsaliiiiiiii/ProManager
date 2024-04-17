@@ -54,7 +54,6 @@ public class ProjetsPage extends AnchorPane {
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
     private ArrayList<Projet> filterProjets1;
-    private String[] FiltrageProj;
     private ArrayList<Projet> filterProjets;
     private GridPane gridPane;
 
