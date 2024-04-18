@@ -41,7 +41,7 @@ public class AffichageHistoriqueController {
 
     private void filtrerProjets() {
 
-        ProjetsPage projetsPage = new ProjetsPage(stage);
+        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
         Parent root = projetsPage;
         Scene projectsScene = new Scene(root, 1300, 800);
         stage.setScene(projectsScene);
@@ -67,7 +67,7 @@ public class AffichageHistoriqueController {
     }
 
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage);
+        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
