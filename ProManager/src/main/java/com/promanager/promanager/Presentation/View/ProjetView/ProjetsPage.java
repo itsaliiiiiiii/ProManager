@@ -55,13 +55,12 @@ public class ProjetsPage extends AnchorPane {
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
     private ArrayList<Projet> filterProjets_;
-    private String[] FiltrageProj;
     private ArrayList<Projet> filterProjets;
     private GridPane gridPane;
 
     private DAOconfiguration config;
 
-    public ProjetsPage(Stage stage,String Ftype,String Fcategorie) {
+    public ProjetsPage(Stage stage) {
         this.stage = stage;
         this.background = new AnchorPane();
         this.sideBar = new Pane();
@@ -79,16 +78,13 @@ public class ProjetsPage extends AnchorPane {
         this.controller = new ProjetsPageController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
-        FiltrageProj = new String[2];
-        this.FiltrageProj[0] = Ftype;
-        this.FiltrageProj[1] = Fcategorie;
         filterProjets_ = new ArrayList<>();
         filterProjets = new ArrayList<>();
         Trier = new ComboBox<>();
         this.config = new DAOconfiguration();
         this.gProjet = new gestionProjet();
         init();
-        actualiserPage(filterProjets);
+        actualiserPage();
     }
 
     public AnchorPane getBack() {
@@ -126,9 +122,11 @@ public class ProjetsPage extends AnchorPane {
     public Text getProjetsText() {
         return projetsText;
     }
+
     public ComboBox<String> getCategorieFilter() {
         return CategorieFilter;
     }
+
     public ComboBox<String> getTypeFilter() {
         return TypeFilter;
     }
@@ -136,15 +134,19 @@ public class ProjetsPage extends AnchorPane {
     public ProjetsPageController getController() {
         return controller;
     }
+
     public TextField getRechercheInput() {
         return rechercheInput;
     }
+
     public Button getRechercheButton() {
         return rechercheButton;
     }
+
     public ReadOnlyDoubleProperty heightWindow() {
         return heightWindow;
     }
+
     public ReadOnlyDoubleProperty widthWindow() {
         return widthWindow;
     }
@@ -308,27 +310,39 @@ public class ProjetsPage extends AnchorPane {
             row.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
             gridPane.getRowConstraints().add(row);
         }
-
         filterProjets_ = listProjets.stream()
                 .filter(project -> project.getStatus().equals("Ouvert"))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
-                            project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[0].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else {
+        if (CategorieFilter.getValue() == null || TypeFilter.getValue() == null) {
             filterProjets = new ArrayList<>(filterProjets_);
         }
+
+        rechercheButton.setOnAction(event -> {
+            filterProjets_ = listProjets.stream()
+                    .filter(project -> project.getStatus().equals("Ouvert"))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> project.getDescriptionProjet().contains(rechercheInput.getText()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            filterProjets_ = new ArrayList<>(filterProjets);
+            CategorieFilter.setValue("tout");
+            TypeFilter.setValue("tout");
+
+            filtrerProj();
+            actualiserPage();
+        });
+
+        CategorieFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
+        TypeFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
         Trier.setOnAction(event -> {
             String Sort = Trier.getValue();
             if (Sort != null) {
@@ -345,14 +359,8 @@ public class ProjetsPage extends AnchorPane {
                     default:
                         break;
                 }
-                actualiserPage(filterProjets);
+                actualiserPage();
             }
-        });
-        rechercheButton.setOnAction(event->{
-            filterProjets_ = listProjets.stream()
-                    .filter(project -> project.getStatus().equals("Ouvert") && project.getDescriptionProjet().contains(rechercheInput.getText()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-            actualiserPage(filterProjets_);
         });
 
         scrollPane.setContent(gridPane);
@@ -365,15 +373,14 @@ public class ProjetsPage extends AnchorPane {
         Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
-                FiltrerButton, scrollPane);
+                scrollPane);
     }
 
-
-    private void actualiserPage(ArrayList<Projet> filtrer) {
+    private void actualiserPage() {
         int row = 0;
         int col = 0;
         gridPane.getChildren().clear();
-        for (Projet proj : filtrer) {
+        for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
             elemProjet.setPrefWidth(250.0);
@@ -425,4 +432,29 @@ public class ProjetsPage extends AnchorPane {
             });
         }
     }
+
+    private void filtrerProj() {
+        String categorieFilterValue = CategorieFilter.getValue();
+        String typeFilterValue = TypeFilter.getValue();
+
+        if (("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue))|| (categorieFilterValue == null && typeFilterValue == null)|| (categorieFilterValue == null && "tout".equals(typeFilterValue))|| ("tout".equals(categorieFilterValue) && typeFilterValue == null)){
+            filterProjets = new ArrayList<>(filterProjets_);
+        } else if (!"tout".equals(categorieFilterValue) && categorieFilterValue != null
+                && ("tout".equals(typeFilterValue) || typeFilterValue == null)) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (!"tout".equals(typeFilterValue) && typeFilterValue != null
+                && ("tout".equals(categorieFilterValue) || categorieFilterValue == null)) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (categorieFilterValue != null && typeFilterValue != null) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+    }
+
 }

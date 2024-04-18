@@ -51,7 +51,7 @@ public class LoginPageController {
     }
 
     private void openProjetsPage() {
-        ProjetsPage projetsPage = new ProjetsPage(stage,"tout","tout");
+        ProjetsPage projetsPage = new ProjetsPage(stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);
