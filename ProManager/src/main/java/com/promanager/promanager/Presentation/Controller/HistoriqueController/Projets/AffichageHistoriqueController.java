@@ -18,21 +18,17 @@ public class AffichageHistoriqueController {
     public AnchorPane background;
     private Button buttonProjets;
     private Button buttonListe;
-    private Button FiltrerButton;
     private Stage stage;
 
     public AffichageHistoriqueController(AffichageHistorique view, Stage stage) {
         this.background = view.getBack();
         view.getCategorieFilter();
         view.getTypeFilter();
-        this.FiltrerButton = view.getFiltrerButton();
         this.stage = stage;
         this.buttonProjets = view.getProjets();
         this.buttonListe=view.getListes();
 
-        this.FiltrerButton.setOnAction(event -> {
-            this.filtrerProjets();
-        });
+        
         this.buttonProjets.setOnAction(event -> {
             this.openProjetsPage();
         });
@@ -42,18 +38,6 @@ public class AffichageHistoriqueController {
 
     };
 
-    private void filtrerProjets() {
-
-        ProjetsPage projetsPage = new ProjetsPage(stage);
-        Parent root = projetsPage;
-        Scene projectsScene = new Scene(root, 1300, 800);
-        stage.setScene(projectsScene);
-        stage.setTitle("ProManager");
-        stage.setMinWidth(1300);
-        stage.setMinHeight(800);
-        stage.setResizable(false);
-        stage.show();
-    }
 
     public void afficherProjet(ObjectId id) {
         stage.setWidth(1300);

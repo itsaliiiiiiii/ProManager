@@ -69,7 +69,7 @@ public class AffichageProjetHistoriqueController {
     }
 
     private void openProjet() {
-        AffichageHistorique projetsPage = new AffichageHistorique(stage, "tout", "tout");
+        AffichageHistorique projetsPage = new AffichageHistorique(stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
         stage.setMinWidth(1300);

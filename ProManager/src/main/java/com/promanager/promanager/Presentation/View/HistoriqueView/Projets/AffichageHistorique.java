@@ -1,14 +1,16 @@
 package com.promanager.promanager.Presentation.View.HistoriqueView.Projets;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageHistoriqueController;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
+import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageHistoriqueController;
+
 import java.text.SimpleDateFormat;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -41,20 +43,23 @@ public class AffichageHistorique extends AnchorPane {
     private Button Statistiques;
     private Text projetsText;
     private ComboBox<String> CategorieFilter;
+    private ComboBox<String> Trier;
     private ComboBox<String> TypeFilter;
     private TextField rechercheInput;
     private Button rechercheButton;
-    private Button FiltrerButton;
+    @SuppressWarnings("unused")
     private Stage stage;
     private AffichageHistoriqueController controller;
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
     private gestionProjet gProjet;
-    private String[] FiltrageProj;
+    private ArrayList<Projet> filterProjets_;
+    private ArrayList<Projet> filterProjets;
+    private GridPane gridPane;
 
     private DAOconfiguration config;
 
-    public AffichageHistorique(Stage stage, String Ftype, String Fcategorie) {
+    public AffichageHistorique(Stage stage) {
         this.stage = stage;
         this.background = new AnchorPane();
         this.sideBar = new Pane();
@@ -62,23 +67,21 @@ public class AffichageHistorique extends AnchorPane {
         this.Listes = new Button("Listes");
         this.Historiques = new Button("Historiques");
         this.Statistiques = new Button("Statistiques");
-        this.projetsText = new Text("Historique");
+        this.projetsText = new Text("Projets");
         this.CategorieFilter = new ComboBox<>();
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
         this.rechercheButton = new Button("Rechercher");
-        this.FiltrerButton = new Button("Filtrer");
         this.controller = new AffichageHistoriqueController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
-        FiltrageProj = new String[2];
-        this.FiltrageProj[0] = Ftype;
-        this.FiltrageProj[1] = Fcategorie;
-
+        filterProjets_ = new ArrayList<>();
+        filterProjets = new ArrayList<>();
+        Trier = new ComboBox<>();
         this.config = new DAOconfiguration();
         this.gProjet = new gestionProjet();
-
         init();
+        actualiserPage();
     }
 
     public AnchorPane getBack() {
@@ -91,11 +94,6 @@ public class AffichageHistorique extends AnchorPane {
 
     public Button getProjets() {
         return Projets;
-    }
-
-
-    public Button getFiltrerButton() {
-        return FiltrerButton;
     }
 
     public Button getListes() {
@@ -120,10 +118,6 @@ public class AffichageHistorique extends AnchorPane {
 
     public ComboBox<String> getTypeFilter() {
         return TypeFilter;
-    }
-
-    public AffichageHistoriqueController getController() {
-        return controller;
     }
 
     public TextField getRechercheInput() {
@@ -155,7 +149,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Projets.setLayoutY(30.0);
         this.Projets.setPrefHeight(70.0);
         this.Projets.setPrefWidth(210.0);
-        this.Projets.setStyle("-fx-background-color: transparent; ");
+        this.Projets.setStyle("-fx-background-color: #4a628a; ");
         this.Projets.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Projets.setFont(Font.font("Arial Bold", 31.0));
 
@@ -171,7 +165,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Historiques.setLayoutY(170.0);
         this.Historiques.setPrefHeight(70.0);
         this.Historiques.setPrefWidth(210.0);
-        this.Historiques.setStyle("-fx-background-color:#4a628a;");
+        this.Historiques.setStyle("-fx-background-color: transparent; ");
         this.Historiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Historiques.setFont(Font.font("Arial Bold", 31.0));
 
@@ -191,14 +185,14 @@ public class AffichageHistorique extends AnchorPane {
             this.Statistiques.setStyle(
                     "-fx-background-color: transparent; ");
         });
-//        this.Historiques.setOnMouseEntered(event -> {
-//            this.Historiques.setStyle(
-//                    "-fx-background-color: #6a82ab; ");
-//        });
-//        this.Historiques.setOnMouseExited(event -> {
-//            this.Historiques.setStyle(
-//                    "-fx-background-color: transparent; ");
-//        });
+        this.Historiques.setOnMouseEntered(event -> {
+            this.Historiques.setStyle(
+                    "-fx-background-color: #6a82ab; ");
+        });
+        this.Historiques.setOnMouseExited(event -> {
+            this.Historiques.setStyle(
+                    "-fx-background-color: transparent; ");
+        });
         this.Listes.setOnMouseEntered(event -> {
             this.Listes.setStyle(
                     "-fx-background-color: #6a82ab; ");
@@ -207,58 +201,46 @@ public class AffichageHistorique extends AnchorPane {
             this.Listes.setStyle(
                     "-fx-background-color: transparent; ");
         });
-        this.Projets.setOnMouseEntered(event -> {
-            this.Projets.setStyle(
-                    "-fx-background-color: #6a82ab; ");
-        });
-        this.Projets.setOnMouseExited(event -> {
-            this.Projets.setStyle(
-                    "-fx-background-color: transparent; ");
-        });
 
-        this.projetsText.setLayoutX(240);
+        this.projetsText.setLayoutX(240.0);
         this.projetsText.setLayoutY(96.0);
         this.projetsText.setFill(javafx.scene.paint.Color.web("#6a82ab"));
         this.projetsText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         this.projetsText.setStrokeWidth(0.0);
-        this.projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 38));
+        this.projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
         this.projetsText.setWrappingWidth(188.78101640354225);
 
-        this.CategorieFilter.setLayoutX(440.0);
+        this.CategorieFilter.setLayoutX(406.0);
         this.CategorieFilter.setLayoutY(72.0);
         this.CategorieFilter.setPrefHeight(26.0);
         this.CategorieFilter.setPrefWidth(130.0);
         this.CategorieFilter.setPromptText("Categorie");
         this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.TypeFilter.setLayoutX(580);
+        this.Trier.setLayoutX(680.0);
+        this.Trier.setLayoutY(72.0);
+        this.Trier.setPrefHeight(26.0);
+        this.Trier.setPrefWidth(130.0);
+        this.Trier.setPromptText("Trier");
+        this.Trier.setStyle("-fx-background-color: #6a82abcc;");
+
+        this.TypeFilter.setLayoutX(545.0);
         this.TypeFilter.setLayoutY(72.0);
         this.TypeFilter.setPrefHeight(26.0);
         this.TypeFilter.setPrefWidth(108.0);
         this.TypeFilter.setPromptText("Type");
         this.TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.FiltrerButton.setLayoutX(700);
-        this.FiltrerButton.setLayoutY(72.0);
-        this.FiltrerButton.setStyle("-fx-background-color: #6a82ab;");
-        this.FiltrerButton.setTextFill(javafx.scene.paint.Color.WHITE);
-
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
         this.rechercheInput.setLayoutY(72.0);
-        this.rechercheInput.setLayoutX(950);
+        this.rechercheInput.setLayoutX(886);
         this.rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
 
-        this.rechercheButton.setLayoutX(1115.0);
+        this.rechercheButton.setLayoutX(1050);
         this.rechercheButton.setLayoutY(72.0);
         this.rechercheButton.setStyle("-fx-background-color: #6a82ab;");
         this.rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);
-
-
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            rechercheInput.setLayoutX(newVal.doubleValue() - 410);
-            rechercheButton.setLayoutX(newVal.doubleValue() - 250);
-        });
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(1000.0, 600.0);
@@ -266,7 +248,7 @@ public class AffichageHistorique extends AnchorPane {
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        GridPane gridPane = new GridPane();
+        gridPane = new GridPane();
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -291,32 +273,77 @@ public class AffichageHistorique extends AnchorPane {
             row.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
             gridPane.getRowConstraints().add(row);
         }
-
-        int row = 0;
-        int col = 0;
-        ArrayList<Projet> filterProjets_ = listProjets.stream()
+        filterProjets_ = listProjets.stream()
                 .filter(project -> project.getStatus().equals("Termine"))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        ArrayList<Projet> filterProjets ;
-
-        if (!FiltrageProj[0].equals("tout") && !FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]) &&
-                            project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[0].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getTypeProjet().equals(FiltrageProj[0]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!FiltrageProj[1].equals("tout")) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getCategorieProjet().equals(FiltrageProj[1]))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else {
+        if (CategorieFilter.getValue() == null || TypeFilter.getValue() == null) {
             filterProjets = new ArrayList<>(filterProjets_);
         }
 
+        rechercheButton.setOnAction(event -> {
+            filterProjets_ = listProjets.stream()
+                    .filter(project -> project.getStatus().equals("Termine"))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> project.getDescriptionProjet().contains(rechercheInput.getText()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+            filterProjets_ = new ArrayList<>(filterProjets);
+            CategorieFilter.setValue("tout");
+            TypeFilter.setValue("tout");
+
+            filtrerProj();
+            actualiserPage();
+        });
+
+        CategorieFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
+        TypeFilter.setOnAction(event -> {
+            filtrerProj();
+            actualiserPage();
+        });
+
+        Trier.setOnAction(event -> {
+            String Sort = Trier.getValue();
+            if (Sort != null) {
+                switch (Sort) {
+                    case "Nom":
+                        filterProjets.sort(Comparator.comparing(Projet::getNomProjet));
+                        break;
+                    case "Date Depart":
+                        filterProjets.sort(Comparator.comparing(Projet::getDateDepartProjet));
+                        break;
+                    case "Date Fin":
+                        filterProjets.sort(Comparator.comparing(Projet::getDateFinProjet));
+                        break;
+                    default:
+                        break;
+                }
+                actualiserPage();
+            }
+        });
+
+        scrollPane.setContent(gridPane);
+
+        config.getCategorie();
+        CategorieFilter.getItems().add("tout");
+        CategorieFilter.getItems().addAll(config.getCategorie());
+        TypeFilter.getItems().add("tout");
+        TypeFilter.getItems().addAll(config.getType());
+        Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
+
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
+                TypeFilter, rechercheInput, rechercheButton,
+                scrollPane);
+    }
+
+    private void actualiserPage() {
+        int row = 0;
+        int col = 0;
+        gridPane.getChildren().clear();
         for (Projet proj : filterProjets) {
             Pane elemProjet = new Pane();
             elemProjet.setPrefHeight(100.0);
@@ -368,17 +395,33 @@ public class AffichageHistorique extends AnchorPane {
                 }
             });
         }
-
-        scrollPane.setContent(gridPane);
-
-        config.getCategorie();
-        CategorieFilter.getItems().add("tout");
-        CategorieFilter.getItems().addAll(config.getCategorie());
-        TypeFilter.getItems().add("tout");
-        TypeFilter.getItems().addAll(config.getType());
-
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter,
-                TypeFilter, rechercheInput, rechercheButton,
-                FiltrerButton, scrollPane);
     }
+
+    private void filtrerProj() {
+        String categorieFilterValue = CategorieFilter.getValue();
+        String typeFilterValue = TypeFilter.getValue();
+
+        if (("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue))
+                || (categorieFilterValue == null && typeFilterValue == null)
+                || (categorieFilterValue == null && "tout".equals(typeFilterValue))
+                || ("tout".equals(categorieFilterValue) && typeFilterValue == null)) {
+            filterProjets = new ArrayList<>(filterProjets_);
+        } else if (!"tout".equals(categorieFilterValue) && categorieFilterValue != null
+                && ("tout".equals(typeFilterValue) || typeFilterValue == null)) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (!"tout".equals(typeFilterValue) && typeFilterValue != null
+                && ("tout".equals(categorieFilterValue) || categorieFilterValue == null)) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        } else if (categorieFilterValue != null && typeFilterValue != null) {
+            filterProjets = filterProjets_.stream()
+                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
+                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+    }
+
 }

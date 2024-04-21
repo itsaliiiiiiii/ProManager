@@ -47,7 +47,7 @@ public class ListesPageController {
         stage.show();
     }
     private void openHistoriquePage() {
-        AffichageHistorique historiquePage = new AffichageHistorique(stage, "tout", "tout");
+        AffichageHistorique historiquePage = new AffichageHistorique(stage);
         Parent historiqueRoot = historiquePage;
         Scene projectsScene = new Scene(historiqueRoot, 1300, 800);
         stage.setMinWidth(1300);
