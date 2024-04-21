@@ -1,6 +1,8 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
+import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
+
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
@@ -18,13 +20,15 @@ public class ProjetsPageController {
     public AnchorPane background;
     private Button buttonAjouter;
     private Button buttonHistorique;
-    
+    private Button buttonListes;
+
     private Stage stage;
 
     public ProjetsPageController(ProjetsPage view, Stage stage) {
         this.background = view.getBack();
         this.buttonAjouter = view.getButtonAjouter();
-    
+        buttonListes = view.getListes();
+
         this.buttonHistorique = view.getHistoriques();
         this.stage = stage;
 
@@ -34,6 +38,10 @@ public class ProjetsPageController {
 
         this.buttonHistorique.setOnAction(event -> {
             this.openHistoriquePage();
+        });
+
+        this.buttonListes.setOnAction(event -> {
+            this.openListesPage();
         });
 
     };
@@ -51,7 +59,6 @@ public class ProjetsPageController {
         stage.setMinHeight(800);
         stage.show();
     }
-
 
     public void afficherProjet(ObjectId id) {
         stage.setWidth(1300);
@@ -71,6 +78,15 @@ public class ProjetsPageController {
         AffichageHistorique historiquePage = new AffichageHistorique(stage, "tout", "tout");
         Parent historiqueRoot = historiquePage;
         Scene projectsScene = new Scene(historiqueRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+    private void openListesPage() {
+        ListesPage Listespage = new ListesPage(stage);
+        Scene projectsScene = new Scene(Listespage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
         stage.setResizable(false);

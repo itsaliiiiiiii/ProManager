@@ -48,7 +48,6 @@ public class ProjetsPage extends AnchorPane {
     private TextField rechercheInput;
     private Button rechercheButton;
     private Button buttonAjouter;
-    private Button FiltrerButton;
     private Stage stage;
     private ProjetsPageController controller;
     private ReadOnlyDoubleProperty heightWindow;
@@ -73,7 +72,6 @@ public class ProjetsPage extends AnchorPane {
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
         this.rechercheButton = new Button("Rechercher");
-        this.FiltrerButton = new Button("Filtrer");
         this.buttonAjouter = new Button("Ajouter Projet");
         this.controller = new ProjetsPageController(this, stage);
         this.heightWindow = stage.heightProperty();
@@ -101,10 +99,6 @@ public class ProjetsPage extends AnchorPane {
 
     public Button getButtonAjouter() {
         return buttonAjouter;
-    }
-
-    public Button getFiltrerButton() {
-        return FiltrerButton;
     }
 
     public Button getListes() {
@@ -232,7 +226,7 @@ public class ProjetsPage extends AnchorPane {
         this.CategorieFilter.setPromptText("Categorie");
         this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.Trier.setLayoutX(720.0);
+        this.Trier.setLayoutX(680.0);
         this.Trier.setLayoutY(72.0);
         this.Trier.setPrefHeight(26.0);
         this.Trier.setPrefWidth(130.0);
@@ -246,10 +240,6 @@ public class ProjetsPage extends AnchorPane {
         this.TypeFilter.setPromptText("Type");
         this.TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.FiltrerButton.setLayoutX(660.0);
-        this.FiltrerButton.setLayoutY(72.0);
-        this.FiltrerButton.setStyle("-fx-background-color: #6a82ab;");
-        this.FiltrerButton.setTextFill(javafx.scene.paint.Color.WHITE);
 
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
@@ -371,6 +361,7 @@ public class ProjetsPage extends AnchorPane {
         TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
         Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
+        
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
                 scrollPane);
@@ -437,7 +428,10 @@ public class ProjetsPage extends AnchorPane {
         String categorieFilterValue = CategorieFilter.getValue();
         String typeFilterValue = TypeFilter.getValue();
 
-        if (("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue))|| (categorieFilterValue == null && typeFilterValue == null)|| (categorieFilterValue == null && "tout".equals(typeFilterValue))|| ("tout".equals(categorieFilterValue) && typeFilterValue == null)){
+        if (("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue))
+                || (categorieFilterValue == null && typeFilterValue == null)
+                || (categorieFilterValue == null && "tout".equals(typeFilterValue))
+                || ("tout".equals(categorieFilterValue) && typeFilterValue == null)) {
             filterProjets = new ArrayList<>(filterProjets_);
         } else if (!"tout".equals(categorieFilterValue) && categorieFilterValue != null
                 && ("tout".equals(typeFilterValue) || typeFilterValue == null)) {
