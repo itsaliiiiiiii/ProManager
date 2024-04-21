@@ -101,8 +101,6 @@ public class ListesPage extends AnchorPane {
         return CategorieFilter;
     }
 
-   
-
     public TextField getRechercheInput() {
         return rechercheInput;
     }
@@ -164,6 +162,14 @@ public class ListesPage extends AnchorPane {
         this.Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Statistiques.setFont(Font.font("Arial Bold", 31.0));
 
+        this.Projets.setOnMouseEntered(event -> {
+            this.Projets.setStyle(
+                    "-fx-background-color: #6a82ab; ");
+        });
+        this.Projets.setOnMouseExited(event -> {
+            this.Projets.setStyle(
+                    "-fx-background-color: transparent; ");
+        });
         this.Statistiques.setOnMouseEntered(event -> {
             this.Statistiques.setStyle(
                     "-fx-background-color: #6a82ab; ");
@@ -178,14 +184,6 @@ public class ListesPage extends AnchorPane {
         });
         this.Historiques.setOnMouseExited(event -> {
             this.Historiques.setStyle(
-                    "-fx-background-color: transparent; ");
-        });
-        this.Listes.setOnMouseEntered(event -> {
-            this.Listes.setStyle(
-                    "-fx-background-color: #6a82ab; ");
-        });
-        this.Listes.setOnMouseExited(event -> {
-            this.Listes.setStyle(
                     "-fx-background-color: transparent; ");
         });
 
