@@ -287,10 +287,12 @@ public class AjouterTachePage extends AnchorPane {
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == oldList) {
                 scrollPane.setVisible(true);
+                listeSelectione.setVisible(true);
                 InputNomListe.setVisible(false);
                 InputDescriptionListe.setVisible(false);
             } else if (newValue == newList) {
                 scrollPane.setVisible(false);
+                listeSelectione.setVisible(false);
                 InputNomListe.setVisible(true);
                 InputDescriptionListe.setVisible(true);
             }
