@@ -4,8 +4,6 @@ package com.promanager.promanager.Presentation.View.ListesVIiew;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.Controller.ListesController.AjouterDocumentTachePageController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AjouterDocumentTacheProjetController;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;

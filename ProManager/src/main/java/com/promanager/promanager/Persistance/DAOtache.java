@@ -38,8 +38,7 @@ public class DAOtache {
     public Tache get(ObjectId id) {
         Document document = connexion.select(id, "Taches");
         if (document == null) {
-            System.out.println("Hello");
-            return null; // Ou lancez une exception appropriée
+            return null; 
         }
         Tache tache = new Tache();
         tache.setIdTache(document.getObjectId("_id"));

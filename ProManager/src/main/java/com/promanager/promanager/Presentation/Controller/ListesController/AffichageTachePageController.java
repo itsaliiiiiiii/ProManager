@@ -8,8 +8,6 @@ import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Presentation.View.ListesVIiew.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesVIiew.AjouterDocumentTachePage;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

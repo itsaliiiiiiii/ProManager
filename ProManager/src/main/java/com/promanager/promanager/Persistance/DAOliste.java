@@ -42,11 +42,12 @@ public class DAOliste {
         return liste;
     }
 
-    public void add(String nom, String description) {
+    public void add(String nom, String description,ArrayList<ObjectId> listeTache) {
         Liste liste = new Liste(nom, description);
         HashMap<String, Object> Infoliste = new HashMap<>();
         Infoliste.put("Description", liste.getDescriptionListe());
         Infoliste.put("Nom", liste.getNomListe());
+        Infoliste.put("Taches", listeTache);
         connexion.insert(Infoliste, "Listes");
     }
 
@@ -62,7 +63,7 @@ public class DAOliste {
         connexion.update(id, key, value, "Listes");
     }
 
-    public void update(ObjectId id, String key, List<Object> value) {
+    public void update(ObjectId id, String key, List<ObjectId> value) {
         connexion.update(id, key, value, "Listes");
     }
 

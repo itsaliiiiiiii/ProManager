@@ -33,12 +33,12 @@ public class gestionListe {
         return liste.get(id);
     }
 
-    public void add(String nom, String description) {
+    public void add(String nom, String description,ArrayList<ObjectId> listeTache) {
         if(nom.isEmpty()){
             System.out.println("Nom est vide");
             return;
         }
-        liste.add(nom, description);
+        liste.add(nom, description, listeTache);
     }
 
     public void delete(ObjectId id, String key) {
@@ -69,7 +69,7 @@ public class gestionListe {
         liste.update(id, key, value);
     }
 
-    public void update(ObjectId id, String key, List<Object> value) {
+    public void update(ObjectId id, String key, List<ObjectId> value) {
         liste.update(id, key, value);
     }
 
