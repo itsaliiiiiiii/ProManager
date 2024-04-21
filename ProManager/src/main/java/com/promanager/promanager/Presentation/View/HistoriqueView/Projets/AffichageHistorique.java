@@ -67,7 +67,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Listes = new Button("Listes");
         this.Historiques = new Button("Historiques");
         this.Statistiques = new Button("Statistiques");
-        this.projetsText = new Text("Projets");
+        this.projetsText = new Text("Historique");
         this.CategorieFilter = new ComboBox<>();
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
@@ -149,7 +149,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Projets.setLayoutY(30.0);
         this.Projets.setPrefHeight(70.0);
         this.Projets.setPrefWidth(210.0);
-        this.Projets.setStyle("-fx-background-color: #4a628a; ");
+        this.Projets.setStyle("-fx-background-color: transparent;");
         this.Projets.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Projets.setFont(Font.font("Arial Bold", 31.0));
 
@@ -165,7 +165,7 @@ public class AffichageHistorique extends AnchorPane {
         this.Historiques.setLayoutY(170.0);
         this.Historiques.setPrefHeight(70.0);
         this.Historiques.setPrefWidth(210.0);
-        this.Historiques.setStyle("-fx-background-color: transparent; ");
+        this.Historiques.setStyle("-fx-background-color: #4a628a; ");
         this.Historiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Historiques.setFont(Font.font("Arial Bold", 31.0));
 
@@ -177,20 +177,21 @@ public class AffichageHistorique extends AnchorPane {
         this.Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Statistiques.setFont(Font.font("Arial Bold", 31.0));
 
+
+        this.Projets.setOnMouseEntered(event -> {
+            this.Projets.setStyle(
+                    "-fx-background-color: #6a82ab; ");
+        });
+        this.Projets.setOnMouseExited(event -> {
+            this.Projets.setStyle(
+                    "-fx-background-color: transparent; ");
+        });
         this.Statistiques.setOnMouseEntered(event -> {
             this.Statistiques.setStyle(
                     "-fx-background-color: #6a82ab; ");
         });
         this.Statistiques.setOnMouseExited(event -> {
             this.Statistiques.setStyle(
-                    "-fx-background-color: transparent; ");
-        });
-        this.Historiques.setOnMouseEntered(event -> {
-            this.Historiques.setStyle(
-                    "-fx-background-color: #6a82ab; ");
-        });
-        this.Historiques.setOnMouseExited(event -> {
-            this.Historiques.setStyle(
                     "-fx-background-color: transparent; ");
         });
         this.Listes.setOnMouseEntered(event -> {
@@ -209,22 +210,23 @@ public class AffichageHistorique extends AnchorPane {
         this.projetsText.setStrokeWidth(0.0);
         this.projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
         this.projetsText.setWrappingWidth(188.78101640354225);
+        this.projetsText.setStyle("-fx-font-size:35px");
 
-        this.CategorieFilter.setLayoutX(406.0);
+        this.CategorieFilter.setLayoutX(450.0);
         this.CategorieFilter.setLayoutY(72.0);
         this.CategorieFilter.setPrefHeight(26.0);
         this.CategorieFilter.setPrefWidth(130.0);
         this.CategorieFilter.setPromptText("Categorie");
         this.CategorieFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.Trier.setLayoutX(680.0);
+        this.Trier.setLayoutX(705.0);
         this.Trier.setLayoutY(72.0);
         this.Trier.setPrefHeight(26.0);
         this.Trier.setPrefWidth(130.0);
         this.Trier.setPromptText("Trier");
         this.Trier.setStyle("-fx-background-color: #6a82abcc;");
 
-        this.TypeFilter.setLayoutX(545.0);
+        this.TypeFilter.setLayoutX(585.0);
         this.TypeFilter.setLayoutY(72.0);
         this.TypeFilter.setPrefHeight(26.0);
         this.TypeFilter.setPrefWidth(108.0);
@@ -234,10 +236,10 @@ public class AffichageHistorique extends AnchorPane {
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
         this.rechercheInput.setLayoutY(72.0);
-        this.rechercheInput.setLayoutX(886);
+        this.rechercheInput.setLayoutX(950);
         this.rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
 
-        this.rechercheButton.setLayoutX(1050);
+        this.rechercheButton.setLayoutX(1114);
         this.rechercheButton.setLayoutY(72.0);
         this.rechercheButton.setStyle("-fx-background-color: #6a82ab;");
         this.rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);
