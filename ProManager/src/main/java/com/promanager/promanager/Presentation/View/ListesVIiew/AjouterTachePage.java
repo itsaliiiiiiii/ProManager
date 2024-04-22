@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.POJO.Liste;
 import com.promanager.promanager.Persistance.DAOconfiguration;
@@ -260,8 +261,17 @@ public class AjouterTachePage extends AnchorPane {
                 setIdListe(list.getIdListe());
                 listeSelectione.setText(list.getNomListe() + " selectionné");
             });
+            
             documentListe.getChildren().add(labelListe);
         }
+        this.buttonAjouter.setOnAction(event -> {
+            try {
+                controller.AjouterTache(idListe);
+                controller.openTachePage();
+            } catch (ProjetExeption e) {
+                e.MessageErreurAjouterProjet();
+            }
+        });
 
         scrollPane.setContent(documentListe);
 

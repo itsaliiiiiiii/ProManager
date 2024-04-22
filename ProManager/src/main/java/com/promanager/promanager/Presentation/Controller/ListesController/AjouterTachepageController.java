@@ -74,17 +74,9 @@ public class AjouterTachepageController {
             openTachePage();
         });
 
-        this.buttonAjouter.setOnAction(event -> {
-            try {
-                AjouterTache();
-                openTachePage();
-            } catch (ProjetExeption e) {
-                e.MessageErreurAjouterProjet();
-            }
-        });
     }
 
-    private void AjouterTache() throws ProjetExeption {
+    public void AjouterTache(ObjectId idliiste) throws ProjetExeption {
         if (toggleGroup.getSelectedToggle() == null) {
             throw new ProjetExeption();
         } else if (toggleGroup.getSelectedToggle() == newList) {
@@ -121,18 +113,18 @@ public class AjouterTachepageController {
                                 .getValue()).atStartOfDay(ZoneId.systemDefault()))));
                 System.out.println(idListe);
                 ArrayList<ObjectId> listeTache = new ArrayList<ObjectId>();
-                gListe.get(idListe).getListeTache().forEach(tache -> {
+                gListe.get(idliiste).getListeTache().forEach(tache -> {
                     listeTache.add(tache);
                 });
                 listeTache.add(idtache);
-                gListe.update(idListe, "Taches", listeTache);
+                gListe.update(idliiste, "Taches", listeTache);
             } else {
                 throw new ProjetExeption();
             }
         }
     }
 
-    private void openTachePage() {
+    public void openTachePage() {
         ListesPage projetsPage = new ListesPage(stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
