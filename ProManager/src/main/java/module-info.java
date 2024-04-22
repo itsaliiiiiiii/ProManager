@@ -19,9 +19,13 @@ module com.promanager.promanager {
     requires com.google.api.client.json.jackson2;
     requires java.base;
 
+    requires jdk.httpserver;
 
+    opens com.promanager.promanager to javafx.fxml;
 
-    opens com.promanager.promanager.Metier.Service to javafx.fxml;
+    exports com.promanager.promanager;
+
     opens com.promanager.promanager.Presentation.Controller to javafx.fxml;
-    opens com.promanager.promanager to javafx.graphics;
+    opens com.promanager.promanager.Metier.Service to javafx.fxml;
+
 }

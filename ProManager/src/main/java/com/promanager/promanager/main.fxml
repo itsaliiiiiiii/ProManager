@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" alignment="CENTER"
+    xmlns="http://javafx.com/javafx/17.0.2"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.promanager.promanager.MainController">
+    <Button text="Add from Google Calendar" fx:id="addFromGoogleCalendarButton" />
+    <ListView fx:id="calendarEventListView" />
+</VBox>
