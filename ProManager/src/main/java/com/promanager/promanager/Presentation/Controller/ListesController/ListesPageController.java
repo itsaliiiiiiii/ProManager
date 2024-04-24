@@ -1,7 +1,9 @@
 package com.promanager.promanager.Presentation.Controller.ListesController;
 
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
+import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.ModifierTache;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import org.bson.types.ObjectId;
@@ -75,6 +77,16 @@ public class ListesPageController {
         stage.setMinHeight(800);
         stage.setResizable(false);
         stage.setScene(projectsScene);
+        stage.show();
+    }
+    public void  modifierTache(ObjectId idTache){
+        ModifierTacheListe AjouterPage = new ModifierTacheListe(idTache, stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
         stage.show();
     }
 }

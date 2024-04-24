@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MainController {
@@ -27,11 +28,16 @@ public class MainController {
             List<Event> events = request.execute().getItems();
 
             calendarEventListView.getItems().clear();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             for (Event event : events) {
-                calendarEventListView.getItems().add(event.getSummary());
+                String summary = event.getSummary();
+                String startDate = sdf.format(event.getStart().getDateTime().getValue());
+                String endDate = sdf.format(event.getEnd().getDateTime().getValue());
+                calendarEventListView.getItems().add(summary + " - Début: " + startDate + " Fin: " + endDate);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+

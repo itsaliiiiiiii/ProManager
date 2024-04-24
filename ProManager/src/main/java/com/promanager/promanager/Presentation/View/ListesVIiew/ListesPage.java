@@ -50,8 +50,8 @@ public class ListesPage extends AnchorPane {
     private gestionListe gListe;
     private gestionTache gTache;
     private VBox mainVBox;
-
     private ScrollPane scrollPane;
+
 
     public ListesPage(Stage stage) {
         this.stage = stage;
@@ -256,6 +256,7 @@ public class ListesPage extends AnchorPane {
         String cat = CategorieFilter.getValue();
 
         for (Liste liste : gListe.getAll()) {
+
             VBox listeVBox = new VBox(20);
 
             Text nomListe = new Text(" ~ Liste: " + liste.getNomListe());
@@ -267,29 +268,44 @@ public class ListesPage extends AnchorPane {
             descListeText.setFill(Color.BLACK);
 
             VBox tachesVBox = new VBox();
-            tachesVBox.setSpacing(5);
+            tachesVBox.setSpacing(10);
             tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
 
             boolean isCatExists = false;
 
             for (ObjectId idTache : liste.getListeTache()) {
+
                 Tache tache = gTache.get_Tache(idTache);
                 if (tache != null && (cat == null || cat.equals("tout")
                         || cat.equals(tache.getCategorieTache()))) {
-
+                    HBox hbox = new HBox();
+                    Button modifierTache=new Button("Modifier");
                     Label tache_ = new Label(
                             "Categorie : " + tache.getCategorieTache() + " - Description : "
                                     + tache.getDescriptionTache());
-                    tache_.setFont(Font.font(25));
-                    tache_.setPrefHeight(60);
-                    tache_.setPrefWidth(800);
+                    tache_.setFont(Font.font(18));
+                    tache_.setPrefHeight(40);
+                    tache_.setPrefWidth(700);
                     tache_.setLayoutX(100);
                     tache_.setStyle(
-                            "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                            "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
-                    tachesVBox.getChildren().add(tache_);
+                    modifierTache.setPrefHeight(40);
+                    modifierTache.setPrefWidth(140);
+                    modifierTache.setStyle(
+                            "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+                    modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+
+                    hbox.setSpacing(20);
+
+                    hbox.getChildren().addAll(tache_, modifierTache);
+                    tachesVBox.getChildren().add(hbox);
+
                     tache_.setOnMouseClicked(event ->{
                         controller.afficherTache(tache.getIdTache());
+                    });
+                    modifierTache.setOnMouseClicked(event -> {
+                        controller.modifierTache(idTache);
                     });
 
                     isCatExists = true;
@@ -301,6 +317,7 @@ public class ListesPage extends AnchorPane {
                 mainVBox.getChildren().add(listeVBox);
             }
         }
+
 
         scrollPane.setContent(mainVBox);
     }
