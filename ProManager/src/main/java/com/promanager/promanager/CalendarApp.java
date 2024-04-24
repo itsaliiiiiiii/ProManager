@@ -4,12 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.io.File;
 
 public class CalendarApp extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        String cheminAbsolu = "C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\main.fxml";
+        FXMLLoader loader = new FXMLLoader(new File(cheminAbsolu).toURI().toURL());
         Scene scene = new Scene(loader.load());
         stage.setTitle("Google Calendar Integration");
         stage.setScene(scene);

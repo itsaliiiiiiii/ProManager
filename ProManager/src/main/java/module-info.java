@@ -22,10 +22,6 @@ module com.promanager.promanager {
     requires jdk.httpserver;
 
     opens com.promanager.promanager to javafx.fxml;
-
     exports com.promanager.promanager;
-
     opens com.promanager.promanager.Presentation.Controller to javafx.fxml;
-    opens com.promanager.promanager.Metier.Service to javafx.fxml;
-
 }

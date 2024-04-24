@@ -12,6 +12,7 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.services.calendar.Calendar;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -22,11 +23,8 @@ public class GoogleCalendarAuth {
     private static final String TOKENS_DIRECTORY_PATH = "tokens"; // Directory to store OAuth tokens
 
     public static Credential getCredentials() throws Exception {
-        InputStream in = GoogleCalendarAuth.class.getResourceAsStream("credentials.json"); // Corrected path
-        if (in == null) {
-            throw new RuntimeException("OAuth credentials file not found"); // Error handling
-        }
-
+        String chemin="C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+        FileInputStream in = new FileInputStream(chemin);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
                 JSON_FACTORY,
                 new InputStreamReader(in));
