@@ -191,6 +191,7 @@ public class AffichageProjetController {
                 event -> {
                     gProj.update(idProjet, "Status", "Termine");
                     stage.close();
+                    openProjet();
                 });
         AnnuleButton.setOnAction(
                 event -> {
@@ -215,5 +216,7 @@ public class AffichageProjetController {
         stage.setResizable(false);
         stage.setTitle("Cloturer Projet");
         stage.show();
+
+
     }
 }

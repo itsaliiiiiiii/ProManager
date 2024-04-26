@@ -1,6 +1,7 @@
 package com.promanager.promanager.Persistance;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,14 +38,16 @@ public class DAOdocument {
         Document.setIdDocument(document.getObjectId("_id"));
         Document.setDescriptionDocument(document.getString("Description"));
         Document.setPathDocument(document.getString("Path"));
+        Document.setDateAjout(document.getDate("Date Ajout"));
         return Document;
     }
 
-    public ObjectId add(String description, String path) {
-        Document_ document = new Document_(path, description);
+    public ObjectId add(String description, String path, Date dateAjout) {
+        Document_ document = new Document_(path, description, dateAjout);
         HashMap<String, Object> Infodocument = new HashMap<>();
         Infodocument.put("Description", document.getDescriptionDocument());
         Infodocument.put("Path", document.getPathDocument());
+        Infodocument.put("Date Ajout", document.getDateAjout());
         return connexion.insert(Infodocument, "Documents");
     }
 

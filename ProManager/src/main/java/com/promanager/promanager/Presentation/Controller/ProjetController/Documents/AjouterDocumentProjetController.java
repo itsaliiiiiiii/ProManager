@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AjouterDocumentProjetController {
     private Button PrecedentButton;
@@ -92,7 +93,7 @@ public class AjouterDocumentProjetController {
         ArrayList<ObjectId> listDoc = new ArrayList<>();
         System.out.println(idProjet);
         listDoc = gProjet.get(idProjet).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString());
+        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(), new Date());
         listDoc.add(idDoc);
         gProjet.update(idProjet, "Documents", listDoc);
     }

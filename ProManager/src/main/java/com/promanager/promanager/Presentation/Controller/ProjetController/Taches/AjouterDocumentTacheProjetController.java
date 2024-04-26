@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AjouterDocumentTacheProjetController {
     private Button PrecedentButton;
@@ -92,7 +93,7 @@ public class AjouterDocumentTacheProjetController {
         Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
         ArrayList<ObjectId> listDoc = new ArrayList<>();
         listDoc = gTache.get_Tache(idtache).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString());
+        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(),new Date());
         listDoc.add(idDoc);
         gTache.update(idtache, "Documents", listDoc);
     }

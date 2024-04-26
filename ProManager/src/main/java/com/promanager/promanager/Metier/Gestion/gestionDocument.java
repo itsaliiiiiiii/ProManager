@@ -1,6 +1,7 @@
 package com.promanager.promanager.Metier.Gestion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class gestionDocument {
         return document.get(id);
     }
 
-    public ObjectId add(String description, String path) {
-        return document.add(description, path);
+    public ObjectId add(String description, String path,Date dateAjout) {
+        return document.add(description, path,dateAjout);
     }
 
     public void delete(ObjectId id, String key) {

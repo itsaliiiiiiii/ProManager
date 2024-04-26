@@ -20,6 +20,7 @@ module com.promanager.promanager {
     requires java.base;
 
     requires jdk.httpserver;
+    requires java.sql;
 
     opens com.promanager.promanager to javafx.fxml;
     exports com.promanager.promanager;

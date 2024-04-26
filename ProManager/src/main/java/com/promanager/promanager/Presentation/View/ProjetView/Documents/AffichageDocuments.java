@@ -134,7 +134,7 @@ public class AffichageDocuments extends AnchorPane {
 
                 String[] pathDoc = (document.getPathDocument()).split("/");
                 elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1];
+                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
                 LabelDocument_.setFont(Font.font(25));

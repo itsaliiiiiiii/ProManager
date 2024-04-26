@@ -69,8 +69,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         return PrecedentButton;
     }
 
-
-
     private void design() {
         textT.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
         textT.setLayoutX(50.0);
@@ -93,7 +91,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         textDocuments.setLayoutX(50.0);
         textDocuments.setLayoutY(340.0);
         textDocuments.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
-
 
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
@@ -124,7 +121,7 @@ public class AffichageDocumentsHistorique extends AnchorPane {
 
                 String[] pathDoc = (document.getPathDocument()).split("/");
                 elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1];
+                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
                 LabelDocument_.setFont(Font.font(25));
@@ -133,9 +130,7 @@ public class AffichageDocumentsHistorique extends AnchorPane {
                 LabelDocument_.setStyle(
                         "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
 
-
                 HBox hbox = new HBox();
-
 
                 LabelDocument_.setOnMouseClicked(event -> {
                     File file = new File(document.getPathDocument());
@@ -146,8 +141,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
                     }
                 });
 
-
-
                 hbox.setSpacing(30);
                 hbox.getChildren().addAll(LabelDocument_);
                 documentListe.getChildren().add(hbox);
@@ -156,6 +149,6 @@ public class AffichageDocumentsHistorique extends AnchorPane {
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
-                 description);
+                description);
     }
 }

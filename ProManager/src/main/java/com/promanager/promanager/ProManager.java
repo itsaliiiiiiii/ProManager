@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class ProManager extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(@SuppressWarnings("exports") Stage stage) throws Exception {
         DAOconfiguration config = new DAOconfiguration();
         if (config.getMail().equals("empty")) {
             LoginPage loginPageView = new LoginPage(stage);

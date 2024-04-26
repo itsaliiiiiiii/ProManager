@@ -135,7 +135,7 @@ public class AffichageSeances extends AnchorPane {
 
                 String[] pathDoc = (document_.getPathDocument()).split("/");
                 elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1];
+                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document_.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
                 LabelDocument_.setFont(Font.font(25));
