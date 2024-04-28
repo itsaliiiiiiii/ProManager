@@ -85,7 +85,7 @@ public class ModifierTache extends AnchorPane {
     }
 
     public ModifierTache(ObjectId id,ObjectId idTache,Stage stage) {
-        AjouterProjet = new Text("Modifier Projet");
+        AjouterProjet = new Text("Modifier Tache");
         Categorie = new Text("Categorie");
         comboBoxCategorie = new ComboBox<>();
         InputDescription = new TextArea();
@@ -106,28 +106,28 @@ public class ModifierTache extends AnchorPane {
         AjouterProjet.setLayoutY(100.0);
         AjouterProjet.setFont(Font.font("Arial", FontWeight.BOLD, 48.0));
         AjouterProjet.setFill(Color.web("#6a82ab"));
-        AjouterProjet.setText("Modifier un Projet");
+        AjouterProjet.setText("Modifier une Tache");
 
 
         Categorie.setLayoutX(300.0);
-        Categorie.setLayoutY(370.0);
+        Categorie.setLayoutY(190.0);
         Categorie.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
         Categorie.setFill(Color.web("#6a82ab"));
         Categorie.setText("Catégorie");
 
         comboBoxCategorie.setLayoutX(300.0);
-        comboBoxCategorie.setLayoutY(380.0);
+        comboBoxCategorie.setLayoutY(200.0);
         comboBoxCategorie.setPrefWidth(400.0);
         comboBoxCategorie.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
 
         Description.setLayoutX(300.0);
-        Description.setLayoutY(460.0);
+        Description.setLayoutY(280.0);
         Description.setFont(Font.font("Arial", FontWeight.BOLD, 24.0));
         Description.setFill(Color.web("#6a82ab"));
         Description.setText("Description");
 
         InputDescription.setLayoutX(300.0);
-        InputDescription.setLayoutY(470.0);
+        InputDescription.setLayoutY(290.0);
         InputDescription.setPrefWidth(400.0);
         InputDescription.setPrefHeight(100.0);
         InputDescription.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
@@ -154,14 +154,14 @@ public class ModifierTache extends AnchorPane {
         PickerDateFin.setPrefWidth(200.0);
 
         buttonModifier.setLayoutX(800.0);
-        buttonModifier.setLayoutY(480.0);
+        buttonModifier.setLayoutY(380.0);
         buttonModifier.setPrefWidth(150.0);
         buttonModifier.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         buttonModifier.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
         buttonModifier.setText("Modifier");
 
         buttonAnnuler.setLayoutX(800.0);
-        buttonAnnuler.setLayoutY(530.0);
+        buttonAnnuler.setLayoutY(330.0);
         buttonAnnuler.setPrefWidth(150.0);
         buttonAnnuler.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         buttonAnnuler.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));

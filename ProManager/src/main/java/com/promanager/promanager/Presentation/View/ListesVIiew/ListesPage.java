@@ -15,6 +15,7 @@ import com.promanager.promanager.Presentation.Controller.ListesController.Listes
 import com.promanager.promanager.Presentation.Controller.ProjetController.ProjetsPageController;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -264,6 +265,7 @@ public class ListesPage extends AnchorPane {
         for (Liste liste : gListe.getAll()) {
 
             VBox listeVBox = new VBox(20);
+            HBox hbox_ = new HBox(50);
 
             Text nomListe = new Text(" ~ Liste: " + liste.getNomListe());
             nomListe.setFont(Font.font("Arial", FontWeight.BOLD, 28));
@@ -273,12 +275,24 @@ public class ListesPage extends AnchorPane {
             descListeText.setFont(Font.font(20));
             descListeText.setFill(Color.BLACK);
 
+            Button supListe = new Button("Supprimer Liste");
+            supListe.setPrefWidth(150.0);
+            supListe.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+            supListe.setFont(Font.font("Arial", FontWeight.BOLD, 14.0));
+
+            supListe.setOnAction(event ->{
+                controller.supprimerListe(liste.getIdListe());
+            });
+
+            hbox_.getChildren().addAll(nomListe, supListe);
+            HBox.setMargin(nomListe, new Insets(20, 0, 0, 0));
+            HBox.setMargin(supListe, new Insets(25, 0, 0, 0));
+
             VBox tachesVBox = new VBox();
             tachesVBox.setSpacing(10);
             tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
 
             boolean isExists = false;
-
             for (ObjectId idTache : liste.getListeTache()) {
 
                 Tache tache = gTache.get_Tache(idTache);
@@ -319,7 +333,7 @@ public class ListesPage extends AnchorPane {
             }
 
             if (isExists) {
-                listeVBox.getChildren().addAll(nomListe, tachesVBox);
+                listeVBox.getChildren().addAll(hbox_, tachesVBox);
                 mainVBox.getChildren().add(listeVBox);
             }
 
