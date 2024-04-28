@@ -240,7 +240,11 @@ public class ListesPage extends AnchorPane {
                 "-fx-selection-bar: #6a82ab; -fx-background-color: transparent; -fx-border-color: transparent;");
 
         CategorieFilter.setOnAction(event -> {
-            String cat = CategorieFilter.getValue();
+            affichage();
+        });
+
+        rechercheButton.setOnAction(event -> {
+            CategorieFilter.setValue("tout");
             affichage();
         });
 
@@ -254,6 +258,8 @@ public class ListesPage extends AnchorPane {
         mainVBox.getChildren().clear();
 
         String cat = CategorieFilter.getValue();
+        String recherche = rechercheInput.getText();
+
 
         for (Liste liste : gListe.getAll()) {
 
@@ -271,13 +277,13 @@ public class ListesPage extends AnchorPane {
             tachesVBox.setSpacing(10);
             tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
 
-            boolean isCatExists = false;
+            boolean isExists = false;
 
             for (ObjectId idTache : liste.getListeTache()) {
 
                 Tache tache = gTache.get_Tache(idTache);
                 if (tache != null && (cat == null || cat.equals("tout")
-                        || cat.equals(tache.getCategorieTache()))) {
+                        || cat.equals(tache.getCategorieTache())) && (recherche.equals("") || tache.getDescriptionTache().contains(recherche))){
                     HBox hbox = new HBox();
                     Button modifierTache=new Button("Modifier");
                     Label tache_ = new Label(
@@ -308,14 +314,15 @@ public class ListesPage extends AnchorPane {
                         controller.modifierTache(idTache);
                     });
 
-                    isCatExists = true;
+                    isExists = true;
                 }
             }
 
-            if (cat == null || cat.equals("tout") || isCatExists) {
+            if (isExists) {
                 listeVBox.getChildren().addAll(nomListe, tachesVBox);
                 mainVBox.getChildren().add(listeVBox);
             }
+
         }
 
 

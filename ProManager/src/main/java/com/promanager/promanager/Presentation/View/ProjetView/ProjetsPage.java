@@ -81,7 +81,7 @@ public class ProjetsPage extends AnchorPane {
         Trier = new ComboBox<>();
         this.config = new DAOconfiguration();
         this.gProjet = new gestionProjet();
-        init();
+        design();
         actualiserPage();
     }
 
@@ -145,7 +145,7 @@ public class ProjetsPage extends AnchorPane {
         return widthWindow;
     }
 
-    public void init() {
+    public void design() {
         this.sideBar.setLayoutX(-29.0);
         this.sideBar.setLayoutY(0);
         this.sideBar.setPrefHeight(805.0);
