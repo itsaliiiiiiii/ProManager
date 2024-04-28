@@ -2,7 +2,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-ProManager/src/main/java/com/promanager/promanager/.ali.txt
+ProManager/src/main/java/com/promanager/promanager/ggg/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
