@@ -300,6 +300,7 @@ public class ListesPage extends AnchorPane {
                         || cat.equals(tache.getCategorieTache())) && (recherche.equals("") || tache.getDescriptionTache().contains(recherche))){
                     HBox hbox = new HBox();
                     Button modifierTache=new Button("Modifier");
+                    Button supprimerTache=new Button("Supprimer");
                     Label tache_ = new Label(
                             "Categorie : " + tache.getCategorieTache() + " - Description : "
                                     + tache.getDescriptionTache());
@@ -311,14 +312,20 @@ public class ListesPage extends AnchorPane {
                             "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
                     modifierTache.setPrefHeight(40);
-                    modifierTache.setPrefWidth(140);
+                    modifierTache.setPrefWidth(100);
                     modifierTache.setStyle(
                             "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
                     modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
-                    hbox.setSpacing(20);
+                    supprimerTache.setPrefHeight(40);
+                    supprimerTache.setPrefWidth(120);
+                    supprimerTache.setStyle(
+                            "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+                    supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
-                    hbox.getChildren().addAll(tache_, modifierTache);
+                    hbox.setSpacing(10);
+
+                    hbox.getChildren().addAll(tache_, modifierTache,supprimerTache);
                     tachesVBox.getChildren().add(hbox);
 
                     tache_.setOnMouseClicked(event ->{
@@ -326,6 +333,9 @@ public class ListesPage extends AnchorPane {
                     });
                     modifierTache.setOnMouseClicked(event -> {
                         controller.modifierTache(idTache);
+                    });
+                    supprimerTache.setOnMouseClicked(event->{
+                        controller.supprimerTache(idTache,liste.getIdListe());
                     });
 
                     isExists = true;

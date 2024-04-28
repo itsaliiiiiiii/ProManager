@@ -7,6 +7,7 @@ import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.Affich
 import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -21,6 +22,8 @@ import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class ListesPageController {
     private Button buttonProjets;
@@ -94,6 +97,20 @@ public class ListesPageController {
     public void modifierTache(ObjectId idTache) {
         ModifierTacheListe AjouterPage = new ModifierTacheListe(idTache, stage);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+    public void supprimerTache(ObjectId idTache,ObjectId idListe){
+        ArrayList<ObjectId> listTaches = gListe.get(idListe).getListeTache();
+        listTaches.remove(idTache);
+        gListe.update(idListe, "Taches", listTaches);
+
+        ListesPage page = new ListesPage(stage);
+        Scene projectsScene = new Scene(page, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");
         stage.setResizable(false);
