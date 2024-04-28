@@ -23,7 +23,7 @@ public class GoogleCalendarAuth {
     private static final String TOKENS_DIRECTORY_PATH = "tokens"; // Directory to store OAuth tokens
 
     public static Credential getCredentials() throws Exception {
-        String chemin="C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+        String chemin="C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\.credentials.json";
         FileInputStream in = new FileInputStream(chemin);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
                 JSON_FACTORY,

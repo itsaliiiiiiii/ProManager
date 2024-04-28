@@ -3,7 +3,6 @@ package com.promanager.promanager.Presentation.Controller.ListesController;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.ModifierTache;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import org.bson.types.ObjectId;
