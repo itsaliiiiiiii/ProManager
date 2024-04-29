@@ -7,7 +7,6 @@ import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.Affich
 import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

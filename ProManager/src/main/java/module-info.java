@@ -21,6 +21,7 @@ module com.promanager.promanager {
 
     requires jdk.httpserver;
     requires java.sql;
+    requires google.api.services.tasks.v1.rev45;
 
     opens com.promanager.promanager to javafx.fxml;
     exports com.promanager.promanager;
