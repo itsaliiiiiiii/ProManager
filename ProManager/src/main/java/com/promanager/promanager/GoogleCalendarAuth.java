@@ -86,7 +86,7 @@ public class GoogleCalendarAuth {
 
         @SuppressWarnings("exports")
         public static Credential getCredentials() throws Exception {
-                String chemin = "C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\client_secret_1042022513722-4istc2b5tpt46ting4sbrdtdt981artl.apps.googleusercontent.com.json";
+                String chemin = "/Users/its.aliiiiiiii/Desktop/Projects & Exercices/ProjetJava/ProManager/ProManager/src/main/java/com/promanager/promanager/credentials.json";
                 FileInputStream in = new FileInputStream(chemin);
                 GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

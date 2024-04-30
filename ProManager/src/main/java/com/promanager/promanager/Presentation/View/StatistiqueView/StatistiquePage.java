@@ -4,6 +4,7 @@ import com.promanager.promanager.Presentation.Controller.StatistiqueController.S
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -23,6 +24,7 @@ public class StatistiquePage extends AnchorPane {
     private StatistiquePageController controller;
 
     private Text titleStat;
+    private ScrollPane scroll;
 
     private Stage stage;
 
@@ -36,6 +38,7 @@ public class StatistiquePage extends AnchorPane {
         this.Statistiques = new Button("Statistiques");
 
         titleStat = new Text("Statistiques");
+        scroll = new ScrollPane();
 
         controller = new StatistiquePageController(stage, this);
 
@@ -134,14 +137,17 @@ public class StatistiquePage extends AnchorPane {
                     "-fx-background-color: transparent; ");
         });
 
-        this.titleStat.setLayoutX(240.0);
-        this.titleStat.setLayoutY(96.0);
-        this.titleStat.setFill(javafx.scene.paint.Color.web("#6a82ab"));
-        this.titleStat.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        this.titleStat.setStrokeWidth(0.0);
-        this.titleStat.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
-        this.titleStat.setWrappingWidth(188);
+        titleStat.setLayoutX(280.0);
+        titleStat.setLayoutY(110.0);
+        titleStat.setFill(javafx.scene.paint.Color.web("#6a82ab"));
+        titleStat.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        titleStat.setStrokeWidth(0.0);
+        titleStat.setFont(Font.font("System Bold", FontWeight.BOLD, 50.0));
+        titleStat.setWrappingWidth(300);
 
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques);
+        scroll.setLayoutX(280.0);
+        scroll.setLayoutY(140.0);
+
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat);
     }
 }

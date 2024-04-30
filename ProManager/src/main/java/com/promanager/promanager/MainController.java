@@ -22,6 +22,7 @@ public class MainController {
     @FXML
     private void initialize() {
         addFromGoogleCalendarButton.setOnAction(event -> fetchCalendarData());
+
         // addFromGoogleCalendarButton.setOnAction(event -> fetchTasksData());
     }
 
@@ -46,17 +47,26 @@ public class MainController {
 
     private void fetchTasksData() {
         try {
-            Tasks service = GoogleCalendarAuth.getTasksService(); // Your Google Tasks service setup
-            Tasks.Tasklists.List request = service.tasklists().list(); // Request all task lists
+            Tasks service = GoogleCalendarAuth.getTasksService();
 
-            TaskLists taskLists = request.execute(); // Execute the request to get all task lists
+            // Récupérer la liste des listes de tâches
+            Tasks.Tasklists.List requestLists = service.tasklists().list();
+            TaskLists taskLists = requestLists.execute();
 
-            // Output the ID and title for each task list
+            // Parcourir chaque liste de tâches
             for (TaskList list : taskLists.getItems()) {
-                calendarEventListView.getItems().add("Task List ID: " + list.getId() + " - Title: " + list.getTitle());
+                // Récupérer les tâches de chaque liste
+                Tasks.TasksOperations.List requestTasks = service.tasks().list(list.getId());
+                com.google.api.services.tasks.model.Tasks tasks = requestTasks.execute();
+
+                // Afficher les tâches de la liste actuelle
+                for (com.google.api.services.tasks.model.Task task : tasks.getItems()) {
+                    calendarEventListView.getItems().add("Tâche : " + task.getTitle());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
