@@ -6,6 +6,7 @@ import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePage;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class ListesPageController {
     private Button buttonProjets;
     private Button buttonHistorique;
+    private Button buttonStatistic;
     private Button buttonAjouterTache;
     private gestionListe gListe;
     private gestionProjet gProjet;
@@ -37,6 +39,7 @@ public class ListesPageController {
         this.buttonProjets = view.getProjets();
         this.buttonHistorique = view.getHistoriques();
         this.buttonAjouterTache = view.getButtonAjouter();
+        buttonStatistic = view.getStatistiques();
         this.gListe = new gestionListe();
         this.gProjet = new gestionProjet();
 
@@ -45,6 +48,9 @@ public class ListesPageController {
         });
         buttonHistorique.setOnAction(event -> {
             openHistoriquePage();
+        });
+        buttonStatistic.setOnAction(event -> {
+            openStatisticPage();
         });
         buttonAjouterTache.setOnAction(event -> {
             AjouterTache();
@@ -75,6 +81,16 @@ public class ListesPageController {
         ProjetsPage projetsPage = new ProjetsPage(stage);
         Parent projetsRoot = projetsPage;
         Scene projectsScene = new Scene(projetsRoot, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    private void openStatisticPage() {
+        StatistiquePage Listespage = new StatistiquePage(stage);
+        Scene projectsScene = new Scene(Listespage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
         stage.setResizable(false);

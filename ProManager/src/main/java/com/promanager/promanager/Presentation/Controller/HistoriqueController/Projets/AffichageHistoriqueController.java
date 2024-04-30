@@ -6,6 +6,7 @@ import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePage;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ public class AffichageHistoriqueController {
     public AnchorPane background;
     private Button buttonProjets;
     private Button buttonListe;
+    private Button buttonStat;
     private Stage stage;
 
     public AffichageHistoriqueController(AffichageHistorique view, Stage stage) {
@@ -26,18 +28,31 @@ public class AffichageHistoriqueController {
         view.getTypeFilter();
         this.stage = stage;
         this.buttonProjets = view.getProjets();
-        this.buttonListe=view.getListes();
+        this.buttonListe = view.getListes();
+        buttonStat = view.getStatistiques();
 
-        
         this.buttonProjets.setOnAction(event -> {
             this.openProjetsPage();
         });
+
         this.buttonListe.setOnAction(event -> {
             this.openListesPage();
         });
 
+        this.buttonStat.setOnAction(event -> {
+            this.openStatisticPage();
+        });
     };
 
+    private void openStatisticPage() {
+        StatistiquePage Listespage = new StatistiquePage(stage);
+        Scene projectsScene = new Scene(Listespage, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
 
     public void afficherProjet(ObjectId id) {
         stage.setWidth(1300);
@@ -63,6 +78,7 @@ public class AffichageHistoriqueController {
         stage.setScene(projectsScene);
         stage.show();
     }
+
     private void openListesPage() {
         ListesPage Listespage = new ListesPage(stage);
         Scene projectsScene = new Scene(Listespage, 1300, 800);

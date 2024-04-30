@@ -35,7 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ProjetsPage extends AnchorPane {
-    private AnchorPane background;
+    // private AnchorPane background;
     private Pane sideBar;
     private Button Projets;
     private Button Listes;
@@ -61,7 +61,7 @@ public class ProjetsPage extends AnchorPane {
 
     public ProjetsPage(Stage stage) {
         this.stage = stage;
-        this.background = new AnchorPane();
+        // this.background = new AnchorPane();
         this.sideBar = new Pane();
         this.Projets = new Button("Projets");
         this.Listes = new Button("Listes");
@@ -85,9 +85,9 @@ public class ProjetsPage extends AnchorPane {
         actualiserPage();
     }
 
-    public AnchorPane getBack() {
-        return background;
-    }
+    // public AnchorPane getBack() {
+    //     return background;
+    // }
 
     public Pane getSideBar() {
         return sideBar;
@@ -217,7 +217,7 @@ public class ProjetsPage extends AnchorPane {
         this.projetsText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         this.projetsText.setStrokeWidth(0.0);
         this.projetsText.setFont(Font.font("System Bold", FontWeight.BOLD, 44.0));
-        this.projetsText.setWrappingWidth(188.78101640354225);
+        this.projetsText.setWrappingWidth(188);
 
         this.CategorieFilter.setLayoutX(406.0);
         this.CategorieFilter.setLayoutY(72.0);

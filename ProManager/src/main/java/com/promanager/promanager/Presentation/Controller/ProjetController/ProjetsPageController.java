@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
+import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePage;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,13 +22,16 @@ public class ProjetsPageController {
     private Button buttonAjouter;
     private Button buttonHistorique;
     private Button buttonListes;
+    private Button buttonStatistics;
+
 
     private Stage stage;
 
     public ProjetsPageController(ProjetsPage view, Stage stage) {
-        this.background = view.getBack();
+        // this.background = view.getBack();
         this.buttonAjouter = view.getButtonAjouter();
         buttonListes = view.getListes();
+        buttonStatistics = view.getStatistiques();
 
         this.buttonHistorique = view.getHistoriques();
         this.stage = stage;
@@ -42,6 +46,10 @@ public class ProjetsPageController {
 
         this.buttonListes.setOnAction(event -> {
             this.openListesPage();
+        });
+        
+        this.buttonStatistics.setOnAction(event -> {
+            this.openStatisticPage();
         });
 
     };
@@ -86,6 +94,15 @@ public class ProjetsPageController {
     }
     private void openListesPage() {
         ListesPage Listespage = new ListesPage(stage);
+        Scene projectsScene = new Scene(Listespage, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+    private void openStatisticPage() {
+        StatistiquePage Listespage = new StatistiquePage(stage);
         Scene projectsScene = new Scene(Listespage, 1300, 800);
         stage.setMinWidth(1300);
         stage.setMinHeight(800);
