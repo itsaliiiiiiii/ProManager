@@ -11,7 +11,11 @@ import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Liste;
 
 public class DAOliste {
-    Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+    Connexion connexion;
+
+    public DAOliste(){
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
+    }
 
     public ArrayList<Liste> getAll() {
         ArrayList<Liste> listes = new ArrayList<>();

@@ -21,8 +21,8 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        addFromGoogleCalendarButton.setOnAction(event -> fetchCalendarData());
-        // addFromGoogleCalendarButton.setOnAction(event -> fetchTasksData());
+//        addFromGoogleCalendarButton.setOnAction(event -> fetchCalendarData());
+         addFromGoogleCalendarButton.setOnAction(event -> fetchTasksData());
     }
 
     private void fetchCalendarData() {

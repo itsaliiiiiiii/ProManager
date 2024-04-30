@@ -13,7 +13,11 @@ import com.promanager.promanager.Metier.POJO.Projet;
 
 public class DAOprojet {
 
-    Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+    Connexion connexion;
+
+    public DAOprojet(){
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
+    }
 
     public ArrayList<Projet> getAll() {
         ArrayList<Projet> Projects = new ArrayList<>();

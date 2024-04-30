@@ -14,15 +14,23 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
 public class Connexion {
+    private static Connexion instance;
     MongoCollection<Document> collection;
     private MongoClient mongoClient;
     private MongoDatabase database;
     private Document document;
 
-    public Connexion(String dbName, String connectionURL) {
+    private Connexion(String dbName, String connectionURL) {
         mongoClient = MongoClients.create(connectionURL);
         database = mongoClient.getDatabase(dbName);
         document = new Document();
+    }
+
+    public static Connexion getInstance(String dbName, String connectionURL) {
+        if (instance == null) {
+            instance = new Connexion(dbName, connectionURL);
+        }
+        return instance;
     }
 
     private MongoCollection<Document> getCollection(String collectionName) {

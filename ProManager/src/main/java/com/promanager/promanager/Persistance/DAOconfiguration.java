@@ -10,7 +10,7 @@ public class DAOconfiguration {
     Connexion connexion;
 
     public DAOconfiguration() {
-        connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
         // connexion.insert("Type", Arrays.asList("PFE", "PFA", "Cours", "Exam")),
         // "Configurations");
         // connexion.insert("Categorie", Arrays.asList("Enseignement", "Encadrement"), "Configurations");

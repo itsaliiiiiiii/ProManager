@@ -12,7 +12,11 @@ import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Seance;
 
 public class DAOseance {
-    Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+    Connexion connexion;
+
+    public DAOseance(){
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
+    }
 
     public ArrayList<Seance> getAll() {
         ArrayList<Seance> Seances = new ArrayList<>();

@@ -46,7 +46,7 @@ public class AffichageProjet extends AnchorPane {
         description = new TextFlow();
         dateFin = new Text("Date Fin");
         modifierButton = new Button("Modifier");
-        clonerButton = new Button("cloner");
+        clonerButton = new Button("Cloner");
         cloturerButton = new Button("Cloturer");
         PrecedentButton = new Button("Precedent");
         documentsButton = new Button("Documents");

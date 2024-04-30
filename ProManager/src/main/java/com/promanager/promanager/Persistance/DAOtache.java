@@ -12,7 +12,11 @@ import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Tache;
 
 public class DAOtache {
-    Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+    Connexion connexion;
+
+    public DAOtache(){
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
+    }
 
     public ArrayList<Tache> getAll() {
         ArrayList<Tache> Taches = new ArrayList<>();

@@ -12,7 +12,11 @@ import com.mongodb.client.FindIterable;
 import com.promanager.promanager.Metier.POJO.Document_;
 
 public class DAOdocument {
-    Connexion connexion = new Connexion("ProManagerDB", "mongodb://localhost:27017/");
+    Connexion connexion ;
+
+    public DAOdocument(){
+        connexion = Connexion.getInstance("ProManagerDB", "mongodb://localhost:27017/");
+    }
 
     public ArrayList<Document_> getAll() {
         ArrayList<Document_> Documents = new ArrayList<>();
