@@ -26,9 +26,18 @@ public class GoogleCalendarAuth {
         private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
         private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
-        @SuppressWarnings("exports")
         public static Credential getCredentials() throws Exception {
-                String chemin = "C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+                String chemin;
+                String osName = System.getProperty("os.name").toLowerCase();
+
+                if (osName.contains("mac")) {
+                        chemin = "src/main/java/com/promanager/promanager/Metier/Service/credentials.json";
+                } else if (osName.contains("win")) {
+                        chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+                } else {
+                        chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+                }
+
                 FileInputStream in = new FileInputStream(chemin);
                 GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -47,7 +56,6 @@ public class GoogleCalendarAuth {
                                 .authorize("user");
         }
 
-        @SuppressWarnings("exports")
         public static Calendar getCalendarService() throws Exception {
                 Credential credential = getCredentials();
                 return new Calendar.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, credential)
@@ -55,7 +63,6 @@ public class GoogleCalendarAuth {
                                 .build();
         }
 
-        @SuppressWarnings("exports")
         public static Tasks getTasksService() throws Exception {
                 Credential credential = getCredentials();
                 return new Tasks.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, credential)
@@ -63,12 +70,10 @@ public class GoogleCalendarAuth {
                                 .build();
         }
 
-        @SuppressWarnings("exports")
         public static List<Task> getTasks(String taskListId) throws Exception {
                 Tasks service = getTasksService();
-                Tasks.TasksOperations.List request = service.tasks().list(taskListId); //
+                Tasks.TasksOperations.List request = service.tasks().list(taskListId);
                 com.google.api.services.tasks.model.Tasks tasks = request.execute();
                 return tasks.getItems() != null ? tasks.getItems() : Collections.emptyList();
-
         }
 }

@@ -1,6 +1,5 @@
 package com.promanager.promanager.Presentation.View.ProjetView.Taches;
 
-
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
@@ -22,10 +21,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.bson.types.ObjectId;
 
-
 import java.util.ArrayList;
+import java.util.Date;
 
-
+@SuppressWarnings("unused")
 public class ImporterTache extends AnchorPane {
     private Button addFromGoogleCalendarButton;
     private ListView<String> calendarEventListView;
@@ -39,14 +38,14 @@ public class ImporterTache extends AnchorPane {
     private DAOconfiguration config;
 
     public ImporterTache(Stage stage, ObjectId id) {
-        this.addFromGoogleCalendarButton =  new Button("Add from Google Calendar");
-        this.calendarEventListView =  new ListView<>();
-        this.controller=new ImporterTacheController(this,stage);
-        this.stage=stage;
-        this.idProjet=id;
-        this.AjouterButton=new Button("Ajouter");
-        this.AnnulerButton=new Button("Annuler");
-        Categorie=new Text("Categorie : ");
+        this.addFromGoogleCalendarButton = new Button("Add from Google Calendar");
+        this.calendarEventListView = new ListView<>();
+        this.controller = new ImporterTacheController(this, stage);
+        this.stage = stage;
+        this.idProjet = id;
+        this.AjouterButton = new Button("Ajouter");
+        this.AnnulerButton = new Button("Annuler");
+        Categorie = new Text("Categorie : ");
         comboBoxCategorie = new ComboBox<>();
         design();
     }
@@ -54,19 +53,36 @@ public class ImporterTache extends AnchorPane {
     public Button getAddFromGoogleCalendarButton() {
         return addFromGoogleCalendarButton;
     }
+
     public ListView<String> getCalendarEventListView() {
         return calendarEventListView;
     }
-    public ImporterTacheController getController() {return controller;}
-    public Button getAjouterButton() {return AjouterButton;}
-    public Button getAnnulerButton() {return AnnulerButton;}
-    public ComboBox<String> getComboBoxCategorie() {return comboBoxCategorie;}
-    public Text getCategorie() {return Categorie;}
 
-    void design(){
+    public ImporterTacheController getController() {
+        return controller;
+    }
+
+    public Button getAjouterButton() {
+        return AjouterButton;
+    }
+
+    public Button getAnnulerButton() {
+        return AnnulerButton;
+    }
+
+    public ComboBox<String> getComboBoxCategorie() {
+        return comboBoxCategorie;
+    }
+
+    public Text getCategorie() {
+        return Categorie;
+    }
+
+    void design() {
         addFromGoogleCalendarButton.setLayoutX(200);
         addFromGoogleCalendarButton.setLayoutY(300);
         addFromGoogleCalendarButton.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        addFromGoogleCalendarButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
 
         AjouterButton.setLayoutX(1020);
         AjouterButton.setLayoutY(650);
@@ -84,10 +100,10 @@ public class ImporterTache extends AnchorPane {
         AnnulerButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         AnnulerButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
-        addFromGoogleCalendarButton.setOnMouseClicked(event->{
+        addFromGoogleCalendarButton.setOnMouseClicked(event -> {
             fetchTasksData();
         });
-        AnnulerButton.setOnMouseClicked(event->{
+        AnnulerButton.setOnMouseClicked(event -> {
             controller.openTachesProjet(idProjet);
         });
 
@@ -114,8 +130,9 @@ public class ImporterTache extends AnchorPane {
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(this.addFromGoogleCalendarButton, this.calendarEventListView);
-        this.getChildren().addAll(root,AjouterButton,AnnulerButton,Categorie,comboBoxCategorie);
+        this.getChildren().addAll(root, AjouterButton, AnnulerButton, Categorie, comboBoxCategorie);
     }
+
     private void fetchTasksData() {
         try {
             Tasks service = GoogleCalendarAuth.getTasksService();
@@ -123,28 +140,35 @@ public class ImporterTache extends AnchorPane {
             Tasks.Tasklists.List requestLists = service.tasklists().list();
             TaskLists taskLists = requestLists.execute();
             ArrayList<Tache> Taches = new ArrayList<>();
+            calendarEventListView.getItems().clear();
             for (TaskList list : taskLists.getItems()) {
                 Tasks.TasksOperations.List requestTasks = service.tasks().list(list.getId());
                 com.google.api.services.tasks.model.Tasks tasks = requestTasks.execute();
 
                 for (com.google.api.services.tasks.model.Task task : tasks.getItems()) {
+
                     String summary = task.getTitle();
                     String description = task.getNotes();
                     String startDate = String.valueOf(task.getDue());
                     String endDate = String.valueOf(task.getDue());
 
-                    Tache t = new Tache(" ", description,controller.parseDate(startDate),controller.parseDate(endDate));
+                    Tache t = new Tache(" ", description, controller.parseDate(startDate),
+                            controller.parseDate(endDate));
                     Taches.add(t);
-                    calendarEventListView.getItems().add(Taches.indexOf(t)+ "- "+ "Tâche : " + task.getTitle()+"- DateDebut :"+startDate.substring(0,10)+"- DateFin :"+endDate.substring(0,10));
+                    if (task.getDue() != null && task.getDue().getValue() > new Date().getTime()) {
+                        calendarEventListView.getItems()
+                                .add(Taches.indexOf(t) + "- " + "Tâche : " + task.getTitle() + "- DateDebut :"
+                                        + startDate.substring(0, 10) + "- DateFin :" + endDate.substring(0, 10));
+                    }
                 }
             }
             AjouterButton.setOnMouseClicked(event -> {
                 String selectedEvent = calendarEventListView.getSelectionModel().getSelectedItem();
-                String categorie=comboBoxCategorie.getSelectionModel().getSelectedItem();
+                String categorie = comboBoxCategorie.getSelectionModel().getSelectedItem();
                 try {
-                    controller.initialize(selectedEvent,Taches,idProjet,categorie);
+                    controller.initialize(selectedEvent, Taches, idProjet, categorie);
                 } catch (ProjetExeption e) {
-                    throw new RuntimeException(e);
+                    e.MessageErreurAjouterProjet();
                 }
             });
         } catch (Exception e) {
