@@ -2,7 +2,6 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.ImporterTache;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

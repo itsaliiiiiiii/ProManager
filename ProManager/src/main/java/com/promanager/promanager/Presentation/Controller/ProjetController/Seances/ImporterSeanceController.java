@@ -1,21 +1,11 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
 
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.tasks.Tasks;
-import com.google.api.services.tasks.model.TaskList;
-import com.google.api.services.tasks.model.TaskLists;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Metier.Service.GoogleCalendarAuth;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.ImporterTache;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,8 +16,8 @@ import org.bson.types.ObjectId;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+@SuppressWarnings("unused")
 public class ImporterSeanceController {
 
     private Button addFromGoogleCalendarButton;
