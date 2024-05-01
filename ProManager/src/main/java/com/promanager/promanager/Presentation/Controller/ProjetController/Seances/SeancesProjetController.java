@@ -1,6 +1,8 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
 
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
+import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.ImporterTache;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -63,6 +65,16 @@ public class SeancesProjetController {
 
     public void AjouterTache(ObjectId idProjet){
         AjouterSeancesProjet AjouterPage = new AjouterSeancesProjet(idProjet,stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+    public void Importer(ObjectId idProjet) {
+        ImporterSeance AjouterPage = new ImporterSeance(stage,idProjet);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");

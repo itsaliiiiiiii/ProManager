@@ -47,6 +47,7 @@ public class TachesProjet extends AnchorPane {
     private ArrayList<ObjectId> idsTaches;
     private String elemTache;
     private Tache tache;
+    private Button ImporterButton;
 
     public TachesProjet(ObjectId id, Stage stage) {
         this.idProjet = id;
@@ -57,6 +58,7 @@ public class TachesProjet extends AnchorPane {
         dateFin = new Text("Date Fin");
         PrecedentButton = new Button("Precedent");
         AjouterButton = new Button("Ajouter");
+        ImporterButton=new Button("Importer");
         gProjet = new gestionProjet();
         gTaches = new DAOtache();
         tache = new Tache();
@@ -100,6 +102,7 @@ public class TachesProjet extends AnchorPane {
     public Button getAjouterButton() {
         return AjouterButton;
     }
+    public Button getImporterButton() {return ImporterButton;}
 
     private void design() {
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
@@ -151,6 +154,15 @@ public class TachesProjet extends AnchorPane {
         AjouterButton.setFont(new Font(18.0));
         AjouterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         AjouterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
+        ImporterButton.setLayoutX(930);
+        ImporterButton.setLayoutY(340.0);
+        ImporterButton.setPrefWidth(150.0);
+        ImporterButton.setPrefHeight(40.0);
+        ImporterButton.setFont(new Font(18.0));
+        ImporterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        ImporterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+        
 
         Projet = gProjet.get(idProjet);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -209,10 +221,13 @@ public class TachesProjet extends AnchorPane {
         AjouterButton.setOnMouseClicked(event -> {
             controller.AjouterTache(idProjet);
         });
+        ImporterButton.setOnMouseClicked(event->{
+            controller.Importer(idProjet);
+        });
 
         scrollPane.setContent(tacheListe);
 
         getChildren().addAll(nomProjet, categorie, type, dateDepart, dateFin, PrecedentButton, scrollPane, textTaches,
-                AjouterButton);
+                AjouterButton,ImporterButton);
     }
 }

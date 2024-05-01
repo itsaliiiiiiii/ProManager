@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.ImporterSeanceController;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
@@ -45,6 +46,7 @@ public class SeancesProjet extends AnchorPane {
     private Label textSeances;
     private ScrollPane scrollPane;
     private VBox seanceListe;
+    private Button ImporterButton;
     private ArrayList<ObjectId> idSeances;
     private String elemTache;
     private Seance Seance;
@@ -64,9 +66,14 @@ public class SeancesProjet extends AnchorPane {
         textSeances = new Label("~ Liste Seances :");
         idSeances = new ArrayList<>();
         elemTache = new String();
+        ImporterButton=new Button("Importer");
         this.stage = stage;
         this.controller = new SeancesProjetController(this, stage, idProjet);
         design();
+    }
+
+    public Button getImporterButton() {
+        return ImporterButton;
     }
 
     public ObjectId getIdProjet() {
@@ -140,6 +147,14 @@ public class SeancesProjet extends AnchorPane {
         AjouterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         AjouterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
+        ImporterButton.setLayoutX(930);
+        ImporterButton.setLayoutY(340.0);
+        ImporterButton.setPrefWidth(150.0);
+        ImporterButton.setPrefHeight(40.0);
+        ImporterButton.setFont(new Font(18.0));
+        ImporterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
+        ImporterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+
         Projet = gProjet.get(idProjet);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
@@ -187,10 +202,13 @@ public class SeancesProjet extends AnchorPane {
         AjouterButton.setOnMouseClicked(event -> {
             controller.AjouterTache(idProjet);
         });
+        ImporterButton.setOnMouseClicked(event->{
+            controller.Importer(idProjet);
+        });
 
         scrollPane.setContent(seanceListe);
 
         getChildren().addAll(nomProjet, dateDepart, dateFin, PrecedentButton, scrollPane, textSeances,
-                AjouterButton);
+                AjouterButton,ImporterButton);
     }
 }

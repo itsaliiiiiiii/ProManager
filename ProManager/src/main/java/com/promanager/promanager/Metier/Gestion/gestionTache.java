@@ -44,9 +44,8 @@ public class gestionTache {
         Date currentDate = new Date();
         if (categorie != null && dateDepart != null && dateFinTache != null && config.check(categorie, "Categorie")
                 && (dateDepart.equals(currentDate) || dateDepart.after(currentDate))
-                && dateFinTache.after(dateDepart)) {
-            return tache.add(categorie, description, dateDepart, dateFinTache, new ArrayList<ObjectId>());
-
+                && (dateFinTache.after(dateDepart) || (dateFinTache.equals(dateDepart) && dateDepart.after(currentDate)))){
+                return tache.add(categorie, description, dateDepart, dateFinTache, new ArrayList<ObjectId>());
         } else {
             throw new ProjetExeption();
         }

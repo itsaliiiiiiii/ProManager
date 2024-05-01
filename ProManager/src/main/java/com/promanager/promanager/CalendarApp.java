@@ -10,7 +10,7 @@ public class CalendarApp extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws Exception {
-        String cheminAbsolu = "/Users/its.aliiiiiiii/Desktop/Projects & Exercices/ProjetJava/ProManager/ProManager/src/main/java/com/promanager/promanager/main.fxml";
+        String cheminAbsolu = "C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\main.fxml";
         FXMLLoader loader = new FXMLLoader(new File(cheminAbsolu).toURI().toURL());
         Scene scene = new Scene(loader.load(),800,400);
         stage.setTitle("Google Calendar Integration");

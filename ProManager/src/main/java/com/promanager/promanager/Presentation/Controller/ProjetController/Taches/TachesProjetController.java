@@ -1,6 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Taches;
 
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.ModifierTache;
+import com.promanager.promanager.Presentation.View.ProjetView.Taches.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -11,9 +11,6 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Persistance.DAOprojet;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterTacheProjet;
-import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
 public class TachesProjetController {
     private Button PrecedentButton;
@@ -75,6 +72,17 @@ public class TachesProjetController {
 
     public void AjouterTache(ObjectId idProjet) {
         AjouterTacheProjet AjouterPage = new AjouterTacheProjet(idProjet, stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+
+    public void Importer(ObjectId idProjet) {
+        ImporterTache AjouterPage = new ImporterTache(stage,idProjet);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
         stage.setScene(projectsScene);
         stage.setTitle("ProManager");
