@@ -20,7 +20,7 @@ public class DAOseance {
 
     public ArrayList<Seance> getAll() {
         ArrayList<Seance> Seances = new ArrayList<>();
-        FindIterable<Document> documents = connexion.selectAll("Taches");
+        FindIterable<Document> documents = connexion.selectAll("Seances");
         Seance seance;
         for (Document document : documents) {
             seance = new Seance();

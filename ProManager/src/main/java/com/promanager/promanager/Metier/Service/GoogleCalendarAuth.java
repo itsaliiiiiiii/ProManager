@@ -33,7 +33,7 @@ public class GoogleCalendarAuth {
                 if (osName.contains("mac")) {
                         chemin = "src/main/java/com/promanager/promanager/Metier/Service/credentials.json";
                 } else if (osName.contains("win")) {
-                        chemin = "ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\Metier\\Service\\credentials.json";
+                        chemin = "C:\\Users\\pc\\Desktop\\ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\Metier\\Service\\credentials.json";
                 } else {
                         chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
                 }

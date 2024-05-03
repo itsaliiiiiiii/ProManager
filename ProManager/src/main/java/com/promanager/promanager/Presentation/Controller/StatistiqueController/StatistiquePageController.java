@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -80,24 +81,22 @@ public class StatistiquePageController {
         stage.show();
     }
     private void calcNombresHeures(){
-        
         HashMap<String,Integer> Heures =new HashMap<>();
-        
-
-        LocalDate firstMondayBeforeDate = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        Date dateDepart = findFirstMondayBefore();
 
     }
-    private Date premierLundi(){
-        ArrayList<Seance> Seances = gSeance.getAll();
+    private Date findFirstMondayBefore() {
+        ArrayList<Seance> seances = gSeance.getAll();
         ArrayList<Date> dates = new ArrayList<>();
-        for(Seance seance : Seances){
+        for (Seance seance : seances) {
             dates.add(seance.getDateDepartSeance());
         }
         Collections.sort(dates);
-        LocalDate firstMondayBeforeDate = (dates.get(0)).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        return ;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dates.getLast());
+        while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            cal.add(Calendar.DATE, -1);
+        }
+        return cal.getTime();
     }
-
-
-
 }
