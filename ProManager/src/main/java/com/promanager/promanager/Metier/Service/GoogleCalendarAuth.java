@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecatioKn")
 public class GoogleCalendarAuth {
         private static final String APPLICATION_NAME = "ProManager";
         private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -33,7 +33,7 @@ public class GoogleCalendarAuth {
                 if (osName.contains("mac")) {
                         chemin = "src/main/java/com/promanager/promanager/Metier/Service/credentials.json";
                 } else if (osName.contains("win")) {
-                        chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
+                        chemin = "ProManager\\ProManager\\ProManager\\src\\main\\java\\com\\promanager\\promanager\\Metier\\Service\\credentials.json";
                 } else {
                         chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
                 }
