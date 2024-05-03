@@ -1,5 +1,15 @@
 package com.promanager.promanager.Presentation.Controller.StatistiqueController;
 
+import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+import com.promanager.promanager.Metier.Gestion.gestionSeance;
+import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
@@ -8,21 +18,24 @@ import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePa
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class StatistiquePageController {
     private Stage stage;
-
     private Button Projets;
     private Button Listes;
     private Button Historiques;
+    private Text nombresHeures;
+    private gestionSeance gSeance;
 
     public StatistiquePageController(Stage stage, StatistiquePage view) {
         this.stage = stage;
-
         Listes = view.getListes();
         Historiques = view.getHistoriques();
         Projets = view.getProjets();
+        this.nombresHeures=view.getNombreHeures();
+
 
         this.Historiques.setOnAction(event -> {
             this.openHistoriquePage();
@@ -34,7 +47,6 @@ public class StatistiquePageController {
         this.Projets.setOnAction(event -> {
             this.openProjetPage();
         });
-
     }
 
     private void openHistoriquePage() {
@@ -67,5 +79,25 @@ public class StatistiquePageController {
         stage.setScene(projectsScene);
         stage.show();
     }
+    private void calcNombresHeures(){
+        
+        HashMap<String,Integer> Heures =new HashMap<>();
+        
+
+        LocalDate firstMondayBeforeDate = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+    }
+    private Date premierLundi(){
+        ArrayList<Seance> Seances = gSeance.getAll();
+        ArrayList<Date> dates = new ArrayList<>();
+        for(Seance seance : Seances){
+            dates.add(seance.getDateDepartSeance());
+        }
+        Collections.sort(dates);
+        LocalDate firstMondayBeforeDate = (dates.get(0)).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        return ;
+    }
+
+
 
 }

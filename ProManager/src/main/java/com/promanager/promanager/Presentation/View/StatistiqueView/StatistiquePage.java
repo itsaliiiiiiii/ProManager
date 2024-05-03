@@ -27,6 +27,8 @@ public class StatistiquePage extends AnchorPane {
     private ScrollPane scroll;
 
     private Stage stage;
+    private Text nombreHeures;
+
 
     public StatistiquePage(Stage stage) {
 
@@ -39,7 +41,7 @@ public class StatistiquePage extends AnchorPane {
 
         titleStat = new Text("Statistiques");
         scroll = new ScrollPane();
-
+        nombreHeures=new Text();
         controller = new StatistiquePageController(stage, this);
 
         this.heightWindow = stage.heightProperty();
@@ -69,6 +71,10 @@ public class StatistiquePage extends AnchorPane {
 
     public ReadOnlyDoubleProperty heightWindow() {
         return heightWindow;
+    }
+
+    public Text getNombreHeures() {
+        return nombreHeures;
     }
 
     private void design() {
@@ -112,6 +118,10 @@ public class StatistiquePage extends AnchorPane {
         this.Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Statistiques.setFont(Font.font("Arial Bold", 31.0));
 
+        this.nombreHeures.setLayoutX(600);
+        this.nombreHeures.setLayoutY(600);
+
+
         this.Projets.setOnMouseEntered(event -> {
             this.Projets.setStyle(
                     "-fx-background-color: #6a82ab; ");
@@ -148,6 +158,6 @@ public class StatistiquePage extends AnchorPane {
         scroll.setLayoutX(280.0);
         scroll.setLayoutY(140.0);
 
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat);
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat,nombreHeures);
     }
 }

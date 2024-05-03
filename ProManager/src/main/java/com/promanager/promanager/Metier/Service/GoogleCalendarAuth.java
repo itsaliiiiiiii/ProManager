@@ -38,7 +38,7 @@ public class GoogleCalendarAuth {
                         chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
                 }
 
-                FileInputStream in = new FileInputStream(chemin);
+                FileInputStream in = new FileInputStream(chemin);                                                                                                                                                       
                 GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
                 GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
