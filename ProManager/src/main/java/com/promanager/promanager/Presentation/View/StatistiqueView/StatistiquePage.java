@@ -1,9 +1,12 @@
 package com.promanager.promanager.Presentation.View.StatistiqueView;
 
+import java.util.Date;
+
 import com.promanager.promanager.Presentation.Controller.StatistiqueController.StatistiquePageController;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -28,7 +31,7 @@ public class StatistiquePage extends AnchorPane {
 
     private Stage stage;
     private Text nombreHeures;
-
+    private ComboBox<Date> semaine;
 
     public StatistiquePage(Stage stage) {
 
@@ -39,14 +42,19 @@ public class StatistiquePage extends AnchorPane {
         this.Historiques = new Button("Historiques");
         this.Statistiques = new Button("Statistiques");
 
+        semaine = new ComboBox<>();
         titleStat = new Text("Statistiques");
         scroll = new ScrollPane();
-        nombreHeures=new Text();
+        nombreHeures = new Text();
         controller = new StatistiquePageController(stage, this);
 
         this.heightWindow = stage.heightProperty();
 
         design();
+    }
+
+    public ComboBox<Date> getSemaine() {
+        return semaine;
     }
 
     public Pane getSideBar() {
@@ -121,6 +129,8 @@ public class StatistiquePage extends AnchorPane {
         this.nombreHeures.setLayoutX(600);
         this.nombreHeures.setLayoutY(600);
 
+        this.semaine.setLayoutX(700);
+        this.semaine.setLayoutY(600);
 
         this.Projets.setOnMouseEntered(event -> {
             this.Projets.setStyle(
@@ -158,6 +168,6 @@ public class StatistiquePage extends AnchorPane {
         scroll.setLayoutX(280.0);
         scroll.setLayoutY(140.0);
 
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat,nombreHeures);
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat, nombreHeures, semaine);
     }
 }

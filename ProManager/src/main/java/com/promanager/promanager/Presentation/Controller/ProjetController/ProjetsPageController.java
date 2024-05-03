@@ -1,14 +1,7 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
-import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 
 import org.bson.types.ObjectId;
 
@@ -22,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javax.sound.midi.SysexMessage;
 
 public class ProjetsPageController {
 
