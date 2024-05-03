@@ -137,8 +137,10 @@ public class StatistiquePageController {
                     totalHoursThisWeek += durationInMillies / (1000 * 60 * 60);
                 }
             }
-            Heures.put(currentWeekStart, (int) totalHoursThisWeek);
-            semaine.getItems().add(currentWeekStart);
+            if (totalHoursThisWeek != 0) {
+                Heures.put(currentWeekStart, (int) totalHoursThisWeek);
+                semaine.getItems().add(currentWeekStart);
+            }
         }
     }
 
