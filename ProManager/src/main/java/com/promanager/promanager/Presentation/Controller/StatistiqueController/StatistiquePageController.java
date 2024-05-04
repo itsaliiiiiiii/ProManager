@@ -1,6 +1,7 @@
 package com.promanager.promanager.Presentation.Controller.StatistiqueController;
 
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,11 +27,17 @@ public class StatistiquePageController {
     private Button Projets;
     private Button Listes;
     private Button Historiques;
-    private Text nombresHeures;
     private gestionSeance gSeance;
-    private ComboBox<Date> semaine;
-
     private HashMap<Date, Integer> Heures;
+
+    private ComboBox<Date> semaine;
+    private Text nombreHeuresSemaine;
+
+    private Text nombreHeuresMois;
+    private ComboBox<Date> mois;
+
+    private Text nombreHeuresAnnee;
+    private ComboBox<Date> annee;
 
     public StatistiquePageController() {
         gSeance = new gestionSeance();
@@ -45,11 +52,14 @@ public class StatistiquePageController {
         gSeance = new gestionSeance();
         Heures = new HashMap<>();
 
-        this.nombresHeures = view.getNombreHeures();
+        this.nombreHeuresSemaine = view.getNombreHeuresSemaine();
         semaine = view.getSemaine();
 
-        semaine.setCellFactory(lv -> new DateListCell());
-        semaine.setButtonCell(new DateListCell());
+        this.nombreHeuresMois = view.getNombreHeuresMois();
+        mois = view.getMois();
+
+        this.nombreHeuresAnnee = view.getNombreHeuresAnnee();
+        annee = view.getAnnee();
 
         this.Historiques.setOnAction(event -> {
             this.openHistoriquePage();
@@ -65,14 +75,21 @@ public class StatistiquePageController {
         this.semaine.setOnAction(event -> {
             Date selectedValue = semaine.getValue();
             Integer hours = Heures.get(selectedValue);
-            if (hours != null) {
-                nombresHeures.setText(hours.toString());
-            } else {
-                nombresHeures.setText("0");
-            }
+            nombreHeuresSemaine.setText(hours.toString() + " Heures");
         });
 
-        calcNombresHeures();
+        semaine.setCellFactory(lv -> new DateListCell());
+        semaine.setButtonCell(new DateListCell());
+
+        mois.setCellFactory(lv -> new MonthListCell());
+        mois.setButtonCell(new MonthListCell());
+
+        annee.setCellFactory(lv -> new YearListCell());
+        annee.setButtonCell(new YearListCell());
+
+        calcnombreHeuresSemaine();
+        calcNombreHeuresMois();
+        calcNombreHeuresAnnee();
     }
 
     private void openHistoriquePage() {
@@ -106,7 +123,21 @@ public class StatistiquePageController {
         stage.show();
     }
 
-    public void calcNombresHeures() {
+    private ArrayList<Date> DateDepartetFin() {
+        ArrayList<Seance> seances = gSeance.getAll();
+        ArrayList<Date> dates = new ArrayList<>();
+        for (Seance seance : seances) {
+            dates.add(seance.getDateDepartSeance());
+        }
+        Collections.sort(dates);
+        ArrayList<Date> DateDepartFin = new ArrayList<>();
+        DateDepartFin.add(dates.get(0));
+        DateDepartFin.add(dates.get(dates.size() - 1));
+        return DateDepartFin;
+    }
+
+    // semaine --------------------------------------------------------------------
+    public void calcnombreHeuresSemaine() {
         ArrayList<Seance> seances = gSeance.getAll();
 
         if (Heures == null) {
@@ -144,19 +175,6 @@ public class StatistiquePageController {
         }
     }
 
-    private ArrayList<Date> DateDepartetFin() {
-        ArrayList<Seance> seances = gSeance.getAll();
-        ArrayList<Date> dates = new ArrayList<>();
-        for (Seance seance : seances) {
-            dates.add(seance.getDateDepartSeance());
-        }
-        Collections.sort(dates);
-        ArrayList<Date> DateDepartFin = new ArrayList<>();
-        DateDepartFin.add(dates.get(0));
-        DateDepartFin.add(dates.get(dates.size() - 1));
-        return DateDepartFin;
-    }
-
     private Date findFirstMonday() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(DateDepartetFin().get(0));
@@ -166,6 +184,87 @@ public class StatistiquePageController {
         return cal.getTime();
     }
 
+    // semaine --------------------------------------------------------------------
+    // mois -----------------------------------------------------------------------
+    public void calcNombreHeuresMois() {
+        ArrayList<Seance> seances = gSeance.getAll();
+        if (Heures == null) {
+            Heures = new HashMap<>();
+        }
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM/yyyy");
+        HashMap<String, Integer> monthlyHours = new HashMap<>();
+
+        for (Seance seance : seances) {
+            String monthKey = monthFormat.format(seance.getDateDepartSeance());
+            long duration = seance.getDateFinSeance().getTime() - seance.getDateDepartSeance().getTime();
+            int hours = (int) (duration / (1000 * 60 * 60));
+
+            monthlyHours.put(monthKey, monthlyHours.getOrDefault(monthKey, 0) + hours);
+        }
+
+        mois.getItems().clear();
+        monthlyHours.keySet().forEach(month -> {
+            mois.getItems().add(parseMonth(month));
+        });
+
+        mois.setOnAction(event -> {
+            String selectedMonth = monthFormat.format(mois.getValue());
+            Integer hours = monthlyHours.get(selectedMonth);
+            nombreHeuresMois.setText(hours + " Heures");
+        });
+    }
+
+    private Date parseMonth(String month) {
+        try {
+            return new SimpleDateFormat("MM/yyyy").parse(month);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // mois -----------------------------------------------------------------------
+    // Annee -----------------------------------------------------------------------
+    public void calcNombreHeuresAnnee() {
+        ArrayList<Seance> seances = gSeance.getAll();
+        if (Heures == null) {
+            Heures = new HashMap<>();
+        }
+
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        HashMap<String, Integer> yearlyHours = new HashMap<>();
+
+        for (Seance seance : seances) {
+            String yearKey = yearFormat.format(seance.getDateDepartSeance());
+            long duration = seance.getDateFinSeance().getTime() - seance.getDateDepartSeance().getTime();
+            int hours = (int) (duration / (1000 * 60 * 60));
+
+            yearlyHours.put(yearKey, yearlyHours.getOrDefault(yearKey, 0) + hours);
+        }
+
+        annee.getItems().clear();
+        yearlyHours.keySet().forEach(year -> {
+            annee.getItems().add(parseYear(year));
+        });
+
+        annee.setOnAction(event -> {
+            String selectedYear = yearFormat.format(annee.getValue());
+            Integer hours = yearlyHours.get(selectedYear);
+            nombreHeuresAnnee.setText(hours + " Heures");
+        });
+    }
+
+    private Date parseYear(String year) {
+        try {
+            return new SimpleDateFormat("yyyy").parse(year);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Annee -----------------------------------------------------------------------
     static class DateListCell extends ListCell<Date> {
         private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -184,4 +283,33 @@ public class StatistiquePageController {
             }
         }
     }
+
+    static class MonthListCell extends ListCell<Date> {
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+
+        @Override
+        protected void updateItem(Date item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText(null);
+            } else {
+                setText(dateFormat.format(item));
+            }
+        }
+    }
+
+    static class YearListCell extends ListCell<Date> {
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+
+        @Override
+        protected void updateItem(Date item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText(null);
+            } else {
+                setText(dateFormat.format(item));
+            }
+        }
+    }
+
 }

@@ -5,11 +5,16 @@ import java.util.Date;
 import com.promanager.promanager.Presentation.Controller.StatistiqueController.StatistiquePageController;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -28,10 +33,19 @@ public class StatistiquePage extends AnchorPane {
 
     private Text titleStat;
     private ScrollPane scroll;
+    private Text titreSemaine;
+    private VBox vbox;
 
     private Stage stage;
-    private Text nombreHeures;
+
+    private Text nombreHeuresSemaine;
     private ComboBox<Date> semaine;
+
+    private Text nombreHeuresMois;
+    private ComboBox<Date> mois;
+
+    private Text nombreHeuresAnnee;
+    private ComboBox<Date> annee;
 
     public StatistiquePage(Stage stage) {
 
@@ -42,19 +56,23 @@ public class StatistiquePage extends AnchorPane {
         this.Historiques = new Button("Historiques");
         this.Statistiques = new Button("Statistiques");
 
-        semaine = new ComboBox<>();
         titleStat = new Text("Statistiques");
+        titreSemaine = new Text("Seances :");
+
+        semaine = new ComboBox<>();
+        nombreHeuresSemaine = new Text();
+        mois = new ComboBox<>();
+        nombreHeuresMois = new Text();
+        annee = new ComboBox<>();
+        nombreHeuresAnnee = new Text();
+
         scroll = new ScrollPane();
-        nombreHeures = new Text();
+        vbox = new VBox();
         controller = new StatistiquePageController(stage, this);
 
         this.heightWindow = stage.heightProperty();
 
         design();
-    }
-
-    public ComboBox<Date> getSemaine() {
-        return semaine;
     }
 
     public Pane getSideBar() {
@@ -81,8 +99,28 @@ public class StatistiquePage extends AnchorPane {
         return heightWindow;
     }
 
-    public Text getNombreHeures() {
-        return nombreHeures;
+    public ComboBox<Date> getSemaine() {
+        return semaine;
+    }
+
+    public Text getNombreHeuresSemaine() {
+        return nombreHeuresSemaine;
+    }
+
+    public Text getNombreHeuresMois() {
+        return nombreHeuresMois;
+    }
+
+    public ComboBox<Date> getMois() {
+        return mois;
+    }
+
+    public Text getNombreHeuresAnnee() {
+        return nombreHeuresAnnee;
+    }
+
+    public ComboBox<Date> getAnnee() {
+        return annee;
     }
 
     private void design() {
@@ -126,12 +164,6 @@ public class StatistiquePage extends AnchorPane {
         this.Statistiques.setTextFill(javafx.scene.paint.Color.WHITE);
         this.Statistiques.setFont(Font.font("Arial Bold", 31.0));
 
-        this.nombreHeures.setLayoutX(600);
-        this.nombreHeures.setLayoutY(600);
-
-        this.semaine.setLayoutX(700);
-        this.semaine.setLayoutY(600);
-
         this.Projets.setOnMouseEntered(event -> {
             this.Projets.setStyle(
                     "-fx-background-color: #6a82ab; ");
@@ -165,9 +197,75 @@ public class StatistiquePage extends AnchorPane {
         titleStat.setFont(Font.font("System Bold", FontWeight.BOLD, 50.0));
         titleStat.setWrappingWidth(300);
 
-        scroll.setLayoutX(280.0);
-        scroll.setLayoutY(140.0);
+        titreSemaine.setFill(javafx.scene.paint.Color.web("#6a82ab"));
+        titreSemaine.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        titreSemaine.setStrokeWidth(0.0);
+        titreSemaine.setFont(Font.font("System Bold", FontWeight.BOLD, 30.0));
+        titreSemaine.setWrappingWidth(300);
 
-        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat, nombreHeures, semaine);
+        this.semaine.setPrefHeight(50.0);
+        this.semaine.setPrefWidth(230.0);
+        this.semaine.setPromptText("Semaine");
+        this.semaine.setStyle(
+                "-fx-background-color: #6a82ab99;-fx-font-size: 15px;-fx-border-radius: 10px;-fx-background-radius: 10px;");
+
+        this.mois.setPrefHeight(50.0);
+        this.mois.setPrefWidth(230.0);
+        this.mois.setPromptText("Mois");
+        this.mois.setStyle(
+                "-fx-background-color: #6a82ab99;-fx-font-size: 15px;-fx-border-radius: 10px;-fx-background-radius: 10px;");
+
+        this.annee.setPrefHeight(50.0);
+        this.annee.setPrefWidth(230.0);
+        this.annee.setPromptText("Année");
+        this.annee.setStyle(
+                "-fx-background-color: #6a82ab99;-fx-font-size: 15px;-fx-border-radius: 10px;-fx-background-radius: 10px;");
+
+        nombreHeuresSemaine.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        nombreHeuresSemaine.setText("# Heures");
+        nombreHeuresSemaine.setStyle("-fx-fill: #6a82abcc;");
+        VBox.setMargin(nombreHeuresSemaine, new Insets(0, 0, 0, 15));
+
+        nombreHeuresMois.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        nombreHeuresMois.setText("# Heures");
+        nombreHeuresMois.setStyle("-fx-fill: #6a82abcc;");
+        VBox.setMargin(nombreHeuresMois, new Insets(0, 0, 0, 15));
+
+        nombreHeuresAnnee.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        nombreHeuresAnnee.setText("# Heures");
+        nombreHeuresAnnee.setStyle("-fx-fill: #6a82abcc;");
+        VBox.setMargin(nombreHeuresAnnee, new Insets(0, 0, 0, 15));
+
+        VBox vbox1 = new VBox();
+        vbox1.setSpacing(20);
+        VBox vbox2 = new VBox();
+        vbox2.setSpacing(20);
+        VBox vbox3 = new VBox();
+        vbox3.setSpacing(20);
+
+        vbox1.getChildren().addAll(semaine, nombreHeuresSemaine);
+        vbox2.getChildren().addAll(mois, nombreHeuresMois);
+        vbox3.getChildren().addAll(annee, nombreHeuresAnnee);
+
+        HBox hbox1 = new HBox();
+        hbox1.getChildren().addAll(vbox1, vbox2, vbox3);
+        HBox.setMargin(vbox1, new Insets(0, 25, 0, 30));
+        HBox.setMargin(vbox2, new Insets(0, 20, 0, 20));
+        HBox.setMargin(vbox3, new Insets(0, 30, 0, 25));
+
+        scroll.setLayoutX(330.0);
+        scroll.setLayoutY(140.0);
+        scroll.setPrefHeight(650.0);
+        scroll.setPrefWidth(850.0);
+        scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroll.setStyle("-fx-background-color:transparent; -fx-background: transparent; -fx-border-color: transparent;");
+
+        vbox.setSpacing(30);
+        VBox.setMargin(titreSemaine, new Insets(10, 0, 0, 0));
+        vbox.getChildren().addAll(titreSemaine, hbox1);
+        scroll.setContent(vbox);
+
+        getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat,
+                scroll);
     }
 }
