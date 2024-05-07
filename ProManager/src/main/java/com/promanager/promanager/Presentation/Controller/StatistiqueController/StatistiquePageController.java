@@ -89,9 +89,9 @@ public class StatistiquePageController {
         annee.setCellFactory(lv -> new YearListCell());
         annee.setButtonCell(new YearListCell());
 
-        calcnombreHeuresSemaine();
-        calcNombreHeuresMois();
-        calcNombreHeuresAnnee();
+        // calcnombreHeuresSemaine();
+        // calcNombreHeuresMois();
+        // calcNombreHeuresAnnee();
     }
 
     private void openHistoriquePage() {
@@ -138,18 +138,48 @@ public class StatistiquePageController {
         return DateDepartFin;
     }
 
-    private ArrayList<Seance> getSeanceProjet() {
+    private ArrayList<Seance> getSeanceProjet(String key, String value) {
         ArrayList<Seance> seances = new ArrayList<>();
         ArrayList<Projet> projets = gProjet.getAll();
+
         for (Projet projet : projets) {
-            ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
-            for (ObjectId seance_ : seancesProjet) {
-                seances.add(gSeance.get(seance_));
+            if (key.equals("Categorie")) {
+                if (projet.getCategorieProjet().equals(value)) {
+                    ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
+                    for (ObjectId seance_ : seancesProjet) {
+                        seances.add(gSeance.get(seance_));
+                    }
+                }
+            } else if (key.equals("Type")) {
+                if (projet.getTypeProjet().equals(value)) {
+                    ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
+                    for (ObjectId seance_ : seancesProjet) {
+                        seances.add(gSeance.get(seance_));
+                    }
+                }
+            }else{
+                ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
+                for (ObjectId seance_ : seancesProjet) {
+                    seances.add(gSeance.get(seance_));
+                }
             }
         }
         return seances;
     }
 
+    
+
+
+
+
+
+
+
+
+
+    // ===========================================================================================
+    // ===========================================================================================
+    // ===========================================================================================
     // semaine --------------------------------------------------------------------
     public void calcnombreHeuresSemaine() {
         ArrayList<Seance> seances = gSeance.getAll();
