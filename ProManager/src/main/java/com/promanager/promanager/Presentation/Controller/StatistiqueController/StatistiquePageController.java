@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+
+import org.bson.types.ObjectId;
+
+import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
+import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
@@ -28,6 +33,7 @@ public class StatistiquePageController {
     private Button Listes;
     private Button Historiques;
     private gestionSeance gSeance;
+    private gestionProjet gProjet;
     private HashMap<Date, Integer> Heures;
 
     private ComboBox<Date> semaine;
@@ -39,17 +45,13 @@ public class StatistiquePageController {
     private Text nombreHeuresAnnee;
     private ComboBox<Date> annee;
 
-    public StatistiquePageController() {
-        gSeance = new gestionSeance();
-        Heures = new HashMap<>();
-    }
-
     public StatistiquePageController(Stage stage, StatistiquePage view) {
         this.stage = stage;
         Listes = view.getListes();
         Historiques = view.getHistoriques();
         Projets = view.getProjets();
         gSeance = new gestionSeance();
+        gProjet = new gestionProjet();
         Heures = new HashMap<>();
 
         this.nombreHeuresSemaine = view.getNombreHeuresSemaine();
@@ -134,6 +136,18 @@ public class StatistiquePageController {
         DateDepartFin.add(dates.get(0));
         DateDepartFin.add(dates.get(dates.size() - 1));
         return DateDepartFin;
+    }
+
+    private ArrayList<Seance> getSeanceProjet() {
+        ArrayList<Seance> seances = new ArrayList<>();
+        ArrayList<Projet> projets = gProjet.getAll();
+        for (Projet projet : projets) {
+            ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
+            for (ObjectId seance_ : seancesProjet) {
+                seances.add(gSeance.get(seance_));
+            }
+        }
+        return seances;
     }
 
     // semaine --------------------------------------------------------------------

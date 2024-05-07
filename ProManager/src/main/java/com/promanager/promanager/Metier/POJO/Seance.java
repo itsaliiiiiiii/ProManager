@@ -38,6 +38,13 @@ public class Seance {
         ListeDocument = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Seance [idSeance=" + idSeance + ", descriptionSeance=" + descriptionSeance + ", dateDepartSeance="
+                + dateDepartSeance + ", dateFinSeance=" + dateFinSeance + ", note=" + note + ", ListeDocument="
+                + ListeDocument + "]";
+    }
+
     public ObjectId getIdSeance() {
         return idSeance;
     }
