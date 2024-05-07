@@ -34,7 +34,6 @@ public class StatistiquePageController {
     private Button Historiques;
     private gestionSeance gSeance;
     private gestionProjet gProjet;
-    private HashMap<Date, Integer> Heures;
 
     private ComboBox<Date> semaine;
     private Text nombreHeuresSemaine;
@@ -52,7 +51,6 @@ public class StatistiquePageController {
         Projets = view.getProjets();
         gSeance = new gestionSeance();
         gProjet = new gestionProjet();
-        Heures = new HashMap<>();
 
         this.nombreHeuresSemaine = view.getNombreHeuresSemaine();
         semaine = view.getSemaine();
@@ -76,22 +74,43 @@ public class StatistiquePageController {
 
         this.semaine.setOnAction(event -> {
             Date selectedValue = semaine.getValue();
-            Integer hours = Heures.get(selectedValue);
+            Integer hours = HashMapSemaine("", "").get(selectedValue);
             nombreHeuresSemaine.setText(hours.toString() + " Heures");
         });
 
-        semaine.setCellFactory(lv -> new DateListCell());
-        semaine.setButtonCell(new DateListCell());
+        this.mois.setOnAction(event -> {
+            Date selectedValue = mois.getValue();
+            Integer hours = HashMapMois("", "").get(selectedValue);
+            nombreHeuresMois.setText(hours.toString() + " Heures");
+        });
 
-        mois.setCellFactory(lv -> new MonthListCell());
-        mois.setButtonCell(new MonthListCell());
+        // this.annee.setOnAction(event -> {
+        //     Date selectedValue = annee.getValue();
+        //     Integer hours = HashMapAnnee("", "").get(selectedValue);
+        //     nombreHeuresSemaine.setText(hours.toString() + " Heures");
+        // });
 
-        annee.setCellFactory(lv -> new YearListCell());
-        annee.setButtonCell(new YearListCell());
+        semaine.setCellFactory(lv -> new DateListCellSemaine());
+        semaine.setButtonCell(new DateListCellSemaine());
 
-        // calcnombreHeuresSemaine();
-        // calcNombreHeuresMois();
-        // calcNombreHeuresAnnee();
+        mois.setCellFactory(lv -> new DateListCellMois());
+        mois.setButtonCell(new DateListCellMois());
+
+        annee.setCellFactory(lv -> new DateListCellAnnee());
+        annee.setButtonCell(new DateListCellAnnee());
+
+        fillDate(semaine, HashMapSemaine("", ""));
+        fillDate(mois, HashMapMois("", ""));
+        // fillDate(annee, HashMapAnnee("", ""));
+
+    }
+
+    private void fillDate(ComboBox<Date> elem, HashMap<Date, Integer> hash) {
+        for (Date a : hash.keySet()) {
+            if (hash.get(a) != null) {
+                elem.getItems().add(a);
+            }
+        }
     }
 
     private void openHistoriquePage() {
@@ -157,7 +176,7 @@ public class StatistiquePageController {
                         seances.add(gSeance.get(seance_));
                     }
                 }
-            }else{
+            } else {
                 ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
                 for (ObjectId seance_ : seancesProjet) {
                     seances.add(gSeance.get(seance_));
@@ -167,32 +186,14 @@ public class StatistiquePageController {
         return seances;
     }
 
-    
+    // semaine ----------------------------------
+    private HashMap<Date, Integer> HashMapSemaine(String key, String value) {
+        HashMap<Date, Integer> heures = new HashMap<>();
 
-
-
-
-
-
-
-
-
-    // ===========================================================================================
-    // ===========================================================================================
-    // ===========================================================================================
-    // semaine --------------------------------------------------------------------
-    public void calcnombreHeuresSemaine() {
-        ArrayList<Seance> seances = gSeance.getAll();
-
-        if (Heures == null) {
-            Heures = new HashMap<>();
-        }
+        ArrayList<Seance> seances = getSeanceProjet(key, value);
 
         Date dateDepart = findFirstMonday();
         ArrayList<Date> dates = DateDepartetFin();
-        if (dates.size() < 2) {
-            return;
-        }
 
         Date datefin = dates.get(1);
         Calendar cal = Calendar.getInstance();
@@ -201,7 +202,7 @@ public class StatistiquePageController {
         while (datefin.after(cal.getTime())) {
             Date currentWeekStart = cal.getTime();
 
-            cal.add(Calendar.DATE, 6);
+            cal.add(Calendar.DATE, 7);
             Date currentWeekEnd = cal.getTime();
 
             long totalHoursThisWeek = 0;
@@ -213,11 +214,50 @@ public class StatistiquePageController {
                 }
             }
             if (totalHoursThisWeek != 0) {
-                Heures.put(currentWeekStart, (int) totalHoursThisWeek);
-                semaine.getItems().add(currentWeekStart);
+                heures.put(currentWeekStart, (int) totalHoursThisWeek);
             }
         }
+
+        return heures;
     }
+
+    // semaine ----------------------------------
+    // mois ----------------------------------
+    private HashMap<Date, Integer> HashMapMois(String key, String value) {
+        HashMap<Date, Integer> heures = new HashMap<>();
+
+        ArrayList<Seance> seances = getSeanceProjet(key, value);
+
+        Date dateDepart = findFirstMonday();
+        ArrayList<Date> dates = DateDepartetFin();
+
+        Date datefin = dates.get(1);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateDepart);
+
+        while (datefin.after(cal.getTime())) {
+            Date currentWeekStart = cal.getTime();
+
+            cal.add(Calendar.DATE, 31);
+            Date currentWeekEnd = cal.getTime();
+
+            long totalHoursThisWeek = 0;
+            for (Seance seance : seances) {
+                Date seanceStart = seance.getDateDepartSeance();
+                if (!seanceStart.before(currentWeekStart) && !seanceStart.after(currentWeekEnd)) {
+                    long durationInMillies = seance.getDateFinSeance().getTime() - seanceStart.getTime();
+                    totalHoursThisWeek += durationInMillies / (1000 * 60 * 60);
+                }
+            }
+            if (totalHoursThisWeek != 0 ) {
+                heures.put(currentWeekStart, (int) totalHoursThisWeek);
+            }
+        }
+
+        return heures;
+    }
+
+    // ===========================================================================================
 
     private Date findFirstMonday() {
         Calendar cal = Calendar.getInstance();
@@ -228,53 +268,10 @@ public class StatistiquePageController {
         return cal.getTime();
     }
 
-    // semaine --------------------------------------------------------------------
-    // mois -----------------------------------------------------------------------
-    public void calcNombreHeuresMois() {
-        ArrayList<Seance> seances = gSeance.getAll();
-        if (Heures == null) {
-            Heures = new HashMap<>();
-        }
-
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MM/yyyy");
-        HashMap<String, Integer> monthlyHours = new HashMap<>();
-
-        for (Seance seance : seances) {
-            String monthKey = monthFormat.format(seance.getDateDepartSeance());
-            long duration = seance.getDateFinSeance().getTime() - seance.getDateDepartSeance().getTime();
-            int hours = (int) (duration / (1000 * 60 * 60));
-
-            monthlyHours.put(monthKey, monthlyHours.getOrDefault(monthKey, 0) + hours);
-        }
-
-        mois.getItems().clear();
-        monthlyHours.keySet().forEach(month -> {
-            mois.getItems().add(parseMonth(month));
-        });
-
-        mois.setOnAction(event -> {
-            String selectedMonth = monthFormat.format(mois.getValue());
-            Integer hours = monthlyHours.get(selectedMonth);
-            nombreHeuresMois.setText(hours + " Heures");
-        });
-    }
-
-    private Date parseMonth(String month) {
-        try {
-            return new SimpleDateFormat("MM/yyyy").parse(month);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    // mois -----------------------------------------------------------------------
     // Annee -----------------------------------------------------------------------
     public void calcNombreHeuresAnnee() {
         ArrayList<Seance> seances = gSeance.getAll();
-        if (Heures == null) {
-            Heures = new HashMap<>();
-        }
+        
 
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         HashMap<String, Integer> yearlyHours = new HashMap<>();
@@ -309,7 +306,7 @@ public class StatistiquePageController {
     }
 
     // Annee -----------------------------------------------------------------------
-    static class DateListCell extends ListCell<Date> {
+    static class DateListCellSemaine extends ListCell<Date> {
         private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         @Override
@@ -327,23 +324,8 @@ public class StatistiquePageController {
             }
         }
     }
-
-    static class MonthListCell extends ListCell<Date> {
-        private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
-
-        @Override
-        protected void updateItem(Date item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty || item == null) {
-                setText(null);
-            } else {
-                setText(dateFormat.format(item));
-            }
-        }
-    }
-
-    static class YearListCell extends ListCell<Date> {
-        private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+    static class DateListCellMois extends ListCell<Date> {
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         @Override
         protected void updateItem(Date item, boolean empty) {
@@ -351,9 +333,34 @@ public class StatistiquePageController {
             if (empty || item == null) {
                 setText(null);
             } else {
-                setText(dateFormat.format(item));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(item);
+                calendar.add(Calendar.DATE, 30);
+                Date endDate = calendar.getTime();
+
+                setText(dateFormat.format(item) + " - " + dateFormat.format(endDate));
             }
         }
     }
+    static class DateListCellAnnee extends ListCell<Date> {
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        @Override
+        protected void updateItem(Date item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText(null);
+            } else {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(item);
+                calendar.add(Calendar.DATE, 365);
+                Date endDate = calendar.getTime();
+
+                setText(dateFormat.format(item) + " - " + dateFormat.format(endDate));
+            }
+        }
+    }
+
+    
 
 }
