@@ -99,7 +99,7 @@ public class ModifierProjet extends AnchorPane {
         return PickerDateFin;
     }
 
-    public ModifierProjet(ObjectId id,Stage stage) {
+    public ModifierProjet(ObjectId id, Stage stage) {
         AjouterProjet = new Text("Modifier Projet");
         NomProjet = new Text("Nom Projet");
         InputNomProjet = new TextField();
@@ -116,7 +116,7 @@ public class ModifierProjet extends AnchorPane {
         PickerDateDepart = new DatePicker();
         buttonAnnuler = new Button("Annulé");
         this.stage = stage;
-        this.controller = new ModifierProjetController(this, id,stage);
+        this.controller = new ModifierProjetController(this, id, stage);
         this.design();
     }
 
@@ -213,9 +213,7 @@ public class ModifierProjet extends AnchorPane {
         comboBoxCategorie.getItems().addAll(config.getCategorie());
         comboBoxType.getItems().addAll(config.getType());
 
-        
-
-        getChildren().addAll(AjouterProjet, NomProjet, InputNomProjet, Type,
+        this.getChildren().addAll(AjouterProjet, NomProjet, InputNomProjet, Type,
                 comboBoxType, Categorie,
                 comboBoxCategorie, Description, InputDescription, DateDepart,
                 PickerDateDepart, DateFin,
