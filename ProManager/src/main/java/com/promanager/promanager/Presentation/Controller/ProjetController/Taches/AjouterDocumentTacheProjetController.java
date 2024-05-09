@@ -4,8 +4,7 @@ import java.io.File;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AjouterDocumentTacheProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterDocumentTacheProjet;
 
@@ -21,7 +20,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class AjouterDocumentTacheProjetController {
     private Button PrecedentButton;
@@ -34,9 +32,9 @@ public class AjouterDocumentTacheProjetController {
     private ObjectId idProjet;
     private Stage stage;
     private File selectedFile;
-    private gestionTache gTache;
-    private gestionDocument gDocument;
     private TextArea Description;
+
+    private AjouterDocumentTacheProjetModel model;
 
     public AjouterDocumentTacheProjetController(AjouterDocumentTacheProjet view, ObjectId idtache, ObjectId idProjet,
             Stage stage) {
@@ -46,11 +44,11 @@ public class AjouterDocumentTacheProjetController {
         PrecedentButton = view.getPrecedentButton();
         Ajouter = view.getAjouter();
         Description = view.getDescription();
-        gDocument = new gestionDocument();
         SelectionDocument = view.getSelectionDocument();
         text = view.getText();
         nameDocument = view.getLabel();
-        gTache = new gestionTache();
+
+        model = new AjouterDocumentTacheProjetModel();
 
         SelectionDocument.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -92,10 +90,10 @@ public class AjouterDocumentTacheProjetController {
         Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
         Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
         ArrayList<ObjectId> listDoc = new ArrayList<>();
-        listDoc = gTache.get_Tache(idtache).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(),new Date());
+        listDoc = model.getListeDocument(idtache);
+        ObjectId idDoc = model.addDocument(Description.getText(), destinationFile.toString());
         listDoc.add(idDoc);
-        gTache.update(idtache, "Documents", listDoc);
+        model.update(idtache, listDoc);
     }
 
     private String getDocumentsDirectory() {

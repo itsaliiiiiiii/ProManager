@@ -35,7 +35,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ProjetsPage extends AnchorPane {
-    // private AnchorPane background;
     private Pane sideBar;
     private Button Projets;
     private Button Listes;
@@ -48,6 +47,7 @@ public class ProjetsPage extends AnchorPane {
     private TextField rechercheInput;
     private Button rechercheButton;
     private Button buttonAjouter;
+    @SuppressWarnings("unused")
     private Stage stage;
     private ProjetsPageController controller;
     private ReadOnlyDoubleProperty heightWindow;
@@ -61,7 +61,6 @@ public class ProjetsPage extends AnchorPane {
 
     public ProjetsPage(Stage stage) {
         this.stage = stage;
-        // this.background = new AnchorPane();
         this.sideBar = new Pane();
         this.Projets = new Button("Projets");
         this.Listes = new Button("Listes");
@@ -84,10 +83,6 @@ public class ProjetsPage extends AnchorPane {
         design();
         actualiserPage();
     }
-
-    // public AnchorPane getBack() {
-    //     return background;
-    // }
 
     public Pane getSideBar() {
         return sideBar;
@@ -240,7 +235,6 @@ public class ProjetsPage extends AnchorPane {
         this.TypeFilter.setPromptText("Type");
         this.TypeFilter.setStyle("-fx-background-color: #6a82abcc;");
 
-
         this.rechercheInput.setPrefWidth(100);
         this.rechercheInput.setPrefWidth(150.0);
         this.rechercheInput.setLayoutY(72.0);
@@ -262,12 +256,6 @@ public class ProjetsPage extends AnchorPane {
         this.buttonAjouter.setTextFill(javafx.scene.paint.Color.WHITE);
         this.buttonAjouter.setFont(Font.font("System", 13.0));
         this.buttonAjouter.setDisable(false);
-
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            rechercheInput.setLayoutX(newVal.doubleValue() - 410);
-            rechercheButton.setLayoutX(newVal.doubleValue() - 250);
-            buttonAjouter.setLayoutX(newVal.doubleValue() - 150);
-        });
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(1000.0, 600.0);
@@ -361,7 +349,7 @@ public class ProjetsPage extends AnchorPane {
         TypeFilter.getItems().add("tout");
         TypeFilter.getItems().addAll(config.getType());
         Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
-        
+
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
                 TypeFilter, rechercheInput, rechercheButton, buttonAjouter,
                 scrollPane);

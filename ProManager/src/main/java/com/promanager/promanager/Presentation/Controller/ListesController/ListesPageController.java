@@ -4,7 +4,10 @@ import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
+import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
+import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;
+import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
+import com.promanager.promanager.Presentation.View.ListesView.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePage;
 
@@ -15,10 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import org.bson.types.ObjectId;
-
-import com.promanager.promanager.Presentation.View.ListesVIiew.AffichageTachePage;
-import com.promanager.promanager.Presentation.View.ListesVIiew.AjouterTachePage;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

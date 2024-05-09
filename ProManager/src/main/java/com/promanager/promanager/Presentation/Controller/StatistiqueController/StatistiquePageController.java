@@ -17,7 +17,7 @@ import com.promanager.promanager.Metier.Gestion.gestionSeance;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
+import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePage;
 

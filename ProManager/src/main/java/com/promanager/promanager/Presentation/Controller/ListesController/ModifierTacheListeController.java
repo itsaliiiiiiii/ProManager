@@ -6,8 +6,6 @@ import java.util.Date;
 
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.ModifierTache;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import org.bson.types.ObjectId;
@@ -15,6 +13,8 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
+import com.promanager.promanager.Presentation.View.ListesView.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;

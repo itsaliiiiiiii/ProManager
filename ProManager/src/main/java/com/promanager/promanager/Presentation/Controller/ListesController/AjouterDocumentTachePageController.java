@@ -7,8 +7,9 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
-import com.promanager.promanager.Presentation.View.ListesVIiew.AffichageTachePage;
-import com.promanager.promanager.Presentation.View.ListesVIiew.AjouterDocumentTachePage;
+import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
+import com.promanager.promanager.Presentation.View.ListesView.AjouterDocumentTachePage;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;

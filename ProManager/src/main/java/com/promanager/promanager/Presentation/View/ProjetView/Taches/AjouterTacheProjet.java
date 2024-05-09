@@ -43,8 +43,29 @@ public class AjouterTacheProjet extends AnchorPane {
     private gestionProjet gProj;
     private AjouterTacheProjetController controller;
     private DAOconfiguration config;
-    private gestionListe gListe;
-    private gestionTache gTache;
+    private VBox mainVBox;
+
+    public AjouterTacheProjet(ObjectId idProj, Stage stage) {
+        this.stage = stage;
+        AjouterTache = new Text("Ajouter Tache");
+        NomProjet = new Text("Nom Projet");
+        Categorie = new Text("Categorie");
+        comboBoxCategorie = new ComboBox<>();
+        InputDescription = new TextArea();
+        Description = new Text("Description");
+        PickerDateFin = new DatePicker();
+        DateFin = new Text("Date Fin");
+        DateDepart = new Text("Date Depart");
+        buttonAjouter = new Button("Ajouter");
+        PickerDateDepart = new DatePicker();
+        buttonAnnuler = new Button("Annulé");
+        gProj = new gestionProjet();
+        this.Proj = gProj.get(idProj).getNomProjet();
+        config = new DAOconfiguration();
+        mainVBox = new VBox();
+        controller = new AjouterTacheProjetController(this, stage, idProj);
+        design();
+    }
 
     public Button getButtonAnnuler() {
         return buttonAnnuler;
@@ -66,31 +87,12 @@ public class AjouterTacheProjet extends AnchorPane {
         return PickerDateFin;
     }
 
-    public ComboBox<String> getComboBoxCategorie() {
-        return comboBoxCategorie;
+    public VBox getMainVBox() {
+        return mainVBox;
     }
 
-    public AjouterTacheProjet(ObjectId idProj, Stage stage) {
-        this.stage = stage;
-        AjouterTache = new Text("Ajouter Tache");
-        NomProjet = new Text("Nom Projet");
-        Categorie = new Text("Categorie");
-        comboBoxCategorie = new ComboBox<>();
-        InputDescription = new TextArea();
-        Description = new Text("Description");
-        PickerDateFin = new DatePicker();
-        DateFin = new Text("Date Fin");
-        DateDepart = new Text("Date Depart");
-        buttonAjouter = new Button("Ajouter");
-        PickerDateDepart = new DatePicker();
-        buttonAnnuler = new Button("Annulé");
-        gProj = new gestionProjet();
-        gTache = new gestionTache();
-        this.Proj = gProj.get(idProj).getNomProjet();
-        config = new DAOconfiguration();
-        gListe = new gestionListe();
-        controller = new AjouterTacheProjetController(this, stage, idProj);
-        design();
+    public ComboBox<String> getComboBoxCategorie() {
+        return comboBoxCategorie;
     }
 
     private void design() {
@@ -179,47 +181,7 @@ public class AjouterTacheProjet extends AnchorPane {
         scrollPane.setStyle(
                 "-fx-selection-bar: #6a82ab; -fx-background-color: transparent; -fx-border-color: transparent;");
 
-        VBox mainVBox = new VBox();
         mainVBox.setSpacing(30);
-
-        for (Liste liste : gListe.getAll()) {
-            VBox listeVBox = new VBox(20);
-
-            Text nomListe = new Text(" ~ Liste: " + liste.getNomListe());
-            nomListe.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-            nomListe.setFill(Color.web("#6a82ab"));
-
-            Text descListeText = new Text("Description: " + liste.getDescriptionListe());
-            descListeText.setFont(Font.font(20));
-            descListeText.setFill(Color.BLACK);
-
-            VBox tachesVBox = new VBox();
-            tachesVBox.setSpacing(5);
-            tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
-
-            for (ObjectId idTache : liste.getListeTache()) {
-                Tache tache = gTache.get_Tache(idTache);
-                if (tache != null) {
-
-                    Label tache_ = new Label(
-                            "Categorie : " + tache.getCategorieTache() + " - Description : " + tache.getDescriptionTache());
-                    tache_.setFont(Font.font(25));
-                    tache_.setPrefHeight(60);
-                    tache_.setPrefWidth(1000);
-                    tache_.setLayoutX(100);
-                    tache_.setStyle(
-                            "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                    tache_.setOnMouseClicked(event -> {
-                        controller.addTacheToProjet(idTache);
-                    });
-                    tachesVBox.getChildren().add(tache_);
-                }
-            }
-
-            listeVBox.getChildren().addAll(nomListe, tachesVBox);
-            mainVBox.getChildren().add(listeVBox);
-        }
 
         scrollPane.setContent(mainVBox);
 

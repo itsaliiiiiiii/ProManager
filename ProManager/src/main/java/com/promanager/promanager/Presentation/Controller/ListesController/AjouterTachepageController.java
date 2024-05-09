@@ -12,8 +12,8 @@ import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Liste;
-import com.promanager.promanager.Presentation.View.ListesVIiew.AjouterTachePage;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
+import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;
+import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
 import javafx.scene.Parent;

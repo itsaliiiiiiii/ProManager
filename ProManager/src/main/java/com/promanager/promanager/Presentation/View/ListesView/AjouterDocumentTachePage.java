@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.View.ListesVIiew;
+package com.promanager.promanager.Presentation.View.ListesView;
 
 
 import org.bson.types.ObjectId;

@@ -1,8 +1,12 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
+import java.text.SimpleDateFormat;
+
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
+import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.Model.ProjetModel.AffichageProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
@@ -38,6 +42,15 @@ public class AffichageProjetController {
     private Button seancesButton;
     private Button tachesButton;
     private gestionProjet gProj;
+
+    private Text nomProjet;
+    private Text categorie;
+    private Text type;
+    private Text dateDepart;
+    private Label desc;
+    private Text dateFin;
+    AffichageProjetModel model;
+
     Stage stage;
 
     public AffichageProjetController(AffichageProjet view, Stage stage, ObjectId id) {
@@ -56,8 +69,18 @@ public class AffichageProjetController {
         this.seancesButton = view.getSeancesButton();
         this.tachesButton = view.getTachesButton();
         this.gProj = new gestionProjet();
+
+        nomProjet = view.getNomProjet();
+        categorie = view.getCategorie();
+        type = view.getType();
+        dateDepart = view.getDateDepart();
+        dateFin = view.getDateFin();
+        desc = view.getDesc();
+
+        model = new AffichageProjetModel();
+
         this.stage = stage;
-        
+
         PrecedentButton.setOnAction(event -> {
             openProjet();
         });
@@ -85,6 +108,20 @@ public class AffichageProjetController {
         modifierButton.setOnAction(event -> {
             openModifierProjet();
         });
+
+        fillData();
+    }
+
+    private void fillData() {
+        Projet Projet = model.getProjet(idProjet);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
+        categorie.setText("Categorie : " + Projet.getCategorieProjet());
+        type.setText("Type : " + Projet.getTypeProjet());
+        desc = new Label(Projet.getDescriptionProjet());
+        dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
+        dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
     }
 
     private void openProjet() {
@@ -151,7 +188,7 @@ public class AffichageProjetController {
         Button AnnuleButton = new Button("Annulé");
         ClonerButton.setOnAction(
                 event -> {
-                    gProj.Cloner(idProjet);
+                    model.Cloner(idProjet);
                     stage.close();
                 });
         AnnuleButton.setOnAction(
@@ -183,13 +220,14 @@ public class AffichageProjetController {
         Stage stage = new Stage();
         Label message = new Label(
                 "Cloturer Projet ?");
+                
         message.setStyle("-fx-font-size: 30px; -fx-font-weight: bold;-fx-text-fill: #6a82ab;");
 
         Button CloturerButton = new Button("Cloturer");
         Button AnnuleButton = new Button("Annulé");
         CloturerButton.setOnAction(
                 event -> {
-                    gProj.update(idProjet, "Status", "Termine");
+                    model.Cloturer(idProjet);
                     stage.close();
                     openProjet();
                 });
@@ -216,7 +254,5 @@ public class AffichageProjetController {
         stage.setResizable(false);
         stage.setTitle("Cloturer Projet");
         stage.show();
-
-
     }
 }

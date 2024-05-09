@@ -1,15 +1,12 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Taches;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
+import com.promanager.promanager.Metier.Gestion.gestionListe;
+import com.promanager.promanager.Metier.POJO.Liste;
+import com.promanager.promanager.Metier.POJO.Tache;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AjouterTacheProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterTacheProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 
@@ -17,7 +14,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AjouterTacheProjetController {
@@ -28,9 +31,10 @@ public class AjouterTacheProjetController {
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
     private TextArea InputDescription;
-    private gestionTache gTache;
-    private gestionProjet gProjet;
-    private ArrayList<ObjectId> listeTaches;
+    private VBox mainVBox;
+    private AjouterTacheProjetModel model;
+
+    private gestionListe gListe;
 
     private ObjectId idProj;
 
@@ -41,15 +45,18 @@ public class AjouterTacheProjetController {
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
         InputDescription = view.getInputDescription();
-        gTache = new gestionTache();
-        gProjet = new gestionProjet();
-        listeTaches = new ArrayList<>();
+        mainVBox = view.getMainVBox();
+        gListe = new gestionListe();
+        model = new AjouterTacheProjetModel();
 
         this.idProj = idProj;
         this.stage = stage;
         Ajouter.setOnAction(event -> {
             try {
-                AjouterTacheProjet();
+                model.AjouterTacheProjet(
+                        idProj, comboBoxCategorie.getSelectionModel().getSelectedItem(), PickerDateDepart.getValue(),
+                        PickerDateFin.getValue(),
+                        InputDescription.getText());
                 Back();
             } catch (ProjetExeption e) {
                 e.MessageErreurAjouterProjet();
@@ -59,24 +66,8 @@ public class AjouterTacheProjetController {
         Annule.setOnAction(event -> {
             Back();
         });
-    }
 
-    private void AjouterTacheProjet() throws ProjetExeption {
-        if (comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
-                PickerDateDepart.getValue() != null &&
-                PickerDateFin.getValue() != null) {
-            ObjectId id = gTache.add(
-                    comboBoxCategorie.getSelectionModel().getSelectedItem(), InputDescription.getText(),
-                    Date.from(Instant.from((PickerDateDepart
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                    Date.from(Instant.from((PickerDateFin
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))));
-            listeTaches = gProjet.get(idProj).getListeTaches();
-            listeTaches.add(id);
-            gProjet.update(idProj, "Taches", listeTaches);
-        } else {
-            throw new ProjetExeption();
-        }
+        fillData();
     }
 
     private void Back() {
@@ -91,10 +82,49 @@ public class AjouterTacheProjetController {
     }
 
     public void addTacheToProjet(ObjectId idTache) {
-        listeTaches = gProjet.get(idProj).getListeTaches();
-        listeTaches.add(idTache);
-        gProjet.update(idProj, "Taches", listeTaches);
-        
+        model.addTacheToprojet(idProj, idTache);
         this.Back();
+    }
+
+    private void fillData() {
+        for (Liste liste : gListe.getAll()) {
+            VBox listeVBox = new VBox(20);
+
+            Text nomListe = new Text(" ~ Liste: " + liste.getNomListe());
+            nomListe.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+            nomListe.setFill(Color.web("#6a82ab"));
+
+            Text descListeText = new Text("Description: " + liste.getDescriptionListe());
+            descListeText.setFont(Font.font(20));
+            descListeText.setFill(Color.BLACK);
+
+            VBox tachesVBox = new VBox();
+            tachesVBox.setSpacing(5);
+            tachesVBox.setStyle("-fx-padding: 0 0 0 50px;");
+
+            for (ObjectId idTache : liste.getListeTache()) {
+                Tache tache = model.get_Tache(idTache);
+                if (tache != null) {
+
+                    Label tache_ = new Label(
+                            "Categorie : " + tache.getCategorieTache() + " - Description : "
+                                    + tache.getDescriptionTache());
+                    tache_.setFont(Font.font(25));
+                    tache_.setPrefHeight(60);
+                    tache_.setPrefWidth(1000);
+                    tache_.setLayoutX(100);
+                    tache_.setStyle(
+                            "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+
+                    tache_.setOnMouseClicked(event -> {
+                        this.addTacheToProjet(idTache);
+                    });
+                    tachesVBox.getChildren().add(tache_);
+                }
+            }
+
+            listeVBox.getChildren().addAll(nomListe, tachesVBox);
+            mainVBox.getChildren().add(listeVBox);
+        }
     }
 }

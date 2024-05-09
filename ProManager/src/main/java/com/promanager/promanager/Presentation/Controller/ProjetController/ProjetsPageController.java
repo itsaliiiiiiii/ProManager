@@ -1,7 +1,7 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
-import com.promanager.promanager.Presentation.View.ListesVIiew.ListesPage;
+import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 
 import org.bson.types.ObjectId;
 
@@ -13,12 +13,10 @@ import com.promanager.promanager.Presentation.View.StatistiqueView.StatistiquePa
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ProjetsPageController {
 
-    public AnchorPane background;
     private Button buttonAjouter;
     private Button buttonHistorique;
     private Button buttonListes;

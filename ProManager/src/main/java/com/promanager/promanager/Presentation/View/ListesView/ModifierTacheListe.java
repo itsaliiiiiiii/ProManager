@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.View.ListesVIiew;
+package com.promanager.promanager.Presentation.View.ListesView;
 
 import com.promanager.promanager.Presentation.Controller.ListesController.ModifierTacheListeController;
 import org.bson.types.ObjectId;

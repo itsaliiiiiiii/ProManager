@@ -24,7 +24,6 @@ public class ProManager extends Application {
         stage.setResizable(false);
         stage.setTitle("ProManager");
         stage.show();
-
     }
 
     public static void main(String[] args) {

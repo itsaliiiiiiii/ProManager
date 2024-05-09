@@ -1,4 +1,4 @@
-package com.promanager.promanager.Presentation.View.ListesVIiew;
+package com.promanager.promanager.Presentation.View.ListesView;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

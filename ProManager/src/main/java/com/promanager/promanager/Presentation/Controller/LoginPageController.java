@@ -1,6 +1,6 @@
 package com.promanager.promanager.Presentation.Controller;
 
-import com.promanager.promanager.Persistance.DAOconfiguration;
+import com.promanager.promanager.Presentation.Model.LoginPageModel;
 import com.promanager.promanager.Presentation.View.LoginPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginPageController {
-    private DAOconfiguration config;
+    LoginPageModel model;
 
     private TextField mailField;
     private Button loginButton;
@@ -24,7 +24,7 @@ public class LoginPageController {
         this.loginButton = view.getLoginButton();
         this.errorOutputText = view.getErrorOutputText();
         this.stage = stage;
-        this.config = new DAOconfiguration();
+        model = new LoginPageModel();
         this.loginButton.setOnAction(event -> {
             verificationMail();
         });
@@ -34,19 +34,11 @@ public class LoginPageController {
         String email = mailField.getText().trim();
         if (email.isEmpty()) {
             errorOutputText.setText("Veuillez saisir un Mail.");
-        } else if (isGoogleMail(email)) {
-            config.insertMail(email);
+        } else if (model.isGoogleMail(email)) {
+            model.insertMail(email);
             openProjetsPage();
         } else {
             errorOutputText.setText("Veuillez saisir un Mail de Google.");
-        }
-    }
-
-    private boolean isGoogleMail(String email) {
-        if (email.endsWith("@gmail.com")) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -60,7 +52,5 @@ public class LoginPageController {
         stage.setScene(projectsScene);
         stage.show();
     }
-
-
 
 }

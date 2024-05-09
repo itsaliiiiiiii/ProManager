@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
+import com.promanager.promanager.Presentation.Model.ProjetModel.AjouterProjetPageModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 
@@ -37,6 +38,7 @@ public class AjouterProjetController {
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
     private Stage stage;
+    private AjouterProjetPageModel model;
 
     public AjouterProjetController(AjouterProjetPage view, Stage stage) {
         AjouterProjet = view.getAjouterProjet();
@@ -55,6 +57,7 @@ public class AjouterProjetController {
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
         this.stage = stage;
+        model = new AjouterProjetPageModel();
 
         this.buttonAnnuler.setOnAction(event -> {
             openProjetsPage();
@@ -62,7 +65,8 @@ public class AjouterProjetController {
 
         this.buttonAjouter.setOnAction(event -> {
             try {
-                AjouterProjet();
+                model.AjouterProjet(InputNomProjet.getText(),comboBoxCategorie.getSelectionModel().getSelectedItem(),comboBoxType.getSelectionModel().getSelectedItem(),PickerDateDepart.getValue(),PickerDateFin.getValue(),
+                        InputDescription.getText());
                 openProjetsPage();
             } catch (ProjetExeption e) {
                 e.MessageErreurAjouterProjet();
@@ -70,24 +74,7 @@ public class AjouterProjetController {
         });
     }
 
-    private void AjouterProjet() throws ProjetExeption {
-        if (InputNomProjet.getText() != null &&
-                comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
-                comboBoxType.getSelectionModel().getSelectedItem() != null &&
-                PickerDateDepart.getValue() != null &&
-                PickerDateFin.getValue() != null) {
-            gestionProjet gProjet = new gestionProjet();
-            gProjet.add(InputNomProjet.getText(),
-                    comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                    comboBoxType.getSelectionModel().getSelectedItem(), InputDescription.getText(),
-                    Date.from(Instant.from((PickerDateDepart
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                    Date.from(Instant.from((PickerDateFin
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))));
-        } else {
-            throw new ProjetExeption();
-        }
-    }
+    
 
     private void openProjetsPage() {
         ProjetsPage projetsPage = new ProjetsPage(stage);

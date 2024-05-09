@@ -37,16 +37,11 @@ public class TachesProjet extends AnchorPane {
     private Button PrecedentButton;
     private Button AjouterButton;
     private TachesProjetController controller;
-    private gestionProjet gProjet;
     private Projet Projet;
-    private DAOtache gTaches;
     private Stage stage;
     private Label textTaches;
     private ScrollPane scrollPane;
     private VBox tacheListe;
-    private ArrayList<ObjectId> idsTaches;
-    private String elemTache;
-    private Tache tache;
     private Button ImporterButton;
 
     public TachesProjet(ObjectId id, Stage stage) {
@@ -58,16 +53,13 @@ public class TachesProjet extends AnchorPane {
         dateFin = new Text("Date Fin");
         PrecedentButton = new Button("Precedent");
         AjouterButton = new Button("Ajouter");
-        ImporterButton=new Button("Importer");
-        gProjet = new gestionProjet();
-        gTaches = new DAOtache();
-        tache = new Tache();
+        ImporterButton = new Button("Importer");
         Projet = new Projet();
         textTaches = new Label("~ Liste Taches :");
-        idsTaches = new ArrayList<>();
-        elemTache = new String();
+        tacheListe = new VBox(10);
+
         this.stage = stage;
-        this.controller = new TachesProjetController(this, stage, idProjet);
+        this.controller = new TachesProjetController(this, stage, id);
         design();
     }
 
@@ -102,7 +94,14 @@ public class TachesProjet extends AnchorPane {
     public Button getAjouterButton() {
         return AjouterButton;
     }
-    public Button getImporterButton() {return ImporterButton;}
+
+    public VBox getTacheListe() {
+        return tacheListe;
+    }
+
+    public Button getImporterButton() {
+        return ImporterButton;
+    }
 
     private void design() {
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
@@ -137,7 +136,7 @@ public class TachesProjet extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        tacheListe = new VBox(10);
+        
 
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
@@ -162,72 +161,10 @@ public class TachesProjet extends AnchorPane {
         ImporterButton.setFont(new Font(18.0));
         ImporterButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         ImporterButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-        
-
-        Projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
-        categorie.setText("Categorie : " + Projet.getCategorieProjet());
-        type.setText("Type : " + Projet.getTypeProjet());
-        dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
-        dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
-
-        idsTaches = Projet.getListeTaches();
-
-        for (ObjectId idTache : idsTaches) {
-            tache = gTaches.get(idTache);
-            elemTache = "Categorie : " + tache.getCategorieTache() + " - Date Depart : "
-                    + sdf.format(tache.getDateDepartTache()) + " - Date Fin : " + sdf.format(tache.getDateFinTache());
-
-            Label LabelTache = new Label(elemTache);
-            HBox hbox = new HBox();
-            Button supprimerTache = new Button("Supprimer");
-            Button modifierTache = new Button("Modifier");
-
-            LabelTache.setFont(Font.font(18));
-            LabelTache.setPrefHeight(40);
-            LabelTache.setPrefWidth(900);
-            LabelTache.setStyle(
-                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
-
-            supprimerTache.setPrefHeight(40);
-            supprimerTache.setPrefWidth(140);
-            supprimerTache.setStyle(
-                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
-            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
-
-            modifierTache.setPrefHeight(40);
-            modifierTache.setPrefWidth(140);
-            modifierTache.setStyle(
-                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
-            modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
-
-            hbox.setSpacing(20);
-
-            LabelTache.setOnMouseClicked(event -> {
-                controller.openTache(idTache, idProjet);
-            });
-
-            supprimerTache.setOnMouseClicked(event -> {
-                controller.supprimerTacheProjet(idProjet, idTache);
-            });
-            modifierTache.setOnMouseClicked(event -> {
-                controller.modifierTache(idProjet, idTache);
-            });
-
-            hbox.getChildren().addAll(LabelTache, supprimerTache, modifierTache);
-            tacheListe.getChildren().add(hbox);
-        }
-        AjouterButton.setOnMouseClicked(event -> {
-            controller.AjouterTache(idProjet);
-        });
-        ImporterButton.setOnMouseClicked(event->{
-            controller.Importer(idProjet);
-        });
 
         scrollPane.setContent(tacheListe);
 
         getChildren().addAll(nomProjet, categorie, type, dateDepart, dateFin, PrecedentButton, scrollPane, textTaches,
-                AjouterButton,ImporterButton);
+                AjouterButton, ImporterButton);
     }
 }
