@@ -119,7 +119,7 @@ public class AffichageProjetController {
         nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
         categorie.setText("Categorie : " + Projet.getCategorieProjet());
         type.setText("Type : " + Projet.getTypeProjet());
-        desc = new Label(Projet.getDescriptionProjet());
+        desc.setText(Projet.getDescriptionProjet());
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
     }

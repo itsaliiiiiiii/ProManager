@@ -203,6 +203,7 @@ public class AffichageProjet extends AnchorPane {
         tachesButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
         desc.setFont(new Font(15.0));
+        description.getChildren().add(desc);
         
         getChildren().addAll(
                 nomProjet, categorie, type, dateDepart,
