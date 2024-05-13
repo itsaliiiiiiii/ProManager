@@ -3,7 +3,6 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Tache
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.POJO.Liste;
 import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AjouterTacheProjetModel;
@@ -33,8 +32,9 @@ public class AjouterTacheProjetController {
     private TextArea InputDescription;
     private VBox mainVBox;
     private AjouterTacheProjetModel model;
+    @SuppressWarnings("unused")
+    private String Proj;
 
-    private gestionListe gListe;
 
     private ObjectId idProj;
 
@@ -46,8 +46,10 @@ public class AjouterTacheProjetController {
         PickerDateFin = view.getPickerDateFin();
         InputDescription = view.getInputDescription();
         mainVBox = view.getMainVBox();
-        gListe = new gestionListe();
         model = new AjouterTacheProjetModel();
+        // here
+        Proj = view.getProj();
+        this.Proj = model.getProjet(idProj).getNomProjet();
 
         this.idProj = idProj;
         this.stage = stage;
@@ -87,7 +89,7 @@ public class AjouterTacheProjetController {
     }
 
     private void fillData() {
-        for (Liste liste : gListe.getAll()) {
+        for (Liste liste : model.getAllListe()) {
             VBox listeVBox = new VBox(20);
 
             Text nomListe = new Text(" ~ Liste: " + liste.getNomListe());

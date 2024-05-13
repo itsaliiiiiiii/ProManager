@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.ModifierTacheModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;
@@ -35,6 +36,7 @@ public class ModifierTacheController {
     private Text AjouterProjet;
 
     private Text Categorie;
+    private ModifierTacheModel model;
     private Text Description;
     private Text DateDepart;
     private Text DateFin;
@@ -45,7 +47,6 @@ public class ModifierTacheController {
     private Button buttonModifier;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
-    private gestionTache gTache;
     private Tache tache;
     private Stage stage;
 
@@ -63,10 +64,10 @@ public class ModifierTacheController {
         this.buttonModifier = view.getButtonModifier();
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
-        gTache = new gestionTache();
+        model = new ModifierTacheModel();
         this.stage = stage;
 
-        tache = gTache.get_Tache(idTache);
+        tache = model.getTache(idTache);
         comboBoxCategorie.setValue(tache.getCategorieTache());
         PickerDateDepart
                 .setValue((tache.getDateDepartTache()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());

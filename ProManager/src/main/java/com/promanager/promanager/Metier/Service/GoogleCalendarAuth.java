@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("deprecatioKn")
+@SuppressWarnings({ "deprecatioKn", "deprecation" })
 public class GoogleCalendarAuth {
         private static final String APPLICATION_NAME = "ProManager";
         private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();

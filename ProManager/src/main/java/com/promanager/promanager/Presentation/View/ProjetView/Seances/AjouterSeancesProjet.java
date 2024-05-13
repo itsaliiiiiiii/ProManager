@@ -1,24 +1,12 @@
 package com.promanager.promanager.Presentation.View.ProjetView.Seances;
 
-
-import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionSeance;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
-import com.promanager.promanager.Metier.POJO.Liste;
-import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AjouterSeancesProjetController;
-import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AjouterTacheProjetController;
-
 import org.bson.types.ObjectId;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -46,10 +34,7 @@ public class AjouterSeancesProjet extends AnchorPane {
     private DatePicker PickerDate;
     private Stage stage;
     private String Proj;
-    private gestionProjet gProj;
     private AjouterSeancesProjetController controller;
-    private DAOconfiguration config;
-    private gestionSeance gSeance;
 
     public Button getButtonAnnuler() {
         return buttonAnnuler;
@@ -94,10 +79,6 @@ public class AjouterSeancesProjet extends AnchorPane {
         buttonAnnuler = new Button("Annulé");
         heurdebut = new ComboBox<>();
         heurfin = new ComboBox<>();
-        gProj = new gestionProjet();
-        gSeance = new gestionSeance();
-        this.Proj = gProj.get(idProj).getNomProjet();
-        config = new DAOconfiguration();
         controller = new AjouterSeancesProjetController(this, stage, idProj);
         design();
     }
@@ -160,7 +141,7 @@ public class AjouterSeancesProjet extends AnchorPane {
         heurdebut.setLayoutY(260.0);
         heurdebut.setPrefWidth(80.0);
         heurdebut.setStyle("-fx-background-color:#fff");
-        
+
         heurfin.setLayoutX(890.0);
         heurfin.setLayoutY(260.0);
         heurfin.setPrefWidth(80.0);
@@ -200,12 +181,12 @@ public class AjouterSeancesProjet extends AnchorPane {
 
         for (int h = 8; h <= 18; h++) {
             heurdebut.getItems().add(h);
-            heurfin.getItems().add(h );
+            heurfin.getItems().add(h);
         }
 
         scrollPane.setContent(mainVBox);
 
         getChildren().addAll(AjouterTache, NomProjet, Description, InputDescription, DateDepart,
-                PickerDate, debutSeance,heurdebut, heurfin, buttonAjouter, buttonAnnuler, scrollPane, Note, NoteText);
+                PickerDate, debutSeance, heurdebut, heurfin, buttonAjouter, buttonAnnuler, scrollPane, Note, NoteText);
     }
 }

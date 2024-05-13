@@ -10,8 +10,7 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionSeance;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.AjouterSeancesProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterSeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 
@@ -30,11 +29,14 @@ public class AjouterSeancesProjetController {
     private DatePicker PickerDate;
     private TextArea InputDescription;
     private TextField Note;
-    private gestionSeance gSeance;
-    private gestionProjet gProjet;
+    
     private ComboBox<Integer> heurdebut;
     private ComboBox<Integer> heurfin;
     private ArrayList<ObjectId> listeTaches;
+    @SuppressWarnings("unused")
+    private String Proj;
+
+    private AjouterSeancesProjetModel  model;
 
     private ObjectId idProj;
 
@@ -43,12 +45,13 @@ public class AjouterSeancesProjetController {
         Ajouter = view.getButtonAjouter();
         PickerDate = view.getPickerDateDepart();
         InputDescription = view.getInputDescription();
-        gSeance = new gestionSeance();
-        gProjet = new gestionProjet();
         Note = view.getNote();
         heurdebut = view.getHeurdebut();
         heurfin = view.getHeurfin();
         listeTaches = new ArrayList<>();
+        model = new AjouterSeancesProjetModel();
+
+        this.Proj = model.getProjet(idProj).getNomProjet();
 
         this.idProj = idProj;
         this.stage = stage;
@@ -71,13 +74,13 @@ public class AjouterSeancesProjetController {
                 !InputDescription.getText().isEmpty() &&
                 heurdebut.getSelectionModel().getSelectedItem() != null &&
                 heurfin.getSelectionModel().getSelectedItem() != null) {
-            ObjectId id = gSeance.add(InputDescription.getText(),
+            ObjectId id = model.addSeance(InputDescription.getText(),
                     DepartDateSeance(),
                     FinDateSeance(),
                     Note.getText());
-            listeTaches = gProjet.get(idProj).getListeSeances();
+            listeTaches = model.getProjet(idProj).getListeSeances();
             listeTaches.add(id);
-            gProjet.update(idProj, "Seances", listeTaches);
+            model.updateProject(idProj, listeTaches);
         } else {
             throw new ProjetExeption();
         }
@@ -95,9 +98,9 @@ public class AjouterSeancesProjetController {
     }
 
     public void addTacheToProjet(ObjectId idTache) {
-        listeTaches = gProjet.get(idProj).getListeSeances();
+        listeTaches = model.getProjet(idProj).getListeSeances();
         listeTaches.add(idTache);
-        gProjet.update(idProj, "Seances", listeTaches);
+        model.updateProject(idProj, listeTaches);
 
         this.Back();
     }

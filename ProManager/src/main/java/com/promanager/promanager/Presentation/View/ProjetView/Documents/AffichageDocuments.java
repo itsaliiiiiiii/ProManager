@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,40 +26,29 @@ import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
 public class AffichageDocuments extends AnchorPane {
-    private ObjectId idProjet;
     private Stage stage;
     private Text textT;
-    private Text description;
     private Button PrecedentButton;
     private AffichageDocumentsController controller;
     private ScrollPane scrollPane;
     private VBox documentListe;
     private Button AjouterButton;
-    private Document_ document;
-    private Projet projet;
-    private DAOprojet gProjet;
+    private Text description;
     private Text dateFin;
+
     private Text dateDepart;
-    private gestionDocument gDocument;
     private Label textDocuments;
 
-    private String elemDocument;
-    private ArrayList<ObjectId> idsDocuments;
-
     public AffichageDocuments(ObjectId idProjet, Stage stage) {
-        this.idProjet = idProjet;
         this.stage = stage;
         textT = new Text("Documents :");
         PrecedentButton = new Button("Precedent");
-        gDocument = new gestionDocument();
         AjouterButton = new Button("Ajouter");
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
-        idsDocuments = new ArrayList<>();
+        documentListe = new VBox(10);
         textDocuments = new Label("~ Liste Documents :");
-        gDocument = new gestionDocument();
         description = new Text();
-        gProjet = new DAOprojet();
         this.controller = new AffichageDocumentsController(this, stage, idProjet);
 
         design();
@@ -72,6 +60,22 @@ public class AffichageDocuments extends AnchorPane {
 
     public Button getAjouterButton() {
         return AjouterButton;
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+
+    public VBox getDocumentListe() {
+        return documentListe;
+    }
+
+    public Text getDateFin() {
+        return dateFin;
+    }
+
+    public Text getDateDepart() {
+        return dateDepart;
     }
 
     private void design() {
@@ -119,57 +123,6 @@ public class AffichageDocuments extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        documentListe = new VBox(10);
-
-        projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        dateDepart.setText("Date Depart : " + sdf.format(projet.getDateDepartProjet()));
-        dateFin.setText("Date Fin : " + sdf.format(projet.getDateFinProjet()));
-        description.setText(projet.getDescriptionProjet());
-        idsDocuments = projet.getListeDocument();
-
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document = gDocument.get(idDoc);
-
-                String[] pathDoc = (document.getPathDocument()).split("/");
-                elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
-
-                Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(900);
-                LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                Button SupprimerDoc = new Button("Supprimer");
-
-                HBox hbox = new HBox();
-                SupprimerDoc.setPrefHeight(60);
-                SupprimerDoc.setPrefWidth(200);
-                SupprimerDoc.setStyle(
-                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-
-                LabelDocument_.setOnMouseClicked(event -> {
-                    File file = new File(document.getPathDocument());
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                SupprimerDoc.setOnMouseClicked(event -> {
-                    controller.supprimerDocProjet(idDoc, idProjet);
-                });
-
-                hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_, SupprimerDoc);
-                documentListe.getChildren().add(hbox);
-            }
-        }
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,

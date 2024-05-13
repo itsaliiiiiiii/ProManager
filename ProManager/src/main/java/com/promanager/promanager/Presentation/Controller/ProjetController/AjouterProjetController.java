@@ -65,7 +65,9 @@ public class AjouterProjetController {
 
         this.buttonAjouter.setOnAction(event -> {
             try {
-                model.AjouterProjet(InputNomProjet.getText(),comboBoxCategorie.getSelectionModel().getSelectedItem(),comboBoxType.getSelectionModel().getSelectedItem(),PickerDateDepart.getValue(),PickerDateFin.getValue(),
+                model.AjouterProjet(InputNomProjet.getText(), comboBoxCategorie.getSelectionModel().getSelectedItem(),
+                        comboBoxType.getSelectionModel().getSelectedItem(), PickerDateDepart.getValue(),
+                        PickerDateFin.getValue(),
                         InputDescription.getText());
                 openProjetsPage();
             } catch (ProjetExeption e) {
@@ -73,8 +75,6 @@ public class AjouterProjetController {
             }
         });
     }
-
-    
 
     private void openProjetsPage() {
         ProjetsPage projetsPage = new ProjetsPage(stage);

@@ -2,11 +2,10 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import java.io.File;
 
+import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.AjouterDocumentSeancesProjetModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionSeance;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterDocumentSeancesProjet;
 
 import javafx.scene.Scene;
@@ -16,12 +15,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class AjouterDocumentSeancesProjetController {
     private Button PrecedentButton;
@@ -34,9 +27,9 @@ public class AjouterDocumentSeancesProjetController {
     private ObjectId idProjet;
     private Stage stage;
     private File selectedFile;
-    private gestionSeance gSeance;
-    private gestionDocument gDocument;
+
     private TextArea Description;
+    private AjouterDocumentSeancesProjetModel model;
 
     public AjouterDocumentSeancesProjetController(AjouterDocumentSeancesProjet view, ObjectId idSeance,
             ObjectId idProjet,
@@ -47,11 +40,10 @@ public class AjouterDocumentSeancesProjetController {
         PrecedentButton = view.getPrecedentButton();
         Ajouter = view.getAjouter();
         Description = view.getDescription();
-        gDocument = new gestionDocument();
         SelectionDocument = view.getSelectionDocument();
         text = view.getText();
         nameDocument = view.getLabel();
-        gSeance = new gestionSeance();
+        model = new AjouterDocumentSeancesProjetModel(this, idSeance);
 
         SelectionDocument.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -70,7 +62,7 @@ public class AjouterDocumentSeancesProjetController {
         Ajouter.setOnAction(event -> {
             if (selectedFile != null) {
                 try {
-                    stockerDocument(selectedFile);
+                    model.stockerDocument(selectedFile);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -80,37 +72,8 @@ public class AjouterDocumentSeancesProjetController {
 
     }
 
-    private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get(getDocumentsDirectory());
-
-        if (!Files.exists(destinationDirectory)) {
-            try {
-                Files.createDirectories(destinationDirectory);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
-        Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-        ArrayList<ObjectId> listDoc = new ArrayList<>();
-        System.out.println(idSeance);
-        listDoc = gSeance.get(idSeance).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(), new Date());
-        listDoc.add(idDoc);
-        gSeance.update(idSeance, "Documents", listDoc);
-    }
-
-    private String getDocumentsDirectory() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String dic;
-        if (osName.contains("mac")) {
-            dic = System.getProperty("user.home") + "/Storage";
-        } else if (osName.contains("win")) {
-            dic = System.getProperty("user.home") + "\\Storage";
-        } else {
-            dic = System.getProperty("user.dir");
-        }
-        return dic;
+    public TextArea getDescription() {
+        return Description;
     }
 
     private void back() {

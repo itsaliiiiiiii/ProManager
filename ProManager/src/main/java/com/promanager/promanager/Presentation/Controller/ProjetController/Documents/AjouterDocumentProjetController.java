@@ -4,8 +4,7 @@ import java.io.File;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Documents.AjouterDocumentProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AjouterDocumentProjet;
 import javafx.scene.Scene;
@@ -15,26 +14,24 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Date;
 
+@SuppressWarnings("unused")
 public class AjouterDocumentProjetController {
     private Button PrecedentButton;
     private Button Ajouter;
     private Button SelectionDocument;
-    @SuppressWarnings("unused")
     private Text text;
     private Text nameDocument;
     private ObjectId idProjet;
     private Stage stage;
     private File selectedFile;
-    private gestionProjet gProjet;
-    private gestionDocument gDocument;
+
     private TextArea Description;
+    private AjouterDocumentProjetModel model;
+
+    public TextArea getDescription() {
+        return Description;
+    }
 
     public AjouterDocumentProjetController(
             AjouterDocumentProjet view,
@@ -45,11 +42,10 @@ public class AjouterDocumentProjetController {
         PrecedentButton = view.getPrecedentButton();
         Ajouter = view.getAjouter();
         Description = view.getDescription();
-        gDocument = new gestionDocument();
         SelectionDocument = view.getSelectionDocument();
         text = view.getText();
         nameDocument = view.getLabel();
-        gProjet = new gestionProjet();
+        model = new AjouterDocumentProjetModel(this, idProjet);
 
         SelectionDocument.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -68,7 +64,7 @@ public class AjouterDocumentProjetController {
         Ajouter.setOnAction(event -> {
             if (selectedFile != null) {
                 try {
-                    stockerDocument(selectedFile);
+                    model.stockerDocument(selectedFile);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -78,38 +74,6 @@ public class AjouterDocumentProjetController {
 
     }
 
-    private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get(getDocumentsDirectory());
-
-        if (!Files.exists(destinationDirectory)) {
-            try {
-                Files.createDirectories(destinationDirectory);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
-        Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
-        ArrayList<ObjectId> listDoc = new ArrayList<>();
-        System.out.println(idProjet);
-        listDoc = gProjet.get(idProjet).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(), new Date());
-        listDoc.add(idDoc);
-        gProjet.update(idProjet, "Documents", listDoc);
-    }
-
-    private String getDocumentsDirectory() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String dic;
-        if (osName.contains("mac")) {
-            dic = System.getProperty("user.home") + "/Storage";
-        } else if (osName.contains("win")) {
-            dic = System.getProperty("user.home") + "\\Storage";
-        } else {
-            dic = System.getProperty("user.dir");
-        }
-        return dic;
-    }
     private void back() {
         AffichageDocuments seac = new AffichageDocuments(idProjet, stage);
         Scene projectsScene = new Scene(seac, 1300, 800);

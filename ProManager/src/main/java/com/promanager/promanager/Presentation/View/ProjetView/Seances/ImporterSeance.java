@@ -40,13 +40,13 @@ public class ImporterSeance extends AnchorPane {
     public ImporterSeance(Stage stage, ObjectId id) {
         this.addFromGoogleCalendarButton = new Button("Ajouter Google Calendar");
         this.calendarEventListView = new ListView<>();
-        this.controller = new ImporterSeanceController(this, stage);
         this.stage = stage;
         this.idProjet = id;
         this.AjouterButton = new Button("Ajouter");
         this.AnnulerButton = new Button("Annuler");
         Categorie = new Text("Categorie : ");
         comboBoxCategorie = new ComboBox<>();
+        this.controller = new ImporterSeanceController(this, stage,idProjet);
         design();
     }
 
@@ -100,14 +100,6 @@ public class ImporterSeance extends AnchorPane {
         AnnulerButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         AnnulerButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
-        addFromGoogleCalendarButton.setOnMouseClicked(event -> {
-            fetchCalendarData();
-        });
-
-        AnnulerButton.setOnMouseClicked(event -> {
-            controller.openTachesProjet(idProjet);
-        });
-
         VBox root = new VBox(10);
         root.setLayoutX(300);
         root.setLayoutY(160);
@@ -120,42 +112,4 @@ public class ImporterSeance extends AnchorPane {
         this.getChildren().addAll(root, AjouterButton, AnnulerButton);
     }
 
-    private void fetchCalendarData() {
-        try {
-            Calendar service = GoogleCalendarAuth.getCalendarService();
-            Calendar.Events.List request = service.events().list("primary");
-            List<Event> events = request.execute().getItems();
-
-            calendarEventListView.getItems().clear();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            ArrayList<Seance> Seances = new ArrayList<>();
-            for (Event event : events) {
-                if (event.getStart().getDateTime().getValue() > new Date().getTime()) {
-
-                    String summary = event.getSummary();
-                    String description = event.getDescription();
-                    String startDate = sdf.format(event.getStart().getDateTime().getValue());
-                    String endDate = sdf.format(event.getEnd().getDateTime().getValue());
-
-                    Seance S = new Seance(description, controller.parseDate(startDate), controller.parseDate(endDate),
-                            " ");
-                    Seances.add(S);
-                    calendarEventListView.getItems()
-                            .add(Seances.indexOf(S) + "- Description: " + description + "- Début: "
-                                    + startDate + "- Fin: " + endDate);
-                }
-            }
-
-            AjouterButton.setOnMouseClicked(event -> {
-                String selectedEvent = calendarEventListView.getSelectionModel().getSelectedItem();
-                try {
-                    controller.initialize(selectedEvent, Seances, idProjet);
-                } catch (ProjetExeption e) {
-                    e.MessageErreurAjouterProjet();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -78,7 +78,7 @@ public class AjouterDocumentTacheProjetController {
     }
 
     private void stockerDocument(File selectedFile) throws IOException {
-        Path destinationDirectory = Paths.get(getDocumentsDirectory());
+        Path destinationDirectory = Paths.get(model.getDocumentsDirectory());
 
         if (!Files.exists(destinationDirectory)) {
             try {
@@ -89,6 +89,7 @@ public class AjouterDocumentTacheProjetController {
         }
         Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
         Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
+
         ArrayList<ObjectId> listDoc = new ArrayList<>();
         listDoc = model.getListeDocument(idtache);
         ObjectId idDoc = model.addDocument(Description.getText(), destinationFile.toString());
@@ -96,18 +97,7 @@ public class AjouterDocumentTacheProjetController {
         model.update(idtache, listDoc);
     }
 
-    private String getDocumentsDirectory() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String dic;
-        if (osName.contains("mac")) {
-            dic = System.getProperty("user.home") + "/Storage";
-        } else if (osName.contains("win")) {
-            dic = System.getProperty("user.home") + "\\Storage";
-        } else {
-            dic = System.getProperty("user.dir");
-        }
-        return dic;
-    }
+    
 
     private void back() {
         AffichageTaches fficheTache = new AffichageTaches(idtache, idProjet, stage);

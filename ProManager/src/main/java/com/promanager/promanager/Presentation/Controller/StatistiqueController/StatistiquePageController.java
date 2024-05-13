@@ -12,10 +12,9 @@ import java.util.HashMap;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionSeance;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
+import com.promanager.promanager.Presentation.Model.StatistiqueModel.StatistiquePageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
@@ -34,8 +33,8 @@ public class StatistiquePageController {
     private Button Projets;
     private Button Listes;
     private Button Historiques;
-    private gestionSeance gSeance;
-    private gestionProjet gProjet;
+
+    private StatistiquePageModel model;
 
     private ComboBox<Date> semaine;
     private Text nombreHeuresSemaine;
@@ -105,8 +104,8 @@ public class StatistiquePageController {
         Listes = view.getListes();
         Historiques = view.getHistoriques();
         Projets = view.getProjets();
-        gSeance = new gestionSeance();
-        gProjet = new gestionProjet();
+
+        model = new StatistiquePageModel();
 
         this.nombreHeuresSemaine = view.getNombreHeuresSemaine();
         semaine = view.getSemaine();
@@ -143,7 +142,7 @@ public class StatistiquePageController {
 
         this.nombreHeuresAnneeTypePFA = view.getNombreHeuresAnneeTypePFA();
         anneeTypePFA = view.getAnneeTypePFA();
-        
+
         this.nombreHeuresSemaineTypePFE = view.getNombreHeuresSemaineTypePFE();
         semaineTypePFE = view.getSemaineTypePFE();
 
@@ -217,7 +216,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineCategorieEncadrement.getValue();
             Integer hours = HashMapSemaine("Categorie", "Encadrement").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineCategorieEncadrement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -229,7 +228,7 @@ public class StatistiquePageController {
             Date selectedValue = moisCategorieEncadrement.getValue();
             Integer hours = HashMapMois("Categorie", "Encadrement").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisCategorieEncadrement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -241,7 +240,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeCategorieEncadrement.getValue();
             Integer hours = HashMapAnnee("Categorie", "Encadrement").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeCategorieEncadrement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -266,7 +265,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineCategorieEnseignement.getValue();
             Integer hours = HashMapSemaine("Categorie", "Enseignement").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineCategorieEnseignement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -278,7 +277,7 @@ public class StatistiquePageController {
             Date selectedValue = moisCategorieEnseignement.getValue();
             Integer hours = HashMapMois("Categorie", "Enseignement").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisCategorieEnseignement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -290,7 +289,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeCategorieEnseignement.getValue();
             Integer hours = HashMapAnnee("Categorie", "Enseignement").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeCategorieEnseignement.setText(String.format("%.2f %%", percentage));
             } else {
@@ -315,7 +314,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineTypePFA.getValue();
             Integer hours = HashMapSemaine("Type", "PFA").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineTypePFA.setText(String.format("%.2f %%", percentage));
             } else {
@@ -327,7 +326,7 @@ public class StatistiquePageController {
             Date selectedValue = moisTypePFA.getValue();
             Integer hours = HashMapMois("Type", "PFA").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisTypePFA.setText(String.format("%.2f %%", percentage));
             } else {
@@ -339,7 +338,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeTypePFA.getValue();
             Integer hours = HashMapAnnee("Type", "PFA").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeTypePFA.setText(String.format("%.2f %%", percentage));
             } else {
@@ -364,7 +363,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineTypePFE.getValue();
             Integer hours = HashMapSemaine("Type", "PFE").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineTypePFE.setText(String.format("%.2f %%", percentage));
             } else {
@@ -376,7 +375,7 @@ public class StatistiquePageController {
             Date selectedValue = moisTypePFE.getValue();
             Integer hours = HashMapMois("Type", "PFE").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisTypePFE.setText(String.format("%.2f %%", percentage));
             } else {
@@ -388,7 +387,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeTypePFE.getValue();
             Integer hours = HashMapAnnee("Type", "PFE").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeTypePFE.setText(String.format("%.2f %%", percentage));
             } else {
@@ -413,7 +412,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineTypeCours.getValue();
             Integer hours = HashMapSemaine("Type", "Cours").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineTypeCours.setText(String.format("%.2f %%", percentage));
             } else {
@@ -425,7 +424,7 @@ public class StatistiquePageController {
             Date selectedValue = moisTypeCours.getValue();
             Integer hours = HashMapMois("Type", "Cours").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisTypeCours.setText(String.format("%.2f %%", percentage));
             } else {
@@ -437,7 +436,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeTypeCours.getValue();
             Integer hours = HashMapAnnee("Type", "Cours").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeTypeCours.setText(String.format("%.2f %%", percentage));
             } else {
@@ -462,7 +461,7 @@ public class StatistiquePageController {
             Date selectedValue = semaineTypeExam.getValue();
             Integer hours = HashMapSemaine("Type", "Exam").get(selectedValue);
             Integer Totalhours = HashMapSemaine("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresSemaineTypeExam.setText(String.format("%.2f %%", percentage));
             } else {
@@ -474,7 +473,7 @@ public class StatistiquePageController {
             Date selectedValue = moisTypeExam.getValue();
             Integer hours = HashMapMois("Type", "Exam").get(selectedValue);
             Integer Totalhours = HashMapMois("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresMoisTypeExam.setText(String.format("%.2f %%", percentage));
             } else {
@@ -486,7 +485,7 @@ public class StatistiquePageController {
             Date selectedValue = anneeTypeExam.getValue();
             Integer hours = HashMapAnnee("Type", "Exam").get(selectedValue);
             Integer Totalhours = HashMapAnnee("", "").get(selectedValue);
-            if (Totalhours != 0) { 
+            if (Totalhours != 0) {
                 double percentage = ((double) hours / Totalhours) * 100;
                 nombreHeuresAnneeTypeExam.setText(String.format("%.2f %%", percentage));
             } else {
@@ -549,7 +548,7 @@ public class StatistiquePageController {
     }
 
     private ArrayList<Date> DateDepartetFin() {
-        ArrayList<Seance> seances = gSeance.getAll();
+        ArrayList<Seance> seances = model.getAllSeances();
         ArrayList<Date> dates = new ArrayList<>();
         for (Seance seance : seances) {
             dates.add(seance.getDateDepartSeance());
@@ -563,27 +562,27 @@ public class StatistiquePageController {
 
     private ArrayList<Seance> getSeanceProjet(String key, String value) {
         ArrayList<Seance> seances = new ArrayList<>();
-        ArrayList<Projet> projets = gProjet.getAll();
+        ArrayList<Projet> projets = model.getAllProjets();
 
         for (Projet projet : projets) {
             if (key.equals("Categorie")) {
                 if (projet.getCategorieProjet().equals(value)) {
                     ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
                     for (ObjectId seance_ : seancesProjet) {
-                        seances.add(gSeance.get(seance_));
+                        seances.add(model.getSeance(seance_));
                     }
                 }
             } else if (key.equals("Type")) {
                 if (projet.getTypeProjet().equals(value)) {
                     ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
                     for (ObjectId seance_ : seancesProjet) {
-                        seances.add(gSeance.get(seance_));
+                        seances.add(model.getSeance(seance_));
                     }
                 }
             } else {
                 ArrayList<ObjectId> seancesProjet = projet.getListeSeances();
                 for (ObjectId seance_ : seancesProjet) {
-                    seances.add(gSeance.get(seance_));
+                    seances.add(model.getSeance(seance_));
                 }
             }
         }

@@ -1,9 +1,13 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Seances;
 
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Event;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
 import com.promanager.promanager.Metier.POJO.Seance;
+import com.promanager.promanager.Metier.Service.GoogleCalendarAuth;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.ImporterSeanceModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 import javafx.scene.Parent;
@@ -16,50 +20,45 @@ import org.bson.types.ObjectId;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class ImporterSeanceController {
 
     private Button addFromGoogleCalendarButton;
+    private Button AnnulerButton;
+    private Button AjouterButton;
     private ListView<String> calendarEventListView;
     private Stage stage;
+    private ObjectId idProjet;
+    private ImporterSeanceModel model;
 
-    public ImporterSeanceController(ImporterSeance view, Stage stage) {
+    public ImporterSeanceController(ImporterSeance view, Stage stage, ObjectId idProjet) {
         this.addFromGoogleCalendarButton = view.getAddFromGoogleCalendarButton();
-        this.calendarEventListView=new ListView<>();
+        this.calendarEventListView = new ListView<>();
+        AnnulerButton = view.getAnnulerButton();
+        AjouterButton = view.getAjouterButton();
         this.stage = stage;
-    }
-    public void initialize(String selectedEvent, ArrayList<Seance> Seances, ObjectId idProjet) throws ProjetExeption {
-        if (selectedEvent != null) {
-            String[] parts = selectedEvent.split("- ");
-            Integer index=Integer.parseInt(parts[0]);
+        this.idProjet = idProjet;
+        model = new ImporterSeanceModel(this,idProjet);
 
-            Seance S = Seances.get(index);
+        addFromGoogleCalendarButton.setOnMouseClicked(event -> {
+            model.fetchCalendarData();
+        });
 
-            gestionSeance gSeance=new gestionSeance();
-            gestionProjet gProjet = new gestionProjet();
-            ObjectId id = gSeance.add(S.getDescriptionSeance(),S.getDateDepartSeance(),S.getDateFinSeance()," ");
-
-            ArrayList<ObjectId> SEANCES = new ArrayList<>();
-            SEANCES=gProjet.get(idProjet).getListeSeances();
-            SEANCES.add(id);
-            gProjet.update(idProjet,"Seances",SEANCES);
+        AnnulerButton.setOnMouseClicked(event -> {
             openTachesProjet(idProjet);
-
-        } else {
-            System.out.println("Aucune tâche sélectionnée.");
-        }
+        });
     }
 
-    public Date parseDate(String dateString) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            return sdf.parse(dateString);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Button getAjouterButton() {
+        return AjouterButton;
     }
+
+    public ListView<String> getCalendarEventListView() {
+        return calendarEventListView;
+    }
+
     public void openTachesProjet(ObjectId idProjet) {
         SeancesProjet SeancesPage = new SeancesProjet(idProjet, stage);
         Parent projetsRoot = SeancesPage;
@@ -70,4 +69,5 @@ public class ImporterSeanceController {
         stage.setScene(projectsScene);
         stage.show();
     }
+
 }

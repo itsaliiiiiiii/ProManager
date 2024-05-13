@@ -9,21 +9,31 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
+import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
+import com.promanager.promanager.Metier.POJO.Liste;
+import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
 
 public class AjouterTacheProjetModel {
     private gestionProjet gProjet;
+    private gestionListe gListe;
     private gestionTache gTache;
     private ArrayList<ObjectId> listeTaches;
-    
 
     public AjouterTacheProjetModel() {
         gProjet = new gestionProjet();
         gTache = new gestionTache();
-                listeTaches = new ArrayList<>();
+        listeTaches = new ArrayList<>();
+        gListe = new gestionListe();
+    }
 
+    public Projet getProjet(ObjectId id) {
+        return gProjet.get(id);
+    }
+    public ArrayList<Liste> getAllListe() {
+        return gListe.getAll();
     }
 
     public void AjouterTacheProjet(ObjectId idProj, String categorie, LocalDate datedepart, LocalDate datefin,
@@ -43,12 +53,13 @@ public class AjouterTacheProjetModel {
         }
     }
 
-    public void addTacheToprojet(ObjectId idProj,ObjectId idTache){
+    public void addTacheToprojet(ObjectId idProj, ObjectId idTache) {
         listeTaches = gProjet.get(idProj).getListeTaches();
         listeTaches.add(idTache);
         gProjet.update(idProj, "Taches", listeTaches);
     }
-    public Tache get_Tache(ObjectId idTache){
+
+    public Tache get_Tache(ObjectId idTache) {
         return gTache.get_Tache(idTache);
     }
 }

@@ -30,4 +30,17 @@ public class AjouterDocumentTacheProjetModel {
         return gDocument.add(description, destinationFile, new Date());
     }
 
+    public String getDocumentsDirectory() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String dic;
+        if (osName.contains("mac")) {
+            dic = System.getProperty("user.home") + "/Storage";
+        } else if (osName.contains("win")) {
+            dic = System.getProperty("user.home") + "\\Storage";
+        } else {
+            dic = System.getProperty("user.dir");
+        }
+        return dic;
+    }
+
 }

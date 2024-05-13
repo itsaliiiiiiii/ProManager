@@ -16,9 +16,9 @@ public class LoginPage extends AnchorPane {
         private TextField mailField;
         private Button loginButton;
         private Text errorOutputText;
-        Pane pane;
-        Text proManagerText;
-        Text manageTasksText;
+        private Pane pane;
+        private Text proManagerText;
+        private Text manageTasksText;
 
         public LoginPage(Stage stage) {
                 this.loginButton = new Button();
@@ -28,7 +28,7 @@ public class LoginPage extends AnchorPane {
                 this.proManagerText = new Text();
                 this.pane = new Pane();
 
-                this.controller = new LoginPageController(this,stage);
+                this.controller = new LoginPageController(this, stage);
                 this.design();
         }
 
@@ -87,11 +87,13 @@ public class LoginPage extends AnchorPane {
                 this.mailField.setStyle(
                                 "-fx-background-color:#f4f4f4; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
                 this.mailField.setOnMouseEntered(event -> {
-                        this.mailField.setStyle("-fx-background-color:#eeeeee; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
+                        this.mailField.setStyle(
+                                        "-fx-background-color:#eeeeee; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
                 });
 
                 this.mailField.setOnMouseExited(event -> {
-                        this.mailField.setStyle("-fx-background-color:#f4f4f4; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
+                        this.mailField.setStyle(
+                                        "-fx-background-color:#f4f4f4; -fx-border-radius:20px; -fx-background-radius:20px; -fx-border-color:#546379; -fx-border-width:2px;");
                 });
 
                 this.proManagerText.setFill(javafx.scene.paint.Color.web("#6a82ab"));
@@ -125,5 +127,4 @@ public class LoginPage extends AnchorPane {
                 getChildren().addAll(pane);
                 setStyle("-fx-background-color:#6a82ab;");
         }
-
 }

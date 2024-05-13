@@ -1,14 +1,18 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController.Taches;
 
+import com.google.api.services.tasks.Tasks;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Tache;
+import com.promanager.promanager.Metier.Service.GoogleCalendarAuth;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.ImporterTacheModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.ImporterTache;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import org.bson.types.ObjectId;
@@ -17,45 +21,38 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@SuppressWarnings("unused")
 public class ImporterTacheController {
 
     private Button addFromGoogleCalendarButton;
     private ListView<String> calendarEventListView;
     private Stage stage;
+    private Button AnnulerButton;
+    private Button AjouterButton;
+    private ObjectId idProjet;
+    private ComboBox<String> comboBoxCategorie;
+    private ImporterTacheModel model;
 
-    public ImporterTacheController(ImporterTache view, Stage stage) {
+    // TODO - need to solve problem tache and seance 
+
+    public ImporterTacheController(ImporterTache view, Stage stage, ObjectId idProjet) {
         this.addFromGoogleCalendarButton = view.getAddFromGoogleCalendarButton();
-        this.calendarEventListView = new ListView<>();
+        this.calendarEventListView = view.getCalendarEventListView();
+        AnnulerButton = view.getAnnulerButton();
+        AjouterButton = view.getAjouterButton();
+        this.idProjet = idProjet;
+        comboBoxCategorie = view.getComboBoxCategorie();
+
         this.stage = stage;
-    }
+        model = new ImporterTacheModel(this);
 
-    public void initialize(String selectedEvent, ArrayList<Tache> taches, ObjectId idProjet, String categorie)
-            throws ProjetExeption {
-        if (selectedEvent != null) {
-            String[] parts = selectedEvent.split("- ");
-            Integer index = Integer.parseInt(parts[0]);
-
-            Tache t = taches.get(index);
-            t.setCategorieTache(categorie);
-
-            System.out.println(t.getCategorieTache());
-
-            gestionTache gTache = new gestionTache();
-            gestionProjet gProjet = new gestionProjet();
-            ObjectId id = gTache.add(t.getCategorieTache(), t.getDescriptionTache(), t.getDateDepartTache(),
-                    t.getDateFinTache());
-
-            ArrayList<ObjectId> TACHES = new ArrayList<>();
-            TACHES = gProjet.get(idProjet).getListeTaches();
-            TACHES.add(id);
-            gProjet.update(idProjet, "Taches", TACHES);
-
+        addFromGoogleCalendarButton.setOnMouseClicked(event -> {
+            fetchTasksData();
+        });
+        
+        AnnulerButton.setOnMouseClicked(event -> {
             openTachesProjet(idProjet);
-
-        } else {
-            System.out.println("Aucune tâche sélectionnée.");
-        }
+        });
+        
     }
 
     public Date parseDate(String dateString) {
@@ -77,5 +74,48 @@ public class ImporterTacheController {
         stage.setResizable(false);
         stage.setScene(projectsScene);
         stage.show();
+    }
+
+    public void fetchTasksData() {
+        try {
+            Tasks service = GoogleCalendarAuth.getTasksService();
+
+            Tasks.Tasklists.List requestLists = service.tasklists().list();
+            TaskLists taskLists = requestLists.execute();
+            ArrayList<Tache> Taches = new ArrayList<>();
+            calendarEventListView.getItems().clear();
+            for (TaskList list : taskLists.getItems()) {
+                Tasks.TasksOperations.List requestTasks = service.tasks().list(list.getId());
+                com.google.api.services.tasks.model.Tasks tasks = requestTasks.execute();
+
+                for (com.google.api.services.tasks.model.Task task : tasks.getItems()) {
+
+                    String description = task.getNotes();
+                    String startDate = String.valueOf(task.getDue());
+                    String endDate = String.valueOf(task.getDue());
+
+                    Tache t = new Tache(" ", description, parseDate(startDate),
+                            parseDate(endDate));
+                    Taches.add(t);
+                    if (task.getDue() != null && task.getDue().getValue() > new Date().getTime()) {
+                        calendarEventListView.getItems()
+                                .add(Taches.indexOf(t) + "- " + "Tâche : " + task.getTitle() + "- DateDebut :"
+                                        + startDate.substring(0, 10) + "- DateFin :" + endDate.substring(0, 10));
+                    }
+                }
+            }
+            AjouterButton.setOnMouseClicked(event -> {
+                String selectedEvent = calendarEventListView.getSelectionModel().getSelectedItem();
+                String categorie = comboBoxCategorie.getSelectionModel().getSelectedItem();
+                try {
+                    model.initialize(selectedEvent, Taches, idProjet, categorie);
+                } catch (ProjetExeption e) {
+                    e.MessageErreurAjouterProjet();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

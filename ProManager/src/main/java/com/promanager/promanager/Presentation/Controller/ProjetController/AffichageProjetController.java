@@ -41,7 +41,6 @@ public class AffichageProjetController {
     private Button documentsButton;
     private Button seancesButton;
     private Button tachesButton;
-    private gestionProjet gProj;
 
     private Text nomProjet;
     private Text categorie;
@@ -68,7 +67,6 @@ public class AffichageProjetController {
         this.documentsButton = view.getDocumentsButton();
         this.seancesButton = view.getSeancesButton();
         this.tachesButton = view.getTachesButton();
-        this.gProj = new gestionProjet();
 
         nomProjet = view.getNomProjet();
         categorie = view.getCategorie();

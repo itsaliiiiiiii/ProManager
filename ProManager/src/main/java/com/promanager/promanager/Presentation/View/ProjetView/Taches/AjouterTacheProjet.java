@@ -40,7 +40,6 @@ public class AjouterTacheProjet extends AnchorPane {
     private DatePicker PickerDateFin;
     private Stage stage;
     private String Proj;
-    private gestionProjet gProj;
     private AjouterTacheProjetController controller;
     private DAOconfiguration config;
     private VBox mainVBox;
@@ -59,8 +58,7 @@ public class AjouterTacheProjet extends AnchorPane {
         buttonAjouter = new Button("Ajouter");
         PickerDateDepart = new DatePicker();
         buttonAnnuler = new Button("Annulé");
-        gProj = new gestionProjet();
-        this.Proj = gProj.get(idProj).getNomProjet();
+        
         config = new DAOconfiguration();
         mainVBox = new VBox();
         controller = new AjouterTacheProjetController(this, stage, idProj);
@@ -69,6 +67,10 @@ public class AjouterTacheProjet extends AnchorPane {
 
     public Button getButtonAnnuler() {
         return buttonAnnuler;
+    }
+
+    public String getProj() {
+        return Proj;
     }
 
     public Button getButtonAjouter() {

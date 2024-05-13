@@ -1,24 +1,11 @@
 package com.promanager.promanager.Presentation.View.ProjetView.Seances;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
 import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.AffichageSeancesController;
 import org.bson.types.ObjectId;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.POJO.Document_;
-import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Persistance.DAOseance;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -27,40 +14,26 @@ import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
 public class AffichageSeances extends AnchorPane {
-    private ObjectId idSeance;
-    private ObjectId idProjet;
     private Stage stage;
     private Text textT;
-    private Text description;
     private Button PrecedentButton;
     private AffichageSeancesController controller;
+    private Text description;
     private Text dateFin;
     private Text dateDepart;
     private ScrollPane scrollPane;
     private VBox documentListe;
-    private Seance Seance;
     private Button AjouterButton;
-    private Document_ document_;
-    private DAOseance gSeance;
-    private gestionDocument gDocument;
-    Label textDocuments;
-
-    private String elemDocument;
-    private ArrayList<ObjectId> idsDocuments;
+    private Label textDocuments;
 
     public AffichageSeances(ObjectId idSeance, ObjectId idProjet, Stage stage) {
-        this.idSeance = idSeance;
-        this.idProjet = idProjet;
         this.stage = stage;
         textT = new Text("Seance :");
         PrecedentButton = new Button("Precedent");
-        gDocument = new gestionDocument();
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
         AjouterButton = new Button("Ajouter");
-        idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
-        gSeance = new DAOseance();
         description = new Text();
         this.controller = new AffichageSeancesController(this, stage, idSeance, idProjet);
 
@@ -69,6 +42,22 @@ public class AffichageSeances extends AnchorPane {
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+
+    public Text getDateFin() {
+        return dateFin;
+    }
+
+    public VBox getDocumentListe() {
+        return documentListe;
+    }
+
+    public Text getDateDepart() {
+        return dateDepart;
     }
 
     public Button getAjouterButton() {
@@ -121,56 +110,6 @@ public class AffichageSeances extends AnchorPane {
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
         documentListe = new VBox(10);
-
-        Seance = gSeance.get(idSeance);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        dateDepart.setText("Date Depart : " + sdf.format(Seance.getDateDepartSeance()));
-        dateFin.setText("Date Fin : " + sdf.format(Seance.getDateFinSeance()));
-        description.setText(Seance.getDescriptionSeance());
-        idsDocuments = Seance.getListeDocument();
-        
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document_ = gDocument.get(idDoc);
-
-                String[] pathDoc = (document_.getPathDocument()).split("/");
-                elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document_.getDateAjout());
-
-                Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(900);
-                LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                Button SupprimerDoc = new Button("Supprimer");
-
-                HBox hbox = new HBox();
-                SupprimerDoc.setPrefHeight(60);
-                SupprimerDoc.setPrefWidth(200);
-                SupprimerDoc.setStyle(
-                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
-
-                LabelDocument_.setOnMouseClicked(event -> {
-                    File file = new File(document_.getPathDocument());
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                SupprimerDoc.setOnMouseClicked(event -> {
-                    controller.supprimerDocProjet(idDoc, idSeance, idProjet);
-                });
-                
-                hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_, SupprimerDoc);
-                documentListe.getChildren().add(hbox);
-            }
-        }
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
