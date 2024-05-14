@@ -73,6 +73,10 @@ public class AjouterTacheProjet extends AnchorPane {
         return Proj;
     }
 
+    public void setProj(String proj) {
+        Proj = proj;
+    }
+
     public Button getButtonAjouter() {
         return buttonAjouter;
     }

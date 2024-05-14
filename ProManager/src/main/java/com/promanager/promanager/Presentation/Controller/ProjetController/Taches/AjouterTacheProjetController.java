@@ -32,8 +32,6 @@ public class AjouterTacheProjetController {
     private TextArea InputDescription;
     private VBox mainVBox;
     private AjouterTacheProjetModel model;
-    @SuppressWarnings("unused")
-    private String Proj;
 
 
     private ObjectId idProj;
@@ -48,8 +46,7 @@ public class AjouterTacheProjetController {
         mainVBox = view.getMainVBox();
         model = new AjouterTacheProjetModel();
         // here
-        Proj = view.getProj();
-        this.Proj = model.getProjet(idProj).getNomProjet();
+        view.setProj(model.getProjet(idProj).getNomProjet());
 
         this.idProj = idProj;
         this.stage = stage;
