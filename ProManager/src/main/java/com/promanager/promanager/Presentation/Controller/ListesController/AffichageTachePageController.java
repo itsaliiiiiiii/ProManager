@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionTache;
+import com.promanager.promanager.Presentation.Model.ListesModel.AffichageTachePageModel;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterDocumentTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
@@ -17,14 +18,13 @@ public class AffichageTachePageController {
     private Button PrecedentButton;
     private Button AjouterButton;
     private Stage stage;
-    private gestionTache gTache;
+    private AffichageTachePageModel model;
 
     public AffichageTachePageController(AffichageTachePage view, Stage stage, ObjectId idTache) {
         this.PrecedentButton = view.getPrecedentButton();
         this.AjouterButton = view.getAjouterButton();
-        gTache = new gestionTache();
-
         this.stage = stage;
+        model = new AffichageTachePageModel();
 
         PrecedentButton.setOnAction(event -> {
             stage.setWidth(1300);
@@ -53,13 +53,12 @@ public class AffichageTachePageController {
         });
 
     }
-
     public void supprimerDocProjet(ObjectId idoc, ObjectId idTache, ObjectId idProj) {
-        ArrayList<ObjectId> listTaches = gTache.get_Tache(idTache).getListeDocument();
+        ArrayList<ObjectId> listTaches = model.getListesDocuments(idTache);
         System.out.println(listTaches);
         listTaches.remove(idoc);
         System.out.println(listTaches);
-        gTache.update(idTache, "Documents", listTaches);
+        model.updateListeDocuments(idTache, listTaches);
 
         AffichageTachePage tache = new AffichageTachePage(idTache, stage);
         Scene projectsScene = new Scene(tache, 1300, 800);

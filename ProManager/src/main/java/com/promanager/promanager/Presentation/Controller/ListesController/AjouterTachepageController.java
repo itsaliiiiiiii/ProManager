@@ -12,6 +12,7 @@ import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Liste;
+import com.promanager.promanager.Presentation.Model.ListesModel.AjouterTachePageModel;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
@@ -47,6 +48,7 @@ public class AjouterTachepageController {
     private RadioButton newList;
     private ToggleGroup toggleGroup;
     private ObjectId idListe;
+    private AjouterTachePageModel model;
 
     private Stage stage;
 
@@ -68,6 +70,7 @@ public class AjouterTachepageController {
         idListe = view.getIdListe();
         oldList = view.getOldList();
         newList = view.getNewList();
+        model = new AjouterTachePageModel();
         this.stage = stage;
 
         this.buttonAnnuler.setOnAction(event -> {
@@ -83,18 +86,18 @@ public class AjouterTachepageController {
             if (comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
                     PickerDateDepart.getValue() != null &&
                     PickerDateFin.getValue() != null) {
-                gestionListe gListe = new gestionListe();
-                gestionTache gTache = new gestionTache();
-                ObjectId idtache = gTache.add(
-                        comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                        InputDescription.getText(),
-                        Date.from(Instant.from((PickerDateDepart
-                                .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                        Date.from(Instant.from((PickerDateFin
-                                .getValue()).atStartOfDay(ZoneId.systemDefault()))));
+
+                ObjectId idtache = model.ajouterTache(comboBoxCategorie.getSelectionModel().getSelectedItem()
+                                 ,InputDescription.getText()
+                                 , Date.from(Instant.from((PickerDateDepart.getValue()).atStartOfDay(ZoneId.systemDefault())))
+                                 , Date.from(Instant.from((PickerDateFin.getValue()).atStartOfDay(ZoneId.systemDefault())))
+                    );
+
                 ArrayList<ObjectId> listeTache = new ArrayList<ObjectId>();
                 listeTache.add(idtache);
-                gListe.add(InputNomListe.getText(), InputDescriptionListe.getText(), listeTache);
+
+                model.addListe(InputNomListe.getText(), InputDescriptionListe.getText(), listeTache);
+                
             } else {
                 throw new ProjetExeption();
             }
@@ -102,22 +105,22 @@ public class AjouterTachepageController {
             if (comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
                     PickerDateDepart.getValue() != null &&
                     PickerDateFin.getValue() != null) {
-                gestionListe gListe = new gestionListe();
-                gestionTache gTache = new gestionTache();
-                ObjectId idtache = gTache.add(
-                        comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                        InputDescription.getText(),
-                        Date.from(Instant.from((PickerDateDepart
-                                .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                        Date.from(Instant.from((PickerDateFin
-                                .getValue()).atStartOfDay(ZoneId.systemDefault()))));
-                System.out.println(idListe);
+                ObjectId idtache = model.ajouterTache(comboBoxCategorie.getSelectionModel().getSelectedItem()
+                        , InputDescription.getText()
+                        , Date.from(Instant.from((PickerDateDepart
+                        .getValue()).atStartOfDay(ZoneId.systemDefault())))
+                        , Date.from(Instant.from((PickerDateFin
+                        .getValue()).atStartOfDay(ZoneId.systemDefault())))
+                        );
+                
                 ArrayList<ObjectId> listeTache = new ArrayList<ObjectId>();
-                gListe.get(idliiste).getListeTache().forEach(tache -> {
+                model.getTachesListe(idliiste).forEach(tache -> {
                     listeTache.add(tache);
                 });
+
                 listeTache.add(idtache);
-                gListe.update(idliiste, "Taches", listeTache);
+                model.updateListe(idliiste, listeTache);
+
             } else {
                 throw new ProjetExeption();
             }

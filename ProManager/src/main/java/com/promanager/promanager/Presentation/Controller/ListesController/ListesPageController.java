@@ -3,6 +3,7 @@ package com.promanager.promanager.Presentation.Controller.ListesController;
 import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.Model.ListesModel.ListesPageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;
@@ -29,9 +30,8 @@ public class ListesPageController {
     private Button buttonHistorique;
     private Button buttonStatistic;
     private Button buttonAjouterTache;
-    private gestionListe gListe;
-    private gestionProjet gProjet;
     private Stage stage;
+    private ListesPageModel model;
 
     public ListesPageController(ListesPage view, Stage stage) {
         this.stage = stage;
@@ -39,8 +39,7 @@ public class ListesPageController {
         this.buttonHistorique = view.getHistoriques();
         this.buttonAjouterTache = view.getButtonAjouter();
         buttonStatistic = view.getStatistiques();
-        this.gListe = new gestionListe();
-        this.gProjet = new gestionProjet();
+        model = new ListesPageModel();
 
         buttonProjets.setOnAction(event -> {
             openProjetsPage();
@@ -119,9 +118,10 @@ public class ListesPageController {
         stage.show();
     }
     public void supprimerTache(ObjectId idTache,ObjectId idListe){
-        ArrayList<ObjectId> listTaches = gListe.get(idListe).getListeTache();
+        ArrayList<ObjectId> listTaches = model.getTachesListe(idListe);
         listTaches.remove(idTache);
-        gListe.update(idListe, "Taches", listTaches);
+        model.updateListe(idListe, listTaches);
+        
 
         ListesPage page = new ListesPage(stage);
         Scene projectsScene = new Scene(page, 1300, 800);
@@ -135,9 +135,9 @@ public class ListesPageController {
 
     public void supprimerListe(ObjectId idListe) {
         boolean sup = true;
-        for (ObjectId tache : gListe.get(idListe).getListeTache()) {
+        for (ObjectId tache : model.getTachesListe(idListe)) {
             boolean tacheUtiliseeDansProjet = false;
-            for (Projet projet : gProjet.getAll()) {
+            for (Projet projet : model.getAllProjets()) {
                 if (projet.getListeTaches().contains(tache)) {
                     tacheUtiliseeDansProjet = true;
                     break;
@@ -149,7 +149,7 @@ public class ListesPageController {
         }
 
         if (sup) {
-            gListe.delete(idListe);
+            model.deleteListe(idListe);
 
             ListesPage Listespage = new ListesPage(stage);
             Scene projectsScene = new Scene(Listespage, 1300, 800);

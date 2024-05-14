@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionDocument;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
+import com.promanager.promanager.Presentation.Model.ListesModel.AjouterDocumentTachePageModel;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterDocumentTachePage;
 
@@ -34,22 +35,22 @@ public class AjouterDocumentTachePageController {
     private ObjectId idtache;
     private Stage stage;
     private File selectedFile;
-    private gestionTache gTache;
-    private gestionDocument gDocument;
+    private AjouterDocumentTachePageModel model; 
     private TextArea Description;
 
     public AjouterDocumentTachePageController(AjouterDocumentTachePage view, ObjectId idtache, 
             Stage stage) {
         this.idtache = idtache;
         this.stage = stage;
+        model = new AjouterDocumentTachePageModel();
         PrecedentButton = view.getPrecedentButton();
         Ajouter = view.getAjouter();
         Description = view.getDescription();
-        gDocument = new gestionDocument();
+        
         SelectionDocument = view.getSelectionDocument();
         text = view.getText();
         nameDocument = view.getLabel();
-        gTache = new gestionTache();
+        
 
         SelectionDocument.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -91,10 +92,10 @@ public class AjouterDocumentTachePageController {
         Path destinationFile = destinationDirectory.resolve(selectedFile.getName());
         Files.copy(selectedFile.toPath(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
         ArrayList<ObjectId> listDoc = new ArrayList<>();
-        listDoc = gTache.get_Tache(idtache).getListeDocument();
-        ObjectId idDoc = gDocument.add(Description.getText(), destinationFile.toString(),new Date());
+        listDoc = model.getListesDocuments(idtache);
+        ObjectId idDoc = model.addDocument(Description.getText(),destinationFile.toString(),new Date());
         listDoc.add(idDoc);
-        gTache.update(idtache, "Documents", listDoc);
+        model.updateListeDocuments(idDoc, listDoc);
     }
 
     private String getDocumentsDirectory() {

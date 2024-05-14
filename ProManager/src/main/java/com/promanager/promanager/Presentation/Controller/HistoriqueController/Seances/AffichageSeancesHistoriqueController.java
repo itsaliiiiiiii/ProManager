@@ -13,11 +13,9 @@ import javafx.stage.Stage;
 public class AffichageSeancesHistoriqueController {
     private Button PrecedentButton;
     private Stage stage;
-    private gestionSeance gSeance;
 
     public AffichageSeancesHistoriqueController(AffichageSeancesHistorique view, Stage stage, ObjectId idSeance, ObjectId idProjet) {
         this.PrecedentButton = view.getPrecedentButton();
-        gSeance = new gestionSeance();
 
         this.stage = stage;
 

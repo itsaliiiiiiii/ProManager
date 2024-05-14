@@ -31,7 +31,6 @@ public class AffichageProjetHistoriqueController {
     private Button documentsButton;
     private Button seancesButton;
     private Button tachesButton;
-    private gestionProjet gProj;
     Stage stage;
 
     public AffichageProjetHistoriqueController(AffichageProjetHistorique view, Stage stage, ObjectId id) {
@@ -46,7 +45,6 @@ public class AffichageProjetHistoriqueController {
         this.documentsButton = view.getDocumentsButton();
         this.seancesButton = view.getSeancesButton();
         this.tachesButton = view.getTachesButton();
-        this.gProj = new gestionProjet();
         this.stage = stage;
 
         PrecedentButton.setOnAction(event -> {

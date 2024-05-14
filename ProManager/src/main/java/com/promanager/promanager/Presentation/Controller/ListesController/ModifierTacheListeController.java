@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.Model.ListesModel.ModifierTacheListeModel;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ListesView.ModifierTacheListe;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
@@ -47,9 +48,10 @@ public class ModifierTacheListeController {
     private Button buttonModifier;
     private DatePicker PickerDateDepart;
     private DatePicker PickerDateFin;
-    private gestionTache gTache;
     private Tache tache;
     private Stage stage;
+
+    private ModifierTacheListeModel model;
 
     public ModifierTacheListeController(ModifierTacheListe view, ObjectId idTache, Stage stage) {
         this.idTache = idTache;
@@ -64,13 +66,13 @@ public class ModifierTacheListeController {
         this.buttonModifier = view.getButtonModifier();
         PickerDateDepart = view.getPickerDateDepart();
         PickerDateFin = view.getPickerDateFin();
-        gTache = new gestionTache();
+        model = new ModifierTacheListeModel();
         this.stage = stage;
 
-        tache = gTache.get_Tache(idTache);
+        tache = model.getTache(idTache);
+
         comboBoxCategorie.setValue(tache.getCategorieTache());
-        PickerDateDepart
-                .setValue((tache.getDateDepartTache()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        PickerDateDepart.setValue((tache.getDateDepartTache()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         PickerDateFin.setValue((tache.getDateFinTache()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         InputDescription.setText(tache.getDescriptionTache());
 
@@ -92,15 +94,15 @@ public class ModifierTacheListeController {
         if (comboBoxCategorie.getSelectionModel().getSelectedItem() != null &&
                 PickerDateDepart.getValue() != null &&
                 PickerDateFin.getValue() != null) {
-            gestionTache gTache = new gestionTache();
-            gTache.update(
-                    idTache,comboBoxCategorie.getSelectionModel().getSelectedItem(),
-                    InputDescription.getText().equals(null) ? "--vide--" : InputDescription.getText(),
-                    Date.from(Instant.from((PickerDateDepart
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
+                
+            model.modiferTache(idTache,
+                    comboBoxCategorie.getSelectionModel().getSelectedItem()
+                    , InputDescription.getText().equals(null) ? "--vide--" : InputDescription.getText()
+                    , Date.from(Instant.from((PickerDateDepart
+                    .getValue()).atStartOfDay(ZoneId.systemDefault()))),
                     Date.from(Instant.from((PickerDateFin
-                            .getValue()).atStartOfDay(ZoneId.systemDefault()))),
-                    (gTache.get_Tache(idTache)).getListeDocument());
+                            .getValue()).atStartOfDay(ZoneId.systemDefault())))
+                    ,model.getTache(idTache).getListeDocument() );
         } else {
             throw new ProjetExeption();
         }

@@ -14,12 +14,10 @@ import com.promanager.promanager.Persistance.DAOprojet;
 @SuppressWarnings("unused")
 public class TachesProjetHistoriqueController {
     private Button PrecedentButton;
-    private DAOprojet gProj;
     private Stage stage;
 
     public TachesProjetHistoriqueController(TachesProjetHistorique view, Stage stage, ObjectId id) {
         this.PrecedentButton = view.getPrecedentButton();
-        gProj = new DAOprojet();
         this.stage = stage;
         PrecedentButton.setOnAction(event -> {
             AffichageProjetHistorique historiqueProjet = new AffichageProjetHistorique(id, stage);

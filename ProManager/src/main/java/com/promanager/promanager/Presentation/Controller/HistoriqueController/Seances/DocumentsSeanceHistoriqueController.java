@@ -26,8 +26,6 @@ public class DocumentsSeanceHistoriqueController {
     private ObjectId idProjet;
     private Stage stage;
     private File selectedFile;
-    private gestionSeance gSeance;
-    private gestionDocument gDocument;
     private TextArea Description;
 
     public DocumentsSeanceHistoriqueController(DocumentsSeanceHistorique view, ObjectId idSeance,
@@ -38,11 +36,9 @@ public class DocumentsSeanceHistoriqueController {
         this.stage = stage;
         PrecedentButton = view.getPrecedentButton();
         Description = view.getDescription();
-        gDocument = new gestionDocument();
         SelectionDocument = view.getSelectionDocument();
         text = view.getText();
         nameDocument = view.getLabel();
-        gSeance = new gestionSeance();
 
         SelectionDocument.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
