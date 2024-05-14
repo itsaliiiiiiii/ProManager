@@ -29,10 +29,10 @@ public class AffichageProjetHistorique extends AnchorPane {
 
     private Button PrecedentButton;
     private AffichageProjetHistoriqueController controller;
-    private gestionProjet gProjet;
     private Button documentsButton;
     private Button seancesButton;
     private Button tachesButton;
+    private Label desc;
 
     public AffichageProjetHistorique(ObjectId id, Stage stage) {
         nomProjet = new Text("Nom Projet");
@@ -46,10 +46,14 @@ public class AffichageProjetHistorique extends AnchorPane {
         documentsButton = new Button("Documents");
         seancesButton = new Button("Seances");
         tachesButton = new Button("Taches");
-        gProjet = new gestionProjet();
+        desc = new Label();
         idProjet = id;
         this.controller = new AffichageProjetHistoriqueController(this, stage, idProjet);
         design();
+    }
+
+    public Label getDesc() {
+        return desc;
     }
 
     public ObjectId getIdProjet() {
@@ -158,16 +162,7 @@ public class AffichageProjetHistorique extends AnchorPane {
         tachesButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         tachesButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
-        Projet Projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
-        categorie.setText("Categorie : " + Projet.getCategorieProjet());
-        type.setText("Type : " + Projet.getTypeProjet());
-        Label desc = new Label(Projet.getDescriptionProjet());
-        desc.setFont(new Font(15.0));
-        description.getChildren().add(desc);
-        dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
-        dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
+        
 
         getChildren().addAll(
                 nomProjet, categorie, type, dateDepart,

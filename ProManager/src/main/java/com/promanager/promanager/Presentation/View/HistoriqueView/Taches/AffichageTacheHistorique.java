@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.promanager.promanager.Presentation.Controller.HistoriqueController.Taches.AffichageTacheHistoriqueController;
+import com.promanager.promanager.Presentation.Controller.ProjetController.Taches.AffichageTacheController;
+
 import org.bson.types.ObjectId;
 import java.awt.Desktop;
 import java.io.File;
@@ -41,8 +43,6 @@ public class AffichageTacheHistorique extends AnchorPane {
     private VBox documentListe;
     private Tache Tache;
     private Document_ document_;
-    private DAOtache gTache;
-    private gestionDocument gDocument;
     Label textDocuments;
     private String elemDocument;
     private ArrayList<ObjectId> idsDocuments;
@@ -53,20 +53,65 @@ public class AffichageTacheHistorique extends AnchorPane {
         this.stage = stage;
         textT = new Text("Tache :");
         PrecedentButton = new Button("Precedent");
-        gDocument = new gestionDocument();
         categorie = new Text("Categorie");
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
-        idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
-        gTache = new DAOtache();
         description = new Text();
+        documentListe = new VBox();
+
         this.controller = new AffichageTacheHistoriqueController(this, stage, idTache, idProjet);
         design();
     }
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+    public ObjectId getIdTache() {
+        return idTache;
+    }
+
+    public ObjectId getIdProjet() {
+        return idProjet;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Text getTextT() {
+        return textT;
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+    public Text getCategorie() {
+        return categorie;
+    }
+
+    public Text getDateFin() {
+        return dateFin;
+    }
+
+    public Text getDateDepart() {
+        return dateDepart;
+    }
+
+    public ScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public VBox getDocumentListe() {
+        return documentListe;
+    }
+
+    public Tache getTache() {
+        return Tache;
+    }
+
+    public Label getTextDocuments() {
+        return textDocuments;
     }
 
     private void design() {
@@ -110,48 +155,7 @@ public class AffichageTacheHistorique extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        documentListe = new VBox(10);
-
-        Tache = gTache.get(idTache);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        categorie.setText("Categorie : " + Tache.getCategorieTache());
-        dateDepart.setText("Date Depart : " + sdf.format(Tache.getDateDepartTache()));
-        dateFin.setText("Date Fin : " + sdf.format(Tache.getDateFinTache()));
-        description.setText(Tache.getDescriptionTache());
-
-        idsDocuments = Tache.getListeDocument();
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document_ = gDocument.get(idDoc);
-
-                String[] pathDoc = (document_.getPathDocument()).split("/");
-                elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document_.getDateAjout());
-
-                Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(900);
-                LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                HBox hbox = new HBox();
-
-                LabelDocument_.setOnMouseClicked(event -> {
-                    File file = new File(document_.getPathDocument());
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_);
-                documentListe.getChildren().add(hbox);
-            }
-        }
-
+        
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments,
                 description);

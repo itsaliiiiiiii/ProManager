@@ -39,10 +39,9 @@ public class AffichageSeancesHistorique extends AnchorPane {
     private Text dateDepart;
     private ScrollPane scrollPane;
     private VBox documentListe;
+    
     private Seance Seance;
     private Document_ document_;
-    private DAOseance gSeance;
-    private gestionDocument gDocument;
     Label textDocuments;
 
     private String elemDocument;
@@ -54,13 +53,12 @@ public class AffichageSeancesHistorique extends AnchorPane {
         this.stage = stage;
         textT = new Text("Seance :");
         PrecedentButton = new Button("Precedent");
-        gDocument = new gestionDocument();
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
-        gSeance = new DAOseance();
         description = new Text();
+        documentListe=new VBox();
         this.controller = new AffichageSeancesHistoriqueController(this, stage, idSeance, idProjet);
 
         design();
@@ -68,6 +66,37 @@ public class AffichageSeancesHistorique extends AnchorPane {
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+    public Text getTextT() {
+        return textT;
+    }
+
+    public Text getDescription() {
+        return description;
+    }
+
+    public Text getDateFin() {
+        return dateFin;
+    }
+
+    public Text getDateDepart() {
+        return dateDepart;
+    }
+
+    public VBox getDocumentListe() {
+        return documentListe;
+    }
+
+    public Seance getSeance() {
+        return Seance;
+    }
+
+    public Label getTextDocuments() {
+        return textDocuments;
+    }
+
+    public String getElemDocument() {
+        return elemDocument;
     }
 
     private void design() {
@@ -107,46 +136,7 @@ public class AffichageSeancesHistorique extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        documentListe = new VBox(10);
 
-        Seance = gSeance.get(idSeance);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        dateDepart.setText("Date Depart : " + sdf.format(Seance.getDateDepartSeance()));
-        dateFin.setText("Date Fin : " + sdf.format(Seance.getDateFinSeance()));
-        description.setText(Seance.getDescriptionSeance());
-        idsDocuments = Seance.getListeDocument();
-
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document_ = gDocument.get(idDoc);
-
-                String[] pathDoc = (document_.getPathDocument()).split("/");
-                elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document_.getDateAjout());
-
-                Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(900);
-                LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                HBox hbox = new HBox();
-
-                LabelDocument_.setOnMouseClicked(event -> {
-                    File file = new File(document_.getPathDocument());
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_);
-                documentListe.getChildren().add(hbox);
-            }
-        }
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,

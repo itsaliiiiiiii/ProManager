@@ -38,10 +38,8 @@ public class AffichageDocumentsHistorique extends AnchorPane {
 
     private Document_ document;
     private Projet projet;
-    private DAOprojet gProjet;
     private Text dateFin;
     private Text dateDepart;
-    private gestionDocument gDocument;
     private Label textDocuments;
 
     private String elemDocument;
@@ -52,21 +50,33 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         this.stage = stage;
         textT = new Text("Documents :");
         PrecedentButton = new Button("Precedent");
-        gDocument = new gestionDocument();
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Depart");
         idsDocuments = new ArrayList<>();
         textDocuments = new Label("~ Liste Documents :");
-        gDocument = new gestionDocument();
         description = new Text();
-        gProjet = new DAOprojet();
+        documentListe = new VBox();
         this.controller = new AffichageDocumentsHistoriqueController(this, stage, idProjet);
-
         design();
     }
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+
+    public VBox getDocumentListe() {
+        return documentListe;
+    }
+    public Text getDescription() {
+        return description;
+    }
+
+    public Text getDateFin() {
+        return dateFin;
+    }
+
+    public Text getDateDepart() {
+        return dateDepart;
     }
 
     private void design() {
@@ -106,49 +116,12 @@ public class AffichageDocumentsHistorique extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        documentListe = new VBox(10);
 
-        projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        dateDepart.setText("Date Depart : " + sdf.format(projet.getDateDepartProjet()));
-        dateFin.setText("Date Fin : " + sdf.format(projet.getDateFinProjet()));
-        description.setText(projet.getDescriptionProjet());
-        idsDocuments = projet.getListeDocument();
-
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document = gDocument.get(idDoc);
-
-                String[] pathDoc = (document.getPathDocument()).split("/");
-                elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
-
-                Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
-                LabelDocument_.setPrefWidth(900);
-                LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-                HBox hbox = new HBox();
-
-                LabelDocument_.setOnMouseClicked(event -> {
-                    File file = new File(document.getPathDocument());
-                    try {
-                        Desktop.getDesktop().open(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                hbox.setSpacing(30);
-                hbox.getChildren().addAll(LabelDocument_);
-                documentListe.getChildren().add(hbox);
-            }
-        }
-
+        
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
                 description);
     }
+
+    
 }

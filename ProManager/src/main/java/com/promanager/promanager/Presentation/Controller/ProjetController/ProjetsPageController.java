@@ -52,8 +52,6 @@ public class ProjetsPageController {
     private Button rechercheButton;
     private TextField rechercheInput;
     private ProjetsPageModel  model;
-
-
     private Stage stage;
 
     public ProjetsPageController(ProjetsPage view, Stage stage) {
@@ -221,7 +219,6 @@ public class ProjetsPageController {
                 actualiserPage();
             }
         });
-
     }
 
     private void actualiserPage() {

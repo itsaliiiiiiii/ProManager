@@ -36,12 +36,12 @@ public class SeancesProjetHistorique extends AnchorPane {
     private Text nomProjet;
     private Text dateDepart;
     private Text dateFin;
+    private Text typeProjet;
+    private Text categorieProjet;
     private Button PrecedentButton;
 
     private SeancesProjetHistoriqueController controller;
-    private gestionProjet gProjet;
     private Projet Projet;
-    private DAOseance gSeance;
     private Stage stage;
     private Label textSeances;
     private ScrollPane scrollPane;
@@ -53,16 +53,18 @@ public class SeancesProjetHistorique extends AnchorPane {
     public SeancesProjetHistorique(ObjectId id, Stage stage) {
         this.idProjet = id;
         nomProjet = new Text("Nom Projet");
+        typeProjet = new Text("Type : ");
+        categorieProjet = new Text("Categorie : ");
         dateDepart = new Text("Date Depart");
         dateFin = new Text("Date Fin");
+
         PrecedentButton = new Button("Precedent");
-        gProjet = new gestionProjet();
-        gSeance = new DAOseance();
         Seance = new Seance();
         Projet = new Projet();
         textSeances = new Label("~ Liste Seances :");
         idSeances = new ArrayList<>();
         elemTache = new String();
+        seanceListe = new VBox(10);
         this.stage = stage;
         this.controller = new SeancesProjetHistoriqueController(this, stage, idProjet);
         design();
@@ -88,7 +90,16 @@ public class SeancesProjetHistorique extends AnchorPane {
         return PrecedentButton;
     }
 
+    public VBox getSeanceListe() {
+        return seanceListe;
+    }
+    public Text getTypeProjet() {
+        return typeProjet;
+    }
 
+    public Text getCategorieProjet() {
+        return categorieProjet;
+    }
 
     private void design() {
         nomProjet.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
@@ -100,6 +111,14 @@ public class SeancesProjetHistorique extends AnchorPane {
         textSeances.setLayoutX(50.0);
         textSeances.setLayoutY(350.0);
         textSeances.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
+
+        typeProjet.setLayoutX(50.0);
+        typeProjet.setLayoutY(190.0);
+        typeProjet.setFont(new Font(20.0));
+
+        categorieProjet.setLayoutX(50.0);
+        categorieProjet.setLayoutY(140.0);
+        categorieProjet.setFont(new Font(20.0));
 
         dateDepart.setLayoutX(50.0);
         dateDepart.setLayoutY(240.0);
@@ -115,8 +134,7 @@ public class SeancesProjetHistorique extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        seanceListe = new VBox(10);
-
+        
         PrecedentButton.setLayoutX(1100.0);
         PrecedentButton.setLayoutY(50.0);
         PrecedentButton.setPrefWidth(150.0);
@@ -125,46 +143,10 @@ public class SeancesProjetHistorique extends AnchorPane {
         PrecedentButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         PrecedentButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
-
-
-        Projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
-
-        dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
-        dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
-
-        idSeances = Projet.getListeSeances();
-
-        for (ObjectId idSeance : idSeances) {
-            Seance = gSeance.get(idSeance);
-            elemTache = "Date Depart : "
-                    + sdf.format(Seance.getDateDepartSeance()) + " - Date Fin : " + sdf.format(Seance.getDateFinSeance());
-
-            Label LabelTache = new Label(elemTache);
-            HBox hbox = new HBox();
-            LabelTache.setFont(Font.font(25));
-            LabelTache.setPrefHeight(60);
-            LabelTache.setPrefWidth(900);
-            LabelTache.setStyle(
-                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
-
-
-
-            hbox.setSpacing(20);
-
-            LabelTache.setOnMouseClicked(event -> {
-                controller.openSeance(idSeance, idProjet);
-            });
-
-
-            hbox.getChildren().addAll(LabelTache);
-            seanceListe.getChildren().add(hbox);
-        }
-
-
         scrollPane.setContent(seanceListe);
 
-        getChildren().addAll(nomProjet, dateDepart, dateFin, PrecedentButton, scrollPane, textSeances);
+        getChildren().addAll(nomProjet,typeProjet,categorieProjet,dateDepart, dateFin, PrecedentButton, scrollPane, textSeances);
     }
+
+   
 }

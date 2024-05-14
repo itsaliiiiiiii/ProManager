@@ -108,6 +108,7 @@ public class AffichageDocumentsController {
     private void fill() {
         Projet projet = gProjet.get(idProjet);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         dateDepart.setText("Date Depart : " + sdf.format(projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(projet.getDateFinProjet()));
         description.setText(projet.getDescriptionProjet());

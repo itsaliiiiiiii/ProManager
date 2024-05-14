@@ -1,34 +1,17 @@
 package com.promanager.promanager.Presentation.View.HistoriqueView.Projets;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
-import org.bson.types.ObjectId;
-
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageHistoriqueController;
 
-import java.text.SimpleDateFormat;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -52,12 +35,7 @@ public class AffichageHistorique extends AnchorPane {
     private AffichageHistoriqueController controller;
     private ReadOnlyDoubleProperty heightWindow;
     private ReadOnlyDoubleProperty widthWindow;
-    private gestionProjet gProjet;
-    private ArrayList<Projet> filterProjets_;
-    private ArrayList<Projet> filterProjets;
     private GridPane gridPane;
-
-    private DAOconfiguration config;
 
     public AffichageHistorique(Stage stage) {
         this.stage = stage;
@@ -72,16 +50,21 @@ public class AffichageHistorique extends AnchorPane {
         this.TypeFilter = new ComboBox<>();
         this.rechercheInput = new TextField();
         this.rechercheButton = new Button("Rechercher");
-        this.controller = new AffichageHistoriqueController(this, stage);
         this.heightWindow = stage.heightProperty();
         this.widthWindow = stage.widthProperty();
-        filterProjets_ = new ArrayList<>();
-        filterProjets = new ArrayList<>();
-        Trier = new ComboBox<>();
-        this.config = new DAOconfiguration();
-        this.gProjet = new gestionProjet();
+        this.Trier = new ComboBox<>();
+        this.gridPane = new GridPane();
+    
+        this.controller = new AffichageHistoriqueController(this, stage);
         init();
-        actualiserPage();
+    }
+
+    public ComboBox<String> getTrier() {
+        return Trier;
+    }
+
+    public GridPane getGridPane() {
+        return gridPane;
     }
 
     public AnchorPane getBack() {
@@ -250,7 +233,7 @@ public class AffichageHistorique extends AnchorPane {
         scrollPane.setLayoutY(171.0);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        gridPane = new GridPane();
+        
         gridPane.setPrefWidth(917.0);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -258,172 +241,11 @@ public class AffichageHistorique extends AnchorPane {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        for (int i = 0; i < 4; i++) {
-            ColumnConstraints column = new ColumnConstraints();
-            column.setHgrow(javafx.scene.layout.Priority.SOMETIMES);
-            column.setMinWidth(10.0);
-            column.setPrefWidth(100.0);
-            gridPane.getColumnConstraints().add(column);
-        }
-
-        ArrayList<Projet> listProjets = gProjet.getAll();
-        int numRows = (int) Math.ceil((double) listProjets.size() / 4);
-        for (int i = 0; i < numRows; i++) {
-            RowConstraints row = new RowConstraints();
-            row.setMinHeight(200.0);
-            row.setPrefHeight(30.0);
-            row.setVgrow(javafx.scene.layout.Priority.SOMETIMES);
-            gridPane.getRowConstraints().add(row);
-        }
-        filterProjets_ = listProjets.stream()
-                .filter(project -> project.getStatus().equals("Termine"))
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        if (CategorieFilter.getValue() == null || TypeFilter.getValue() == null) {
-            filterProjets = new ArrayList<>(filterProjets_);
-        }
-
-        rechercheButton.setOnAction(event -> {
-            filterProjets_ = listProjets.stream()
-                    .filter(project -> project.getStatus().equals("Termine"))
-                    .collect(Collectors.toCollection(ArrayList::new));
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> project.getDescriptionProjet().contains(rechercheInput.getText()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-            filterProjets_ = new ArrayList<>(filterProjets);
-            CategorieFilter.setValue("tout");
-            TypeFilter.setValue("tout");
-
-            filtrerProj();
-            actualiserPage();
-        });
-
-        CategorieFilter.setOnAction(event -> {
-            filtrerProj();
-            actualiserPage();
-        });
-
-        TypeFilter.setOnAction(event -> {
-            filtrerProj();
-            actualiserPage();
-        });
-
-        Trier.setOnAction(event -> {
-            String Sort = Trier.getValue();
-            if (Sort != null) {
-                switch (Sort) {
-                    case "Nom":
-                        filterProjets.sort(Comparator.comparing(Projet::getNomProjet));
-                        break;
-                    case "Date Depart":
-                        filterProjets.sort(Comparator.comparing(Projet::getDateDepartProjet));
-                        break;
-                    case "Date Fin":
-                        filterProjets.sort(Comparator.comparing(Projet::getDateFinProjet));
-                        break;
-                    default:
-                        break;
-                }
-                actualiserPage();
-            }
-        });
-
         scrollPane.setContent(gridPane);
-
-        config.getCategorie();
-        CategorieFilter.getItems().add("tout");
-        CategorieFilter.getItems().addAll(config.getCategorie());
-        TypeFilter.getItems().add("tout");
-        TypeFilter.getItems().addAll(config.getType());
-        Trier.getItems().addAll("Nom", "Date Depart", "Date Fin");
 
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, projetsText, CategorieFilter, Trier,
                 TypeFilter, rechercheInput, rechercheButton,
                 scrollPane);
     }
-
-    private void actualiserPage() {
-        int row = 0;
-        int col = 0;
-        gridPane.getChildren().clear();
-        for (Projet proj : filterProjets) {
-            Pane elemProjet = new Pane();
-            elemProjet.setPrefHeight(100.0);
-            elemProjet.setPrefWidth(250.0);
-            elemProjet.setMaxHeight(150);
-            elemProjet.setMinHeight(130);
-            elemProjet.setMaxWidth(250);
-            elemProjet.setStyle(
-                    "-fx-background-color: #6a82ab88;-fx-border:#000;-fx-background-radius:5;-fx-border-radius:5;");
-
-            VBox vbox = new VBox(5);
-            vbox.setPadding(new Insets(10, 0, 0, 30));
-
-            vbox.setLayoutX(-4.0);
-            vbox.setPrefHeight(100.0);
-            vbox.setPrefWidth(223.0);
-
-            elemProjet.getChildren().add(vbox);
-            elemProjet.setPrefHeight(20.0);
-            elemProjet.setPrefWidth(20.0);
-
-            Label Nom = new Label(proj.getNomProjet());
-            Nom.setStyle("-fx-font-size: 45px; -fx-font-weight: bold;");
-            Label Categorie = new Label(proj.getCategorieProjet());
-            Label type = new Label(proj.getTypeProjet());
-            // Label DateFin = new Label((proj.getDateFinProjet().toString()));
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Label DateFin = new Label(sdf.format(proj.getDateFinProjet()));
-
-            Nom.setTextFill(Color.WHITE);
-            type.setTextFill(Color.WHITE);
-            Categorie.setTextFill(Color.WHITE);
-            DateFin.setTextFill(Color.WHITE);
-
-            vbox.getChildren().addAll(Nom, Categorie, type, DateFin);
-            gridPane.add(elemProjet, col, row);
-
-            col++;
-            if (col == 4) {
-                col = 0;
-                row++;
-            }
-
-            elemProjet.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    ObjectId projectId = proj.getIdProjet();
-                    controller.afficherProjet(projectId);
-                }
-            });
-        }
-    }
-
-    private void filtrerProj() {
-        String categorieFilterValue = CategorieFilter.getValue();
-        String typeFilterValue = TypeFilter.getValue();
-
-        if (("tout".equals(categorieFilterValue) && "tout".equals(typeFilterValue))
-                || (categorieFilterValue == null && typeFilterValue == null)
-                || (categorieFilterValue == null && "tout".equals(typeFilterValue))
-                || ("tout".equals(categorieFilterValue) && typeFilterValue == null)) {
-            filterProjets = new ArrayList<>(filterProjets_);
-        } else if (!"tout".equals(categorieFilterValue) && categorieFilterValue != null
-                && ("tout".equals(typeFilterValue) || typeFilterValue == null)) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (!"tout".equals(typeFilterValue) && typeFilterValue != null
-                && ("tout".equals(categorieFilterValue) || categorieFilterValue == null)) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } else if (categorieFilterValue != null && typeFilterValue != null) {
-            filterProjets = filterProjets_.stream()
-                    .filter(project -> typeFilterValue.equals(project.getTypeProjet()))
-                    .filter(project -> categorieFilterValue.equals(project.getCategorieProjet()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        }
-    }
-
 }
+
