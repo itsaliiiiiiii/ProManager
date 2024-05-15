@@ -49,9 +49,14 @@ public class AffichageDocumentsHistoriqueController {
         model = new AffichageDocumentsHistoriqueModel();
 
         PrecedentButton.setOnAction(event -> {
-            stage.setWidth(1300);
+            Precedent();
+        });
+        fill();
+    }
+    private void Precedent(){
+        stage.setWidth(1300);
             stage.setHeight(800);
-            AffichageProjetHistorique AjouterPage = new AffichageProjetHistorique(idProjet, stage);
+            AffichageProjetHistorique AjouterPage = new AffichageProjetHistorique(idProj, stage);
             Scene projectsScene = new Scene(AjouterPage, 1300, 800);
             stage.setScene(projectsScene);
             stage.setTitle("ProManager");
@@ -59,8 +64,6 @@ public class AffichageDocumentsHistoriqueController {
             stage.setMinWidth(1300);
             stage.setMinHeight(800);
             stage.show();
-        });
-        fill();
     }
 
     private void fill() {

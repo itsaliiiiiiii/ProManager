@@ -37,7 +37,6 @@ import javafx.stage.Stage;
 
 public class AffichageHistoriqueController {
 
-    public AnchorPane background;
     private Button buttonProjets;
     private Button buttonListe;
     private Button buttonStat;
@@ -56,7 +55,6 @@ public class AffichageHistoriqueController {
 
     public AffichageHistoriqueController(AffichageHistorique view, Stage stage) {
         this.gridPane = view.getGridPane();
-        this.background = view.getBack();
         this.CategorieFilter=view.getCategorieFilter();
         this.TypeFilter=view.getTypeFilter();
         this.stage = stage;

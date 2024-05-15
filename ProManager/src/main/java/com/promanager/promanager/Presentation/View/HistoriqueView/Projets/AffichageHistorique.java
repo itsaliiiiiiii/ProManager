@@ -1,6 +1,5 @@
 package com.promanager.promanager.Presentation.View.HistoriqueView.Projets;
 
-import com.promanager.promanager.Persistance.DAOconfiguration;
 import com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets.AffichageHistoriqueController;
 
 
@@ -17,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class AffichageHistorique extends AnchorPane {
     private AnchorPane background;
     private Pane sideBar;
@@ -30,7 +30,6 @@ public class AffichageHistorique extends AnchorPane {
     private ComboBox<String> TypeFilter;
     private TextField rechercheInput;
     private Button rechercheButton;
-    @SuppressWarnings("unused")
     private Stage stage;
     private AffichageHistoriqueController controller;
     private ReadOnlyDoubleProperty heightWindow;
