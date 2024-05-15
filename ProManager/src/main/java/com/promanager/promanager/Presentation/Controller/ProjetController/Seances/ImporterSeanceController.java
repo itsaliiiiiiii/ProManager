@@ -35,7 +35,7 @@ public class ImporterSeanceController {
 
     public ImporterSeanceController(ImporterSeance view, Stage stage, ObjectId idProjet) {
         this.addFromGoogleCalendarButton = view.getAddFromGoogleCalendarButton();
-        this.calendarEventListView = new ListView<>();
+        this.calendarEventListView = view.getCalendarEventListView();
         AnnulerButton = view.getAnnulerButton();
         AjouterButton = view.getAjouterButton();
         this.stage = stage;

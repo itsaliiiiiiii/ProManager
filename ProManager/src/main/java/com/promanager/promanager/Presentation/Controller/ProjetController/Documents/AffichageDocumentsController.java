@@ -123,20 +123,20 @@ public class AffichageDocumentsController {
                         + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
+                LabelDocument_.setFont(Font.font(18));
+                LabelDocument_.setPrefHeight(40);
                 LabelDocument_.setPrefWidth(900);
                 LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
                 Button SupprimerDoc = new Button("Supprimer");
 
                 HBox hbox = new HBox();
-                SupprimerDoc.setPrefHeight(60);
-                SupprimerDoc.setPrefWidth(200);
+                SupprimerDoc.setPrefHeight(40);
+                SupprimerDoc.setPrefWidth(160);
                 SupprimerDoc.setStyle(
-                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:15px;-fx-border-radius:15px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+                SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
                 LabelDocument_.setOnMouseClicked(event -> {
                     File file = new File(document.getPathDocument());

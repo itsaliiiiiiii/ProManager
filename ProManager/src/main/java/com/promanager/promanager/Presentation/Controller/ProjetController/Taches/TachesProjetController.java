@@ -179,7 +179,7 @@ public class TachesProjetController {
                     "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
             modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
-            hbox.setSpacing(20);
+            hbox.setSpacing(15);
 
             LabelTache.setOnMouseClicked(event -> {
                 openTache(idTache, idProj);
@@ -195,6 +195,7 @@ public class TachesProjetController {
 
             hbox.getChildren().addAll(LabelTache, supprimerTache, modifierTache);
             tacheListe.getChildren().add(hbox);
+            
         }
     }
 }

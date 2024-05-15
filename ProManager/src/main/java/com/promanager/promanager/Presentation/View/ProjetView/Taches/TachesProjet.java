@@ -131,6 +131,7 @@ public class TachesProjet extends AnchorPane {
         dateFin.setFont(new Font(20.0));
 
         scrollPane = new ScrollPane();
+        
         scrollPane.setLayoutX(50.0);
         scrollPane.setLayoutY(420.0);
         scrollPane.setPrefWidth(1230);

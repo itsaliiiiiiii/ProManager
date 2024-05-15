@@ -57,8 +57,9 @@ public class ImporterSeanceModel {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             ArrayList<Seance> Seances = new ArrayList<>();
             for (Event event : events) {
+                System.out.println(event);
                 if (event.getStart().getDateTime().getValue() > new Date().getTime()) {
-
+                    System.out.println(event.getStart().getDateTime().getValue());
                     String description = event.getDescription();
                     String startDate = sdf.format(event.getStart().getDateTime().getValue());
                     String endDate = sdf.format(event.getEnd().getDateTime().getValue());

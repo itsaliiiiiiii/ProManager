@@ -151,19 +151,19 @@ public class SeancesProjetController {
             HBox hbox = new HBox();
             Button supprimerTache = new Button("Supprimer");
 
-            LabelTache.setFont(Font.font(25));
-            LabelTache.setPrefHeight(60);
+            LabelTache.setFont(Font.font(18));
+            LabelTache.setPrefHeight(40);
             LabelTache.setPrefWidth(900);
             LabelTache.setStyle(
-                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                    "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
             supprimerTache.setPrefHeight(60);
-            supprimerTache.setPrefWidth(200);
+            supprimerTache.setPrefWidth(160);
             supprimerTache.setStyle(
-                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
-            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
+                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
-            hbox.setSpacing(20);
+            hbox.setSpacing(15);
 
             LabelTache.setOnMouseClicked(event -> {
                 openSeance(idSeance, idProjet);

@@ -81,11 +81,11 @@ public class AffichageDocumentsHistoriqueController {
                         + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
+                LabelDocument_.setFont(Font.font(18));
+                LabelDocument_.setPrefHeight(40);
                 LabelDocument_.setPrefWidth(900);
                 LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
                 HBox hbox = new HBox();
 
