@@ -30,10 +30,8 @@ public class SeancesProjetController {
     private Button PrecedentButton;
     private Stage stage;
     private ObjectId idProjet;
-
     private Button AjouterButton;
     private Button ImporterButton;
-
     private Text nomProjet;
     private Text dateDepart;
     private Text dateFin;

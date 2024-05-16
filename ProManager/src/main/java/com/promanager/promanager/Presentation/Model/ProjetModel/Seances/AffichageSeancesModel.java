@@ -15,14 +15,13 @@ public class AffichageSeancesModel {
 
     public AffichageSeancesModel() {
         gSeance = new gestionSeance();
+        gDocument=new gestionDocument();
     }
 
     public Seance getSeance(ObjectId idSeance) {
         return gSeance.get(idSeance);
     }
-    public Document_ getDocument(ObjectId idDocument) {
-        return gDocument.get(idDocument);
-    }
+    public Document_ getDocument(ObjectId idDocument) {return gDocument.get(idDocument);}
 
     public void updateSeance(ObjectId idSeance, ArrayList<ObjectId> listTaches) {
         gSeance.update(idSeance, "Documents", listTaches);

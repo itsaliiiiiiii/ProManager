@@ -33,7 +33,6 @@ public class AffichageSeancesController {
 
     private Seance Seance;
     private VBox documentListe;
-
     private Text description;
     private Text note;
     private Text dateFin;

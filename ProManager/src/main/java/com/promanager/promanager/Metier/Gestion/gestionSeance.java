@@ -30,9 +30,7 @@ public class gestionSeance {
     public Seance get(ObjectId id){
         return seance.get(id);
     }
-    public ObjectId add(String description, Date dateDepart, Date dateFin, String note){
-        return seance.add(description, dateDepart, dateFin,"");
-    }
+    public ObjectId add(String description, Date dateDepart, Date dateFin, String note){return seance.add(description, dateDepart, dateFin,"");}
     public void delete(ObjectId id,String key){
         seance.delete(id,key);
     }
@@ -46,7 +44,6 @@ public class gestionSeance {
     public void update(ObjectId id, String key, List<Object> value) {
         seance.update(id,key,value);
     }
-
     public void update(ObjectId id, HashMap<String, Object> Objects) {
         seance.update(id,Objects);
     }

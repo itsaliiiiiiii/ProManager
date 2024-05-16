@@ -36,6 +36,7 @@ public class AffichageSeances extends AnchorPane {
         AjouterButton = new Button("Ajouter");
         textDocuments = new Label("~ Liste Documents :");
         description = new Text();
+        documentListe=new VBox();
         note = new Text();
         this.controller = new AffichageSeancesController(this, stage, idSeance, idProjet);
 
