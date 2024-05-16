@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.TachesProjetModel;
@@ -160,10 +161,11 @@ public class TachesProjetController {
             HBox hbox = new HBox();
             Button supprimerTache = new Button("Supprimer");
             Button modifierTache = new Button("Modifier");
+            Button ClonerTache = new Button("Cloner");
 
             LabelTache.setFont(Font.font(18));
             LabelTache.setPrefHeight(40);
-            LabelTache.setPrefWidth(900);
+            LabelTache.setPrefWidth(800);
             LabelTache.setStyle(
                     "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
@@ -179,6 +181,12 @@ public class TachesProjetController {
                     "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
             modifierTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
+            ClonerTache.setPrefHeight(40);
+            ClonerTache.setPrefWidth(100);
+            ClonerTache.setStyle(
+                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+            ClonerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+
             hbox.setSpacing(15);
 
             LabelTache.setOnMouseClicked(event -> {
@@ -193,7 +201,23 @@ public class TachesProjetController {
                 modifierTache(idProj, idTache);
             });
 
-            hbox.getChildren().addAll(LabelTache, supprimerTache, modifierTache);
+            ClonerTache.setOnMouseClicked(event -> {
+                try {
+                    model.clonerTache(idTache,idProj);
+                    TachesProjet AjouterPage = new TachesProjet(idProj, stage);
+                    Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+                    stage.setScene(projectsScene);
+                    stage.setTitle("ProManager");
+                    stage.setResizable(false);
+                    stage.setMinWidth(1300);
+                    stage.setMinHeight(800);
+                    stage.show();
+                } catch (ProjetExeption e) {
+                    e.printStackTrace();
+                }
+            });
+
+            hbox.getChildren().addAll(LabelTache, supprimerTache, modifierTache, ClonerTache);
             tacheListe.getChildren().add(hbox);
             
         }

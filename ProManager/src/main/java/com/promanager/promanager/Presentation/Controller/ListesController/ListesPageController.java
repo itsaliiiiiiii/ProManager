@@ -1,6 +1,8 @@
 package com.promanager.promanager.Presentation.Controller.ListesController;
 
+import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Presentation.Model.ListesModel.ListesPageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
@@ -115,11 +117,11 @@ public class ListesPageController {
         stage.setMinHeight(800);
         stage.show();
     }
-    public void supprimerTache(ObjectId idTache,ObjectId idListe){
+
+    public void supprimerTache(ObjectId idTache, ObjectId idListe) {
         ArrayList<ObjectId> listTaches = model.getTachesListe(idListe);
         listTaches.remove(idTache);
         model.updateListe(idListe, listTaches);
-        
 
         ListesPage page = new ListesPage(stage);
         Scene projectsScene = new Scene(page, 1300, 800);
@@ -148,14 +150,8 @@ public class ListesPageController {
 
         if (sup) {
             model.deleteListe(idListe);
+            listepage();
 
-            ListesPage Listespage = new ListesPage(stage);
-            Scene projectsScene = new Scene(Listespage, 1300, 800);
-            stage.setMinWidth(1300);
-            stage.setMinHeight(800);
-            stage.setResizable(false);
-            stage.setScene(projectsScene);
-            stage.show();
         } else {
             Stage stage = new Stage();
             Label erreurMessage = new Label("Impossible de supprimer liste");
@@ -176,5 +172,25 @@ public class ListesPageController {
             stage.show();
         }
 
+    }
+
+    private void listepage() {
+        ListesPage Listespage = new ListesPage(stage);
+        Scene projectsScene = new Scene(Listespage, 1300, 800);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.setResizable(false);
+        stage.setScene(projectsScene);
+        stage.show();
+    }
+
+    public void clonerTache(ObjectId idTache, ObjectId list) throws ProjetExeption {
+        Tache tache = model.getTache(idTache);
+        tache.setIdTache(new ObjectId());
+        ObjectId idnewTache = model.addTache(tache);
+        ArrayList<ObjectId> listTaches = model.getTachesListe(list);
+        listTaches.add(idnewTache);
+        model.updateListe(list, listTaches);
+        listepage();
     }
 }

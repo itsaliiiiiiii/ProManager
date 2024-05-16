@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 
+import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
@@ -301,12 +302,13 @@ public class ListesPage extends AnchorPane {
                     HBox hbox = new HBox();
                     Button modifierTache=new Button("Modifier");
                     Button supprimerTache=new Button("Supprimer");
+                    Button ClonerTache=new Button("Cloner");
                     Label tache_ = new Label(
                             "Categorie : " + tache.getCategorieTache() + " - Description : "
                                     + tache.getDescriptionTache());
                     tache_.setFont(Font.font(18));
                     tache_.setPrefHeight(40);
-                    tache_.setPrefWidth(700);
+                    tache_.setPrefWidth(600);
                     tache_.setLayoutX(100);
                     tache_.setStyle(
                             "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
@@ -323,9 +325,15 @@ public class ListesPage extends AnchorPane {
                             "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
                     supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
+                    ClonerTache.setPrefHeight(40);
+                    ClonerTache.setPrefWidth(100);
+                    ClonerTache.setStyle(
+                            "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:13px;-fx-border-radius:13px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+                    ClonerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+
                     hbox.setSpacing(10);
 
-                    hbox.getChildren().addAll(tache_, modifierTache,supprimerTache);
+                    hbox.getChildren().addAll(tache_, modifierTache,supprimerTache, ClonerTache);
                     tachesVBox.getChildren().add(hbox);
 
                     tache_.setOnMouseClicked(event ->{
@@ -336,6 +344,13 @@ public class ListesPage extends AnchorPane {
                     });
                     supprimerTache.setOnMouseClicked(event->{
                         controller.supprimerTache(idTache,liste.getIdListe());
+                    });
+                    ClonerTache.setOnMouseClicked(event->{
+                        try {
+                            controller.clonerTache(idTache,liste.getIdListe());
+                        } catch (ProjetExeption e) {
+                            e.printStackTrace();
+                        }
                     });
 
                     isExists = true;

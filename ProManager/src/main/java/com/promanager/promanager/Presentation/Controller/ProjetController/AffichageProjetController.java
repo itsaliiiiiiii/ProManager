@@ -81,7 +81,7 @@ public class AffichageProjetController {
         dateFin = view.getDateFin();
         desc = view.getDesc();
 
-        model = new AffichageProjetModel();
+        model = new AffichageProjetModel(id);
 
         this.stage = stage;
 

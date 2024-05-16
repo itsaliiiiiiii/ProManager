@@ -50,8 +50,7 @@ public class AffichageTaches extends AnchorPane {
     private VBox documentListe;
     private Tache Tache;
     private Button AjouterButton;
-    Label textDocuments;
-
+    private Label textDocuments;
 
     public AffichageTaches(ObjectId idTache, ObjectId idProjet, Stage stage) {
         this.idTache = idTache;
@@ -68,7 +67,7 @@ public class AffichageTaches extends AnchorPane {
         rechercheInput = new TextField();
         rechercheButton = new Button("Rechercher");
         documentListe = new VBox(10);
-        
+
         this.controller = new AffichageTacheController(this, stage, idTache, idProjet);
 
         design();
@@ -81,9 +80,11 @@ public class AffichageTaches extends AnchorPane {
     public Button getAjouterButton() {
         return AjouterButton;
     }
+
     public TextField getRechercheInput() {
         return rechercheInput;
     }
+
     public Button getRechercheButton() {
         return rechercheButton;
     }
@@ -140,8 +141,6 @@ public class AffichageTaches extends AnchorPane {
         return textDocuments;
     }
 
-  
-
     private void design() {
         textT.setFill(javafx.scene.paint.Color.valueOf("#6a82ab"));
         textT.setLayoutX(50.0);
@@ -190,7 +189,7 @@ public class AffichageTaches extends AnchorPane {
         rechercheInput.setLayoutY(350.0);
         rechercheInput.setLayoutX(780);
         rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
-        
+
         rechercheButton.setLayoutX(944);
         rechercheButton.setLayoutY(350.0);
         rechercheButton.setStyle("-fx-background-color: #6a82ab;");
@@ -202,10 +201,9 @@ public class AffichageTaches extends AnchorPane {
         scrollPane.setPrefWidth(1230);
         scrollPane.setPrefHeight(350);
         scrollPane.setStyle(" -fx-selection-bar: #6a82ab;fx-border-color: transparent;-fx-background-color: inherit;");
-        
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, categorie, dateDepart, dateFin, scrollPane, textDocuments,
-                rechercheInput, rechercheButton,AjouterButton, description);
+                rechercheInput, rechercheButton, AjouterButton, description);
     }
 }
