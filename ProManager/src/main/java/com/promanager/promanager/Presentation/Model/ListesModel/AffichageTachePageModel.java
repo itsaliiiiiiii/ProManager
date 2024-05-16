@@ -1,8 +1,6 @@
 package com.promanager.promanager.Presentation.Model.ListesModel;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Gestion.gestionTache;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Presentation.Model.ListesModel.AffichageTachePageModel;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterDocumentTachePage;

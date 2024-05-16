@@ -3,7 +3,6 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.ModifierSeanceProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ModifierSeanceProjet;

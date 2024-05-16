@@ -2,7 +2,6 @@ package com.promanager.promanager.Presentation.View.ProjetView.Seances;
 
 import org.bson.types.ObjectId;
 
-
 import com.promanager.promanager.Presentation.Controller.ProjetController.Seances.ModifierSeanceProjetController;
 
 import javafx.scene.control.Button;
@@ -14,7 +13,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ModifierSeanceProjet extends AnchorPane{
+@SuppressWarnings("unused")
+
+public class ModifierSeanceProjet extends AnchorPane {
     private Text Description;
     private Text Note;
 
@@ -22,12 +23,11 @@ public class ModifierSeanceProjet extends AnchorPane{
     private TextArea InputDescription;
     private Button buttonAnnuler;
     private Button buttonModifier;
-    
+
     private Stage stage;
     private ModifierSeanceProjetController controller;
 
-
-    public ModifierSeanceProjet(ObjectId id,ObjectId idSeance, Stage stage) {
+    public ModifierSeanceProjet(ObjectId id, ObjectId idSeance, Stage stage) {
         InputDescription = new TextArea();
         Note = new Text("Note");
         InputNote = new TextArea();
@@ -35,9 +35,10 @@ public class ModifierSeanceProjet extends AnchorPane{
         buttonModifier = new Button("Modifier");
         buttonAnnuler = new Button("Annulé");
         this.stage = stage;
-        this.controller = new ModifierSeanceProjetController(this, id , idSeance ,stage);
+        this.controller = new ModifierSeanceProjetController(this, id, idSeance, stage);
         this.design();
     }
+
     public Text getDescription() {
         return Description;
     }
@@ -46,7 +47,6 @@ public class ModifierSeanceProjet extends AnchorPane{
         return InputDescription;
     }
 
-
     public Button getButtonAnnuler() {
         return buttonAnnuler;
     }
@@ -54,10 +54,11 @@ public class ModifierSeanceProjet extends AnchorPane{
     public Button getButtonModifier() {
         return buttonModifier;
     }
-    
+
     public TextArea getInputNote() {
         return InputNote;
     }
+
     private void design() {
 
         Description.setLayoutX(675.0);
@@ -86,7 +87,6 @@ public class ModifierSeanceProjet extends AnchorPane{
         InputDescription.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #546379; -fx-border-radius: 5px;");
         InputDescription.setFont(Font.font("Arial", 18.0));
 
-
         buttonModifier.setLayoutX(800.0);
         buttonModifier.setLayoutY(480.0);
         buttonModifier.setPrefWidth(150.0);
@@ -101,7 +101,6 @@ public class ModifierSeanceProjet extends AnchorPane{
         buttonAnnuler.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
         buttonAnnuler.setText("Annuler");
 
-
-        this.getChildren().addAll(Description,InputNote,Note, InputDescription, buttonModifier, buttonAnnuler);
+        this.getChildren().addAll(Description, InputNote, Note, InputDescription, buttonModifier, buttonAnnuler);
     }
 }
