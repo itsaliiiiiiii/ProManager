@@ -27,6 +27,10 @@ public class Seance {
         this.note = note;
         ListeDocument = new ArrayList<>();
     }
+    public Seance(String description,String Note){
+        this.descriptionSeance=description;
+        this.note=Note;
+    }
 
     public Seance(
             String descriptionSeance, Date dateDepartSeance, Date dateFinSeance,

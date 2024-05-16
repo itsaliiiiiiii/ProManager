@@ -16,6 +16,7 @@ import com.promanager.promanager.Presentation.Controller.ProjetController.Docume
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,7 +36,8 @@ public class AffichageDocuments extends AnchorPane {
     private Button AjouterButton;
     private Text description;
     private Text dateFin;
-
+    private TextField rechercheInput;
+    private Button rechercheButton;
     private Text dateDepart;
     private Label textDocuments;
 
@@ -49,6 +51,8 @@ public class AffichageDocuments extends AnchorPane {
         documentListe = new VBox(10);
         textDocuments = new Label("~ Liste Documents :");
         description = new Text();
+        rechercheInput = new TextField();
+        rechercheButton = new Button("Rechercher");
         this.controller = new AffichageDocumentsController(this, stage, idProjet);
 
         design();
@@ -60,6 +64,12 @@ public class AffichageDocuments extends AnchorPane {
 
     public Button getAjouterButton() {
         return AjouterButton;
+    }
+    public TextField getRechercheInput() {
+        return rechercheInput;
+    }
+    public Button getRechercheButton() {
+        return rechercheButton;
     }
 
     public Text getDescription() {
@@ -117,6 +127,18 @@ public class AffichageDocuments extends AnchorPane {
         PrecedentButton.setStyle("-fx-background-color: #6a82ab; -fx-text-fill: white;");
         PrecedentButton.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
+
+        rechercheInput.setPrefWidth(100);
+        rechercheInput.setPrefWidth(150.0);
+        rechercheInput.setLayoutY(350.0);
+        rechercheInput.setLayoutX(780);
+        rechercheInput.setStyle("-fx-border-color: #6a82ab; -fx-border-radius: 5; -fx-background-radius: 5;");
+        
+        rechercheButton.setLayoutX(944);
+        rechercheButton.setLayoutY(350.0);
+        rechercheButton.setStyle("-fx-background-color: #6a82ab;");
+        rechercheButton.setTextFill(javafx.scene.paint.Color.WHITE);
+
         scrollPane = new ScrollPane();
         scrollPane.setLayoutX(50.0);
         scrollPane.setLayoutY(420.0);
@@ -126,6 +148,6 @@ public class AffichageDocuments extends AnchorPane {
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
-                AjouterButton, description);
+                rechercheInput, rechercheButton,AjouterButton, description);
     }
 }

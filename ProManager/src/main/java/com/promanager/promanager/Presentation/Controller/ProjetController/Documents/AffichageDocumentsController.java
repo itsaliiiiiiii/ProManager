@@ -4,21 +4,22 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
 import java.awt.Desktop;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Metier.Gestion.gestionDocument;
-import com.promanager.promanager.Metier.Gestion.gestionProjet;
+
 import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
+import com.promanager.promanager.Presentation.Model.ProjetModel.Documents.AffichageDocumentsModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AjouterDocumentProjet;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,9 +31,7 @@ public class AffichageDocumentsController {
     private Button PrecedentButton;
     private Button AjouterButton;
     private Stage stage;
-    private gestionProjet gProjet;
-    private Document_ document;
-    private gestionDocument gDocument;
+
     private VBox documentListe;
 
     private ObjectId idProjet;
@@ -41,16 +40,24 @@ public class AffichageDocumentsController {
     private Text dateFin;
     private Text dateDepart;
 
+    private ArrayList<Document_> filterDocuments;
+
+    private Button rechercheButton;
+    private TextField rechercheInput;
+    private AffichageDocumentsModel model;
+
     public AffichageDocumentsController(AffichageDocuments view, Stage stage, ObjectId idProjet) {
         this.PrecedentButton = view.getPrecedentButton();
         this.AjouterButton = view.getAjouterButton();
-        gProjet = new gestionProjet();
         this.idProjet = idProjet;
         description = view.getDescription();
         dateDepart = view.getDateDepart();
         dateFin = view.getDateFin();
-        gDocument = new gestionDocument();
         documentListe = view.getDocumentListe();
+        filterDocuments = new ArrayList<>();
+        rechercheButton = view.getRechercheButton();
+        rechercheInput = view.getRechercheInput();
+        model = new AffichageDocumentsModel();
 
         this.stage = stage;
 
@@ -61,7 +68,7 @@ public class AffichageDocumentsController {
         AjouterButton.setOnAction(event -> {
             Ajouter();
         });
-        fill();
+        fill(model.getDocuProjet(idProjet));
     }
 
     private void Precedent() {
@@ -91,9 +98,9 @@ public class AffichageDocumentsController {
     }
 
     public void supprimerDocProjet(ObjectId idoc, ObjectId idProj) {
-        ArrayList<ObjectId> listDoc = gProjet.get(idProj).getListeDocument();
+        ArrayList<ObjectId> listDoc = model.getDocumentsProjets(idProj);
         listDoc.remove(idoc);
-        gProjet.update(idProj, "Documents", listDoc);
+        model.updateProjet(idProj, listDoc);
 
         AffichageDocuments root = new AffichageDocuments(idProj, stage);
         Scene projectsScene = new Scene(root, 1300, 800);
@@ -105,19 +112,20 @@ public class AffichageDocumentsController {
         stage.show();
     }
 
-    private void fill() {
-        Projet projet = gProjet.get(idProjet);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private void fill(ArrayList<Document_> documents) {
         
+        documentListe.getChildren().clear();
+
+        Projet projet = model.getProjet(idProjet);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
         dateDepart.setText("Date Depart : " + sdf.format(projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(projet.getDateFinProjet()));
         description.setText(projet.getDescriptionProjet());
-        ArrayList<ObjectId> idsDocuments = projet.getListeDocument();
 
-        if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document = gDocument.get(idDoc);
-
+        if (documents != null) {
+            for (Document_ document : documents) {
+                
                 String[] pathDoc = (document.getPathDocument()).split("/");
                 String elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
                         + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
@@ -148,7 +156,17 @@ public class AffichageDocumentsController {
                 });
 
                 SupprimerDoc.setOnMouseClicked(event -> {
-                    supprimerDocProjet(idDoc, idProjet);
+                    supprimerDocProjet(document.getIdDocument(), idProjet);
+                });
+                rechercheButton.setOnAction(event -> {
+                    ArrayList<Document_> Documents = new ArrayList<>();
+                    Documents = model.getDocuProjet(idProjet);
+
+                    filterDocuments = Documents.stream()
+                            .filter(doc -> doc.getDescriptionDocument().toLowerCase().contains(rechercheInput.getText().toLowerCase()))
+                            .collect(Collectors.toCollection(ArrayList::new));
+
+                    fill(filterDocuments);
                 });
 
                 hbox.setSpacing(30);

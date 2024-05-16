@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.promanager.promanager.Metier.POJO.Projet;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -72,7 +73,16 @@ public class DAOseance {
     public void update(ObjectId id, String key, Object value) {
         connexion.update(id, key, value, "Seances");
     }
-
+    public void update(ObjectId id, String description,Date debut, Date fin, String note,ArrayList<ObjectId> Documents) {
+        Seance seance = new Seance(description,note);
+        HashMap<String, Object> InfoSeance = new HashMap<>();
+        InfoSeance.put("Description", seance.getDescriptionSeance());
+        InfoSeance.put("Note", seance.getNote());
+        InfoSeance.put("DateDepart", debut);
+        InfoSeance.put("DateFin", fin);
+        InfoSeance.put("Documents", Documents);
+        connexion.update(id, InfoSeance, "Seances");
+    }
     public void update(ObjectId id, String key, List<Object> value) {
         connexion.update(id, key, value, "Seances");
     }

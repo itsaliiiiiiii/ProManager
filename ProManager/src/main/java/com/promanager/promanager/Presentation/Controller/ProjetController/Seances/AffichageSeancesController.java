@@ -35,6 +35,7 @@ public class AffichageSeancesController {
     private VBox documentListe;
 
     private Text description;
+    private Text note;
     private Text dateFin;
     private Text dateDepart;
     private AffichageSeancesModel model;
@@ -51,6 +52,7 @@ public class AffichageSeancesController {
         model = new AffichageSeancesModel();
 
         description = view.getDescription();
+        note = view.getNote();
         dateFin = view.getDateFin();
         dateDepart = view.getDateDepart();
         idsDocuments = new ArrayList<>();
@@ -114,7 +116,8 @@ public class AffichageSeancesController {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         dateDepart.setText("Date Depart : " + sdf.format(Seance.getDateDepartSeance()));
         dateFin.setText("Date Fin : " + sdf.format(Seance.getDateFinSeance()));
-        description.setText(Seance.getDescriptionSeance());
+        description.setText("Description : " + Seance.getDescriptionSeance());
+        note.setText("Note : "+ Seance.getNote());
         idsDocuments = Seance.getListeDocument();
 
         if (idsDocuments != null) {

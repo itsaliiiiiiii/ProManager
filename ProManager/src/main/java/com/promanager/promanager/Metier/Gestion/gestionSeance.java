@@ -42,7 +42,7 @@ public class gestionSeance {
     public void update(ObjectId id, String key, Object value) {
         seance.update(id,key,value);
     }
-
+    public void update(ObjectId id, String description, String note,Date Debut,Date Fin,ArrayList<ObjectId> Documents) {seance.update(id,description,Debut,Fin,note,Documents);}
     public void update(ObjectId id, String key, List<Object> value) {
         seance.update(id,key,value);
     }

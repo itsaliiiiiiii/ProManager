@@ -2,6 +2,8 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
+import com.promanager.promanager.Presentation.View.ProjetView.Seances.ModifierSeanceProjet;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -106,6 +108,17 @@ public class SeancesProjetController {
         stage.show();
     }
 
+    public void modifierSeanceProjet(ObjectId idProjet, ObjectId idSeance) {
+        ModifierSeanceProjet AjouterPage = new ModifierSeanceProjet(idProjet, idSeance, stage);
+        Scene projectsScene = new Scene(AjouterPage, 1300, 800);
+        stage.setScene(projectsScene);
+        stage.setTitle("ProManager");
+        stage.setResizable(false);
+        stage.setMinWidth(1300);
+        stage.setMinHeight(800);
+        stage.show();
+    }
+
     public void AjouterTache(ObjectId idProjet) {
         AjouterSeancesProjet AjouterPage = new AjouterSeancesProjet(idProjet, stage);
         Scene projectsScene = new Scene(AjouterPage, 1300, 800);
@@ -133,7 +146,6 @@ public class SeancesProjetController {
         Projet = model.getProjet(idProjet);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         nomProjet.setText("Nom Projet : " + Projet.getNomProjet());
-
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
 
@@ -149,31 +161,43 @@ public class SeancesProjetController {
 
             Label LabelTache = new Label(elemTache);
             HBox hbox = new HBox();
-            Button supprimerTache = new Button("Supprimer");
+            Button supprimerSeance = new Button("Supprimer");
+            Button modifierSeance = new Button("Modifier");
+
 
             LabelTache.setFont(Font.font(18));
             LabelTache.setPrefHeight(40);
-            LabelTache.setPrefWidth(900);
+            LabelTache.setPrefWidth(860);
             LabelTache.setStyle(
                     "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
-            supprimerTache.setPrefHeight(60);
-            supprimerTache.setPrefWidth(160);
-            supprimerTache.setStyle(
+            supprimerSeance.setPrefHeight(40);
+            supprimerSeance.setPrefWidth(150);
+            supprimerSeance.setStyle(
                     "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
-            supprimerTache.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+            supprimerSeance.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
 
-            hbox.setSpacing(15);
+            modifierSeance.setPrefHeight(40);
+            modifierSeance.setPrefWidth(150);
+            modifierSeance.setStyle(
+                    "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
+            modifierSeance.setFont(Font.font("Arial", FontWeight.BOLD, 15.0));
+
+            hbox.setSpacing(10);
 
             LabelTache.setOnMouseClicked(event -> {
                 openSeance(idSeance, idProjet);
             });
 
-            supprimerTache.setOnMouseClicked(event -> {
+            supprimerSeance.setOnMouseClicked(event -> {
                 supprimerSeanceProjet(idProjet, idSeance);
             });
 
-            hbox.getChildren().addAll(LabelTache, supprimerTache);
+            modifierSeance.setOnMouseClicked(event -> {
+                modifierSeanceProjet(idProjet, idSeance);
+            });;
+
+            hbox.getChildren().addAll(LabelTache, supprimerSeance,modifierSeance);
             seanceListe.getChildren().add(hbox);
         }
 

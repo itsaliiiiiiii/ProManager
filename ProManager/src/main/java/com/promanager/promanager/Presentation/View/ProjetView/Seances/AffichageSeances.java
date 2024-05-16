@@ -19,6 +19,7 @@ public class AffichageSeances extends AnchorPane {
     private Button PrecedentButton;
     private AffichageSeancesController controller;
     private Text description;
+    private Text note; 
     private Text dateFin;
     private Text dateDepart;
     private ScrollPane scrollPane;
@@ -35,6 +36,7 @@ public class AffichageSeances extends AnchorPane {
         AjouterButton = new Button("Ajouter");
         textDocuments = new Label("~ Liste Documents :");
         description = new Text();
+        note = new Text();
         this.controller = new AffichageSeancesController(this, stage, idSeance, idProjet);
 
         design();
@@ -42,6 +44,10 @@ public class AffichageSeances extends AnchorPane {
 
     public Button getPrecedentButton() {
         return PrecedentButton;
+    }
+
+    public Text getNote() {
+        return note;
     }
 
     public Text getDescription() {
@@ -71,15 +77,19 @@ public class AffichageSeances extends AnchorPane {
         textT.setFont(Font.font("Arial", FontWeight.BOLD, 30.0));
 
         description.setLayoutX(50.0);
-        description.setLayoutY(300.0);
+        description.setLayoutY(250.0);
         description.setFont(new Font(20.0));
 
+        note.setLayoutX(50.0);
+        note.setLayoutY(300.0);
+        note.setFont(new Font(20.0));
+
         dateDepart.setLayoutX(50.0);
-        dateDepart.setLayoutY(190.0);
+        dateDepart.setLayoutY(140.0);
         dateDepart.setFont(new Font(20.0));
 
         dateFin.setLayoutX(50.0);
-        dateFin.setLayoutY(250.0);
+        dateFin.setLayoutY(200.0);
         dateFin.setFont(new Font(20.0));
 
         textDocuments.setStyle(" -fx-text-fill: #6a82ab;");
@@ -113,6 +123,6 @@ public class AffichageSeances extends AnchorPane {
 
         scrollPane.setContent(documentListe);
         getChildren().addAll(textT, PrecedentButton, dateDepart, dateFin, scrollPane, textDocuments,
-                AjouterButton, description);
+                AjouterButton, note,description);
     }
 }

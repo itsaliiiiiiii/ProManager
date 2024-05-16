@@ -86,9 +86,6 @@ public class Connexion {
         Document update = new Document("$set", new Document(key, value));
         collection.updateOne(filter, update);
     }
-
-    
-
     public void update(ObjectId keyOfObject, String key, List<ObjectId> value, String collectionName) {
         this.setCollection(collectionName);
         Document filter = new Document("_id", keyOfObject);

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.awt.Desktop;
 
 import org.bson.types.ObjectId;
@@ -18,6 +19,7 @@ import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProje
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -39,6 +41,11 @@ public class AffichageTacheController {
     private Text description;
     private VBox documentListe;
 
+    private ArrayList<Document_> filterDocuments;
+
+    private Button rechercheButton;
+    private TextField rechercheInput;
+
     private String elemDocument;
     private Document_ document_;
 
@@ -56,6 +63,10 @@ public class AffichageTacheController {
         dateFin = view.getDateFin();
         description = view.getDescription();
         documentListe = view.getDocumentListe();
+        filterDocuments = new ArrayList<>();
+        rechercheButton = view.getRechercheButton();
+        rechercheInput = view.getRechercheInput();
+
         model = new AffichageTachesModel();
 
         this.idProjet = idProjet;
@@ -69,7 +80,7 @@ public class AffichageTacheController {
         AjouterButton.setOnAction(event -> {
             ajouter();
         });
-        fill();
+        fill(model.getDocuTache(idTache));
     }
 
     public void ajouter() {
@@ -115,37 +126,39 @@ public class AffichageTacheController {
         stage.show();
     }
 
-    public void fill() {
+    public void fill(ArrayList<Document_> documents) {
+
+        documentListe.getChildren().clear();
+
         Tache = model.get_Tache(idTache);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
         categorie.setText("Categorie : " + Tache.getCategorieTache());
         dateDepart.setText("Date Depart : " + sdf.format(Tache.getDateDepartTache()));
         dateFin.setText("Date Fin : " + sdf.format(Tache.getDateFinTache()));
         description.setText(Tache.getDescriptionTache());
-
-        idsDocuments = Tache.getListeDocument();
+        
         if (idsDocuments != null) {
-            for (ObjectId idDoc : idsDocuments) {
-                document_ = model.getDocument(idDoc);
+            for (Document_ document : documents) {
 
-                String[] pathDoc = (document_.getPathDocument()).split("/");
-                elemDocument = "Description : " + document_.getDescriptionDocument() + " - Nom : "
-                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document_.getDateAjout());
+                String[] pathDoc = (document.getPathDocument()).split("/");
+                elemDocument = "Description : " + document.getDescriptionDocument() + " - Nom : "
+                        + pathDoc[pathDoc.length - 1] + " - Date Ajout : " + sdf.format(document.getDateAjout());
 
                 Label LabelDocument_ = new Label(elemDocument);
-                LabelDocument_.setFont(Font.font(25));
-                LabelDocument_.setPrefHeight(60);
+                LabelDocument_.setFont(Font.font(18));
+                LabelDocument_.setPrefHeight(40);
                 LabelDocument_.setPrefWidth(900);
                 LabelDocument_.setStyle(
-                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 20px;-fx-background-radius:20px;-fx-border-radius:20px;");
+                        "-fx-border-color: black; -fx-border-width: 1px; -fx-background-color: #6a82ab;-fx-opacity:0.5;-fx-text-fill: #FFF;-fx-padding: 15px;-fx-background-radius:13px;-fx-border-radius:13px;");
 
                 Button SupprimerDoc = new Button("Supprimer");
 
                 HBox hbox = new HBox();
-                SupprimerDoc.setPrefHeight(60);
-                SupprimerDoc.setPrefWidth(200);
+                SupprimerDoc.setPrefHeight(40);
+                SupprimerDoc.setPrefWidth(150);
                 SupprimerDoc.setStyle(
-                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 20px;-fx-opacity:0.5;");
+                        "-fx-background-color: #6a82ab; -fx-text-fill: white;-fx-background-radius:20px;-fx-border-radius:20px;-fx-border-color: black; -fx-border-width: 1px;-fx-padding: 15px;-fx-opacity:0.5;");
                 SupprimerDoc.setFont(Font.font("Arial", FontWeight.BOLD, 18.0));
 
                 LabelDocument_.setOnMouseClicked(event -> {
@@ -157,7 +170,16 @@ public class AffichageTacheController {
                     }
                 });
                 SupprimerDoc.setOnMouseClicked(event -> {
-                    supprimerDocProjet(idDoc, idTache, idProjet);
+                    supprimerDocProjet(document.getIdDocument(), idTache, idProjet);
+                });
+                rechercheButton.setOnAction(event -> {
+                    ArrayList<Document_> Documents = new ArrayList<>();
+                    Documents = model.getDocuTache(idTache);
+
+                    filterDocuments = Documents.stream()
+                            .filter(doc -> doc.getDescriptionDocument().toLowerCase().contains(rechercheInput.getText().toLowerCase()))
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    fill(filterDocuments);
                 });
 
                 hbox.setSpacing(30);
