@@ -880,6 +880,8 @@ public class StatistiquePage extends AnchorPane {
         vbox.getChildren().addAll(titreTypeExam, hbox7);
         scroll.setContent(vbox);
 
+        
+
         getChildren().addAll(sideBar, Projets, Listes, Historiques, Statistiques, titleStat,
                 scroll);
     }

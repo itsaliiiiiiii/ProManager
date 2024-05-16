@@ -19,8 +19,16 @@ public class AffichageProjetModel {
     public void Cloner(ObjectId id) {
         gProjet.Cloner(id);
     }
+
     public void Cloturer(ObjectId id) {
         gProjet.update(id, "Status", "Termine");
+    }
+
+    public String nombreDocument(){
+        return "Nombre de documents :";
+    }
+    public String nombreHeures(){
+        return "Nombre de Heures :";
     }
 
 }

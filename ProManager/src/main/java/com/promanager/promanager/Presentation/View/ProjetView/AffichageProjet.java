@@ -26,6 +26,8 @@ public class AffichageProjet extends AnchorPane {
     private Text categorie;
     private Text type;
     private Text dateDepart;
+    private Text nombreDocument;
+    private Text nombreHeures;
     private TextFlow description;
     private Text dateFin;
     private Button modifierButton;
@@ -52,6 +54,8 @@ public class AffichageProjet extends AnchorPane {
         documentsButton = new Button("Documents");
         seancesButton = new Button("Seances");
         tachesButton = new Button("Taches");
+        nombreDocument = new Text("Nombre de documents");
+        nombreHeures = new Text("Nombre d'heures");
         desc = new Label();
         idProjet = id;
         this.controller = new AffichageProjetController(this, stage, idProjet);
@@ -60,6 +64,14 @@ public class AffichageProjet extends AnchorPane {
 
     public ObjectId getIdProjet() {
         return idProjet;
+    }
+
+    public Text getNombreDocument() {
+        return nombreDocument;
+    }
+
+    public Text getNombreHeures() {
+        return nombreHeures;
     }
 
     public Text getNomProjet() {
@@ -137,10 +149,18 @@ public class AffichageProjet extends AnchorPane {
         dateDepart.setFont(new Font(20.0));
 
         description.setLayoutX(50.0);
-        description.setLayoutY(310.0);
+        description.setLayoutY(510.0);
         description.setPrefHeight(400.0);
         description.setPrefWidth(500.0);
         description.setMaxWidth(500);
+
+        nombreDocument.setLayoutX(50.0);
+        nombreDocument.setLayoutY(340.0);
+        nombreDocument.setFont(new Font(20.0));
+        
+        nombreHeures.setLayoutX(50.0);
+        nombreHeures.setLayoutY(390.0);
+        nombreHeures.setFont(new Font(20.0));
 
         dateFin.setLayoutX(50.0);
         dateFin.setLayoutY(290.0);
@@ -204,9 +224,9 @@ public class AffichageProjet extends AnchorPane {
 
         desc.setFont(new Font(15.0));
         description.getChildren().add(desc);
-        
+
         getChildren().addAll(
-                nomProjet, categorie, type, dateDepart,
+                nomProjet, categorie, type, dateDepart,nombreHeures, nombreDocument,
                 description, dateFin, modifierButton,
                 clonerButton, cloturerButton, PrecedentButton, documentsButton, seancesButton, tachesButton);
     }

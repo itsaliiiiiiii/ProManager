@@ -42,15 +42,18 @@ public class AffichageProjetController {
     private Button seancesButton;
     private Button tachesButton;
 
+    private Text nombreDocument;
+    private Text nombreHeures;
+
     private Text nomProjet;
     private Text categorie;
     private Text type;
     private Text dateDepart;
     private Label desc;
     private Text dateFin;
-    AffichageProjetModel model;
+    private AffichageProjetModel model;
 
-    Stage stage;
+    private Stage stage;
 
     public AffichageProjetController(AffichageProjet view, Stage stage, ObjectId id) {
         this.idProjet = id;
@@ -67,6 +70,9 @@ public class AffichageProjetController {
         this.documentsButton = view.getDocumentsButton();
         this.seancesButton = view.getSeancesButton();
         this.tachesButton = view.getTachesButton();
+
+        nombreDocument = view.getNombreDocument();
+        nombreHeures = view.getNombreHeures();
 
         nomProjet = view.getNomProjet();
         categorie = view.getCategorie();
@@ -120,6 +126,8 @@ public class AffichageProjetController {
         desc.setText(Projet.getDescriptionProjet());
         dateDepart.setText("Date Depart : " + sdf.format(Projet.getDateDepartProjet()));
         dateFin.setText("Date Fin : " + sdf.format(Projet.getDateFinProjet()));
+        nombreDocument.setText("Nombre de documents : " + model.nombreDocument());
+        nombreHeures.setText("Nombre d'heures : " + model.nombreHeures());
     }
 
     private void openProjet() {
