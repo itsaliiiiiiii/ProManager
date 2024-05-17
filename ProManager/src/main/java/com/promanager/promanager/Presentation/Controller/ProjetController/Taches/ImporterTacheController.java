@@ -32,7 +32,6 @@ public class ImporterTacheController {
     private ComboBox<String> comboBoxCategorie;
     private ImporterTacheModel model;
 
-    // TODO - need to solve problem tache and seance 
 
     public ImporterTacheController(ImporterTache view, Stage stage, ObjectId idProjet) {
         this.addFromGoogleCalendarButton = view.getAddFromGoogleCalendarButton();

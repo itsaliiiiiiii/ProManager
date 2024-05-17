@@ -11,14 +11,14 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.tasks.Tasks;
-import com.google.api.services.tasks.model.Task;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+// import com.google.api.services.tasks.model.Task;
+// import java.util.Collections;
+// import java.util.List;
 
 @SuppressWarnings({ "deprecatioKn", "deprecation" })
 public class GoogleCalendarAuth {
@@ -38,17 +38,15 @@ public class GoogleCalendarAuth {
                         chemin = "src\\main\\java\\com\\promanager\\promanager\\credentials.json";
                 }
 
-                FileInputStream in = new FileInputStream(chemin);                                                                                                                                                       
+                FileInputStream in = new FileInputStream(chemin);
                 GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
                 GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                                 GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-                                Arrays.asList(
-                                                "https://www.googleapis.com/auth/calendar.readonly",
+                                Arrays.asList("https://www.googleapis.com/auth/calendar.readonly",
                                                 "https://www.googleapis.com/auth/tasks.readonly"))
                                 .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
-                                .setAccessType("offline")
-                                .build();
+                                .setAccessType("offline").build();
 
                 return new AuthorizationCodeInstalledApp(
                                 flow,
@@ -70,10 +68,10 @@ public class GoogleCalendarAuth {
                                 .build();
         }
 
-        public static List<Task> getTasks(String taskListId) throws Exception {
-                Tasks service = getTasksService();
-                Tasks.TasksOperations.List request = service.tasks().list(taskListId);
-                com.google.api.services.tasks.model.Tasks tasks = request.execute();
-                return tasks.getItems() != null ? tasks.getItems() : Collections.emptyList();
-        }
+        // private static List<Task> getTasks(String taskListId) throws Exception {
+        // Tasks service = getTasksService();
+        // Tasks.TasksOperations.List request = service.tasks().list(taskListId);
+        // com.google.api.services.tasks.model.Tasks tasks = request.execute();
+        // return tasks.getItems() != null ? tasks.getItems() : Collections.emptyList();
+        // }
 }

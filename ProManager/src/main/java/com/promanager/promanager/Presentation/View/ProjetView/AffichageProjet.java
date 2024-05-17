@@ -149,7 +149,7 @@ public class AffichageProjet extends AnchorPane {
         dateDepart.setFont(new Font(20.0));
 
         description.setLayoutX(50.0);
-        description.setLayoutY(510.0);
+        description.setLayoutY(430.0);
         description.setPrefHeight(400.0);
         description.setPrefWidth(500.0);
         description.setMaxWidth(500);
