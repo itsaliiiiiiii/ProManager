@@ -16,9 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-// import com.google.api.services.tasks.model.Task;
-// import java.util.Collections;
-// import java.util.List;
 
 @SuppressWarnings({ "deprecatioKn", "deprecation" })
 public class GoogleCalendarAuth {
@@ -68,10 +65,4 @@ public class GoogleCalendarAuth {
                                 .build();
         }
 
-        // private static List<Task> getTasks(String taskListId) throws Exception {
-        // Tasks service = getTasksService();
-        // Tasks.TasksOperations.List request = service.tasks().list(taskListId);
-        // com.google.api.services.tasks.model.Tasks tasks = request.execute();
-        // return tasks.getItems() != null ? tasks.getItems() : Collections.emptyList();
-        // }
 }
