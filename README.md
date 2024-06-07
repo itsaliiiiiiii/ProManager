@@ -26,3 +26,4 @@ Le projet vise à élaborer une application Java destinée à faciliter la gesti
 
 
 [View the PDF](images/GuideProManager.pdf)
+![PDF](images/GuideProManager.pdf)
