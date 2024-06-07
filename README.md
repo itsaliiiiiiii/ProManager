@@ -20,3 +20,5 @@ Le projet vise à élaborer une application Java destinée à faciliter la gesti
 - Statistiques et Rapports : Fournir des statistiques détaillées sur le temps de travail, les documents associés, les projets clôturés, etc.
 - Intégration Google Calendar : Permettre d'importer des tâches et des séances de travail depuis Google Calendar, et d'attribuer ces éléments à des projets existants.
 - Authentification Google : Permettre aux professeurs de se connecter à l'application à l'aide de leur compte Google pour une expérience utilisateur simplifiée.
+
+<img src="images/dd.png" alt="Logo" style=" height: 350px; border-radius: 50%;">
