@@ -23,3 +23,6 @@ Le projet vise à élaborer une application Java destinée à faciliter la gesti
 
 <img src="images/dd.png" alt="Logo" style=" height: 350px; border-radius: 50%;">
 <img src="images/MCD.png" alt="Logo" style=" height: 350px; border-radius: 50%;">
+
+
+![PDF](images/GuideProManager.pdf)
