@@ -2,9 +2,6 @@
 
 <img src="images/iconProManager.png" alt="Logo" style=" height: 200px;">
 
-Ali Harit        
-Anas Zerhoun
-
 Le projet vise à élaborer une application Java destinée à faciliter la gestion des projets et des tâches académiques d'un professeur. L'application fournira des fonctionnalités exhaustives pour aider le professeur à organiser ses activités d'enseignement, de recherche, et d'encadrement, tout en optimisant le suivi des séances et des tâches liées. La complexité des responsabilités d'un professeur, englobant l'enseignement, l'encadrement de projets et de thèses, nécessite une solution numérique pour une gestion efficace. Le besoin émerge de centraliser les informations, d'optimiser la planification, et de fournir une visibilité accrue sur les activités académiques.
 
 ## Objectifs du Projet :
@@ -29,3 +26,7 @@ Le projet vise à élaborer une application Java destinée à faciliter la gesti
 
 ## Guide d'installation et d'utilisation :
 [View the PDF](images/GuideProManager.pdf)
+
+
+Ali Harit        
+Anas Zerhoun
