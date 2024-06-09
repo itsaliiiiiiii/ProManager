@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.ModifierTacheModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.ModifierTacheModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ModifierProjet;

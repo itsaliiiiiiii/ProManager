@@ -1,6 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.HistoriqueController.Seances;
 
-import com.promanager.promanager.Presentation.Model.HistoriqueModel.Seances.AffichageSeancesHistoriqueModel;
+import com.promanager.promanager.Presentation.DB.HistoriqueModel.Seances.AffichageSeancesHistoriqueModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.SeancesProjetHistorique;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;

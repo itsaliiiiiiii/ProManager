@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import com.promanager.promanager.Presentation.Model.HistoriqueModel.Documents.AffichageDocumentsHistoriqueModel;
+import com.promanager.promanager.Presentation.DB.HistoriqueModel.Documents.AffichageDocumentsHistoriqueModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Documents.AffichageDocumentsHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;
 

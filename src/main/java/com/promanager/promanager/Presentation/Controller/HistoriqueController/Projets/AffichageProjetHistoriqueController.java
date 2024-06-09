@@ -1,6 +1,6 @@
 package com.promanager.promanager.Presentation.Controller.HistoriqueController.Projets;
 
-import com.promanager.promanager.Presentation.Model.HistoriqueModel.Projets.AffichageProjetHistoriqueModel;
+import com.promanager.promanager.Presentation.DB.HistoriqueModel.Projets.AffichageProjetHistoriqueModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Documents.AffichageDocumentsHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;

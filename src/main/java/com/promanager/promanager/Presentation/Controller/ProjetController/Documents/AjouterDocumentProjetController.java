@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.Model.ProjetModel.Documents.AjouterDocumentProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Documents.AjouterDocumentProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AjouterDocumentProjet;
 import javafx.scene.Scene;

@@ -19,7 +19,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.TachesProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.TachesProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 
 public class TachesProjetController {

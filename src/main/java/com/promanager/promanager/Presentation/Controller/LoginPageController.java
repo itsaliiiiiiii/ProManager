@@ -1,6 +1,6 @@
 package com.promanager.promanager.Presentation.Controller;
 
-import com.promanager.promanager.Presentation.Model.LoginPageModel;
+import com.promanager.promanager.Presentation.DB.LoginPageModel;
 import com.promanager.promanager.Presentation.View.LoginPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 

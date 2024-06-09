@@ -10,7 +10,7 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.AjouterSeancesProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Seances.AjouterSeancesProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterSeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 

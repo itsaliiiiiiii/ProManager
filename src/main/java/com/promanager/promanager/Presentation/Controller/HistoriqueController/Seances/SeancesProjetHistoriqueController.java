@@ -2,7 +2,7 @@ package com.promanager.promanager.Presentation.Controller.HistoriqueController.S
 
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Presentation.Model.HistoriqueModel.Seances.SeancesProjetHistoriqueModel;
+import com.promanager.promanager.Presentation.DB.HistoriqueModel.Seances.SeancesProjetHistoriqueModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageProjetHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.SeancesProjetHistorique;

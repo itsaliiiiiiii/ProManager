@@ -3,7 +3,7 @@ package com.promanager.promanager.Presentation.Controller.ListesController;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Presentation.Model.ListesModel.ListesPageModel;
+import com.promanager.promanager.Presentation.DB.ListesModel.ListesPageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.AffichageTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;

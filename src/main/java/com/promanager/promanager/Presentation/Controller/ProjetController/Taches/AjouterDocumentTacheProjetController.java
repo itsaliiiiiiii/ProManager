@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.bson.types.ObjectId;
 
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AjouterDocumentTacheProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.AjouterDocumentTacheProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterDocumentTacheProjet;
 

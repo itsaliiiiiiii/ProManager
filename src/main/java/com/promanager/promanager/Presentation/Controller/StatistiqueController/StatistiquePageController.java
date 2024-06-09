@@ -14,7 +14,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Presentation.Model.StatistiqueModel.StatistiquePageModel;
+import com.promanager.promanager.Presentation.DB.StatistiqueModel.StatistiquePageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;

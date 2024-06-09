@@ -1,7 +1,7 @@
 package com.promanager.promanager.Presentation.Controller.HistoriqueController.Taches;
 
-import com.promanager.promanager.Presentation.Model.HistoriqueModel.Taches.AffichageTacheHistoriqueModel;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AffichageTachesModel;
+import com.promanager.promanager.Presentation.DB.HistoriqueModel.Taches.AffichageTacheHistoriqueModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.AffichageTachesModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Taches.AffichageTacheHistorique;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Taches.TachesProjetHistorique;
 

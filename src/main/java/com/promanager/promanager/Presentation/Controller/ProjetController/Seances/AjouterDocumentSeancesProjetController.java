@@ -2,7 +2,7 @@ package com.promanager.promanager.Presentation.Controller.ProjetController.Seanc
 
 import java.io.File;
 
-import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.AjouterDocumentSeancesProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Seances.AjouterDocumentSeancesProjetModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Seances.AffichageSeancesHistorique;
 import org.bson.types.ObjectId;
 

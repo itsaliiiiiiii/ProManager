@@ -6,7 +6,7 @@ import java.util.Date;
 
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
-import com.promanager.promanager.Presentation.Model.ProjetModel.AjouterProjetPageModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.AjouterProjetPageModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AjouterProjetPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;
 

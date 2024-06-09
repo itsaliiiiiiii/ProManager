@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Documents.AffichageDocumentsModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Documents.AffichageDocumentsModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AffichageDocuments;
 import com.promanager.promanager.Presentation.View.ProjetView.Documents.AjouterDocumentProjet;

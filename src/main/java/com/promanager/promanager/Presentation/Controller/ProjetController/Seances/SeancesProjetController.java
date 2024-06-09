@@ -21,7 +21,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.POJO.Projet;
 import com.promanager.promanager.Metier.POJO.Seance;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.SeancesProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Seances.SeancesProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.AffichageProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AjouterSeancesProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;

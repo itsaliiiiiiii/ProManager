@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 
 import com.promanager.promanager.Metier.POJO.Document_;
 import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AffichageTachesModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.AffichageTachesModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AffichageTaches;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterDocumentTacheProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;

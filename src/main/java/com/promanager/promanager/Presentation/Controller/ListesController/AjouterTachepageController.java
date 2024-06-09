@@ -12,7 +12,7 @@ import com.promanager.promanager.Metier.Gestion.gestionListe;
 import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionTache;
 import com.promanager.promanager.Metier.POJO.Liste;
-import com.promanager.promanager.Presentation.Model.ListesModel.AjouterTachePageModel;
+import com.promanager.promanager.Presentation.DB.ListesModel.AjouterTachePageModel;
 import com.promanager.promanager.Presentation.View.ListesView.AjouterTachePage;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 import com.promanager.promanager.Presentation.View.ProjetView.ProjetsPage;

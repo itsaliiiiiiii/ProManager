@@ -1,7 +1,7 @@
 package com.promanager.promanager.Presentation.Controller.ProjetController;
 
 import com.promanager.promanager.Metier.POJO.Projet;
-import com.promanager.promanager.Presentation.Model.ProjetModel.ProjetsPageModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.ProjetsPageModel;
 import com.promanager.promanager.Presentation.View.HistoriqueView.Projets.AffichageHistorique;
 import com.promanager.promanager.Presentation.View.ListesView.ListesPage;
 

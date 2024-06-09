@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Liste;
 import com.promanager.promanager.Metier.POJO.Tache;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.AjouterTacheProjetModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.AjouterTacheProjetModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.AjouterTacheProjet;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 

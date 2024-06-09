@@ -7,7 +7,7 @@ import com.promanager.promanager.Metier.Gestion.gestionProjet;
 import com.promanager.promanager.Metier.Gestion.gestionSeance;
 import com.promanager.promanager.Metier.POJO.Seance;
 import com.promanager.promanager.Metier.Service.GoogleCalendarAuth;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.ImporterSeanceModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Seances.ImporterSeanceModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.ImporterSeance;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.SeancesProjet;
 import javafx.scene.Parent;

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.Desktop;
 
-import com.promanager.promanager.Presentation.Model.ProjetModel.Seances.AffichageSeancesModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Seances.AffichageSeancesModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Seances.AffichageSeances;
 import org.bson.types.ObjectId;
 

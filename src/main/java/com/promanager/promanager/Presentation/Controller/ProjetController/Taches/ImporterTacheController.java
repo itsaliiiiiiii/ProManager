@@ -6,7 +6,7 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.promanager.promanager.Metier.Exeptions.ProjetExeption;
 import com.promanager.promanager.Metier.POJO.Tache;
 import com.promanager.promanager.Metier.Service.GoogleCalendarAuth;
-import com.promanager.promanager.Presentation.Model.ProjetModel.Taches.ImporterTacheModel;
+import com.promanager.promanager.Presentation.DB.ProjetModel.Taches.ImporterTacheModel;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.ImporterTache;
 import com.promanager.promanager.Presentation.View.ProjetView.Taches.TachesProjet;
 import javafx.scene.Parent;
