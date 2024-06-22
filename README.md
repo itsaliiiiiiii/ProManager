@@ -23,6 +23,29 @@ Le projet vise à élaborer une application Java destinée à faciliter la gesti
 - Intégration Google Calendar : Permettre d'importer des tâches et des séances de travail depuis Google Calendar, et d'attribuer ces éléments à des projets existants.
 - Authentification Google : Permettre aux professeurs de se connecter à l'application à l'aide de leur compte Google pour une expérience utilisateur simplifiée.
 
+## Structure Projet :
+
+```bash
+src
+└── main
+    └── java
+        └── com
+            └── promanager
+                └── promanager
+                    ├── Metier
+                    │   ├── Exeptions
+                    │   ├── Gestion
+                    │   ├── POJO
+                    │   └── Service
+                    ├── Persistance
+                    │   ├── DAO
+                    │   └── Connexion BD
+                    └── Presentation
+                        ├── Controller
+                        ├── Model
+                        └── View
+```
+
 <img src="images/dd.png" alt="Logo" style=" height: 350px; border-radius: 50%;">
 <img src="images/MCD.png" alt="Logo" style=" height: 350px; border-radius: 50%;">
 
